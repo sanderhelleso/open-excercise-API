@@ -14,7 +14,7 @@ async function seed(): Promise<boolean> {
 	}
 
 	console.log('Finished seeding, data is ready...');
-	return Promise.resolve();
+	return Promise.resolve(true);
 }
 
 export default seed;
