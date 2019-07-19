@@ -1,19 +1,20 @@
-import Excercise from './models/Excercise';
+import Excercise from './models/excercise.model';
 import makeDataset from '../utils/makeDataset';
 
-function seed() {
+async function seed(): Promise<boolean> {
 	console.log('Seeding data...');
 
 	// deletes all before insert
-	Excercise.deleteMany({});
+	await Excercise.deleteMany({});
 
-	const excerciseDataset = makeDataset();
+	const excerciseDataset = await makeDataset();
 
 	for (const key in excerciseDataset) {
-		new Excercise(excerciseDataset[key]).save();
+		await new Excercise(excerciseDataset[key]).save();
 	}
 
 	console.log('Finished seeding, data is ready...');
+	return Promise.resolve();
 }
 
 export default seed;

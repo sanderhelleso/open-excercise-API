@@ -1,11 +1,7 @@
 import * as mongoose from 'mongoose';
+import { IExcercise } from '../../interfaces/excercise.interface';
 
 const { Schema, model } = mongoose;
-
-interface IExcercise extends mongoose.Document {
-	name: string;
-	muscle: string;
-}
 
 const ExcerciseSchema = new Schema({
 	name: { type: String, required: true },

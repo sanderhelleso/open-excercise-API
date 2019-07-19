@@ -1,10 +1,14 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ExcercisesService } from '../../services/excercises/excercises.service';
+import { IExcercise } from '../../interfaces/excercise.interface';
 
 @Controller('excercises')
 export class ExcercisesController {
-	@Get('/')
-	findAll(): string {
-		return 'all';
+	constructor(private readonly excercisesService: ExcercisesService) {}
+
+	@Get()
+	async findAll(): Promise<IExcercise[]> {
+		return this.excercisesService.findAll();
 	}
 
 	@Get('/id/:id')

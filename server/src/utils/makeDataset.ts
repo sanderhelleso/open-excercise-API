@@ -13,8 +13,8 @@ async function makeDataset(): Promise<object> {
 		const dataArr = data.split(/\r?\n/);
 
 		dataArr.forEach((data, i) => {
-			const [ excercise, musclegroup ] = data.split(',');
-			dataset[i] = { excercise, musclegroup };
+			const [ name, muscle ] = data.split(',');
+			dataset[i] = { name, muscle };
 		});
 	} catch (error) {
 		throw error;
