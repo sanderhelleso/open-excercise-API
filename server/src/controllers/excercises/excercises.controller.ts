@@ -27,7 +27,7 @@ export class ExcercisesController {
 	}
 
 	@Get('/search')
-	findBySearch(@Query('keyword') keyword: string): string {
-		return `by search ${keyword}`;
+	async findBySearch(@Query('keyword') keyword: string): Promise<IExcercise[]> {
+		return await this.excercisesService.findBySearch(keyword);
 	}
 }
