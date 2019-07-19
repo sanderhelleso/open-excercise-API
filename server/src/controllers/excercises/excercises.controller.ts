@@ -11,11 +11,6 @@ export class ExcercisesController {
 		return await this.excercisesService.findAll();
 	}
 
-	@Get('/id/:id')
-	findByID(@Param('id') id: string): string {
-		return `By id: ${id}`;
-	}
-
 	@Get('/name/:name')
 	async findByName(@Param('name') name: string): Promise<IExcercise> {
 		return await this.excercisesService.findByName(name);

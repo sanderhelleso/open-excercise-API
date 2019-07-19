@@ -8,12 +8,12 @@ export class ExcercisesService {
 		return await Excercise.find();
 	}
 
-	async findByMuscle(muscle: string): Promise<IExcercise[]> {
-		return await Excercise.find({ muscle });
-	}
-
 	async findByName(name: string): Promise<IExcercise> {
 		return await Excercise.findOne({ name });
+	}
+
+	async findByMuscle(muscle: string): Promise<IExcercise[]> {
+		return await Excercise.find({ muscle });
 	}
 
 	async findBySearch(keyword: string): Promise<IExcercise[]> {
