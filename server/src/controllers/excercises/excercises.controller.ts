@@ -8,7 +8,7 @@ export class ExcercisesController {
 
 	@Get()
 	async findAll(): Promise<IExcercise[]> {
-		return this.excercisesService.findAll();
+		return await this.excercisesService.findAll();
 	}
 
 	@Get('/id/:id')
@@ -17,8 +17,8 @@ export class ExcercisesController {
 	}
 
 	@Get('/muscle/:muscle')
-	findByMuscle(@Param('muscle') muscle: string): string {
-		return `by muscle ${muscle}`;
+	async findByMuscle(@Param('muscle') muscle: string): Promise<IExcercise[]> {
+		return await this.excercisesService.findByMuscle(muscle);
 	}
 
 	@Get('/search')

@@ -7,4 +7,8 @@ export class ExcercisesService {
 	async findAll(): Promise<IExcercise[]> {
 		return await Excercise.find();
 	}
+
+	async findByMuscle(muscle: string): Promise<IExcercise[]> {
+		return await Excercise.find({ muscle });
+	}
 }
