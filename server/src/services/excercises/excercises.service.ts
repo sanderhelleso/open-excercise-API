@@ -15,4 +15,14 @@ export class ExcercisesService {
 	async findByName(name: string): Promise<IExcercise> {
 		return await Excercise.findOne({ name });
 	}
+
+	async findBySearch(keyword: string): Promise<IExcercise[]> {
+		const trimmed = keyword.trim();
+		const rgx = new RegExp(`${keyword}`, 'i');
+		const result = await Excercise.find({
+			$or: [ { name: rgx }, { muscle: rgx } ]
+		});
+
+		return result;
+	}
 }
