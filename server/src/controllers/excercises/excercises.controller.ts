@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 
 @Controller('excercises')
 export class ExcercisesController {
@@ -8,17 +8,17 @@ export class ExcercisesController {
 	}
 
 	@Get('/id/:id')
-	findByID(): string {
-		return 'by id';
+	findByID(@Param('id') id: string): string {
+		return `By id: ${id}`;
 	}
 
 	@Get('/muscle/:muscle')
-	findByMuscle(): string {
-		return 'by muscle';
+	findByMuscle(@Param('muscle') muscle: string): string {
+		return `by muscle ${muscle}`;
 	}
 
 	@Get('/search')
-	findBySearch(): string {
-		return 'by search';
+	findBySearch(@Query('keyword') keyword: string): string {
+		return `by search ${keyword}`;
 	}
 }
