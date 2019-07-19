@@ -9,7 +9,6 @@ export class ExcercisesService {
 	}
 
 	async findByMuscle(muscle: string): Promise<IExcercise[]> {
-		console.log(muscle);
 		return await Excercise.find({ muscle });
 	}
 }
