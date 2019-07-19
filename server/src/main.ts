@@ -6,7 +6,7 @@ import seed from './database/seeder';
 
 async function bootstrap() {
 	await conn();
-	seed();
+	await seed();
 	const app = await NestFactory.create(AppModule);
 	await app.listen(process.env.PORT || 3000);
 }

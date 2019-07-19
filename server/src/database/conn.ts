@@ -3,7 +3,8 @@ import * as mongoose from 'mongoose';
 const uri: string = process.env.DB_CONN_LOCAL;
 const options: object = {
 	reconnectTries: Number.MAX_VALUE,
-	reconnectInterval: 1000
+	reconnectInterval: 1000,
+	useNewUrlParser: true
 };
 
 async function conn() {
