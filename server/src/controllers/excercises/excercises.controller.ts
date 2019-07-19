@@ -16,6 +16,11 @@ export class ExcercisesController {
 		return `By id: ${id}`;
 	}
 
+	@Get('/name/:name')
+	async findByName(@Param('name') name: string): Promise<IExcercise> {
+		return await this.excercisesService.findByName(name);
+	}
+
 	@Get('/muscle/:muscle')
 	async findByMuscle(@Param('muscle') muscle: string): Promise<IExcercise[]> {
 		return await this.excercisesService.findByMuscle(muscle);
