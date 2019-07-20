@@ -18,7 +18,7 @@ async function makeDataset(): Promise<object> {
 			excercises[i] = { name, muscle };
 
 			if (muscles.hasOwnProperty(muscle)) {
-				muscles[muscle].excercies++;
+				muscles[muscle].excercises++;
 			} else {
 				muscles[muscle] = { name: muscle, excercises: 1 };
 			}
@@ -28,7 +28,8 @@ async function makeDataset(): Promise<object> {
 	}
 
 	return {
-		excercises
+		excercises,
+		muscles
 	};
 }
 

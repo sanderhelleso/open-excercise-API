@@ -1,5 +1,5 @@
 import Excercise from './models/excercise.model';
-import Muscle from './models/excercise.model';
+import Muscle from './models/muscle.model';
 import makeDataset from '../utils/makeDataset';
 
 async function seed(): Promise<boolean> {
@@ -10,12 +10,16 @@ async function seed(): Promise<boolean> {
 
 	const { excercises, muscles } = await makeDataset();
 
-	for (const key in excercises) {
-		await new Excercise(excercises[key]).save();
-	}
+	try {
+		for (const key in excercises) {
+			await new Excercise(excercises[key]).save();
+		}
 
-	for (const key in muscles) {
-		await new Muscle(muscles[key]).save();
+		for (const key in muscles) {
+			await new Muscle(muscles[key]).save();
+		}
+	} catch (error) {
+		console.log(error);
 	}
 
 	console.log('Finished seeding, data is ready...');
