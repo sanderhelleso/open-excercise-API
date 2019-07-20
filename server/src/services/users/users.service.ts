@@ -7,7 +7,7 @@ const SALT_ROUNDS = 10;
 
 @Injectable()
 export class UsersService {
-	async register(user: IRegisterUser): Promise<IUser> {
+	async register(user: IRegisterUser): Promise<IUser | null> {
 		const { password } = user;
 		delete user.password;
 
@@ -16,11 +16,11 @@ export class UsersService {
 			const newUser = { ...user, passwordHash };
 			return await new User(newUser).save();
 		} catch (error) {
-			throw Error('Failed to create user');
+			return null;
 		}
 	}
 
-	async login(user: ILoginUser): Promise<IUser> {
+	async findByLogin(user: ILoginUser): Promise<IUser | null> {
 		const { email, password } = user;
 
 		try {
@@ -30,14 +30,15 @@ export class UsersService {
 				const { passwordHash } = user;
 				const match = await bcrypt.compare(password, passwordHash);
 
-				if (!match) {
-					throw Error('No user found with those credentials');
-				}
-
-				return user;
+				return match ? user : null;
 			}
 		} catch (error) {
-			throw Error('No user found with those credentials');
+			return null;
 		}
+	}
+
+	async findByPayload(payload: any) {
+		const { email } = payload;
+		return await User.findOne({ email });
 	}
 }
