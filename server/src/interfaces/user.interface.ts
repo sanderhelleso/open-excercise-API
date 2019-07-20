@@ -13,3 +13,8 @@ export interface IRegisterUser {
 	password: string;
 	purpose: string;
 }
+
+export interface ILoginUser {
+	email: string;
+	password: string;
+}
