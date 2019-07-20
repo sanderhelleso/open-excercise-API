@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import conn from './database/conn';
 import seed from './database/seeder';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe } from './pipes/validation.pipe';
 
 async function bootstrap() {
 	await conn();
