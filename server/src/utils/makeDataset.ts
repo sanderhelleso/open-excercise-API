@@ -5,7 +5,8 @@ import * as util from 'util';
 const readFile = util.promisify(fs.readFile);
 
 async function makeDataset(): Promise<object> {
-	const dataset: object = {};
+	const excercises: object = {};
+	const muscles: object = {};
 
 	try {
 		const datasetPath: string = path.join(__dirname, '../../dataset/excercises.csv');
@@ -14,13 +15,21 @@ async function makeDataset(): Promise<object> {
 
 		dataArr.forEach((data, i) => {
 			const [ name, muscle ] = data.split(',').map((d) => d.trim());
-			dataset[i] = { name, muscle };
+			excercises[i] = { name, muscle };
+
+			if (muscles.hasOwnProperty(muscle)) {
+				muscles[muscle].excercies++;
+			} else {
+				muscles[muscle] = { name: muscle, excercises: 1 };
+			}
 		});
 	} catch (error) {
 		throw error;
 	}
 
-	return dataset;
+	return {
+		excercises
+	};
 }
 
 export default makeDataset;
