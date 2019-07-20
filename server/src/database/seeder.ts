@@ -21,10 +21,10 @@ async function seed(): Promise<boolean> {
 		}
 
 		await new User({
-			name: 'John Doe',
+			name: 'john doe',
 			email: 'johndoe@gmail.com',
-			passwordHash: 'qweqweqweqweqeqeadadqweqwe',
-			purpose: 'Fitness App'
+			purpose: 'Fitness App',
+			passwordHash: '$2b$10$X3Y2rBqHIQ5vDz87RCvOPO4IVHJvv0tuYzU6jVLa5/hy5/odM55x6'
 		}).save();
 	} catch (error) {
 		console.log(error);
