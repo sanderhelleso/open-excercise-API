@@ -8,6 +8,8 @@ async function seed(): Promise<boolean> {
 
 	// deletes all before insert
 	await Excercise.deleteMany({});
+	await Muscle.deleteMany({});
+	await User.deleteMany({});
 
 	const { excercises, muscles } = await makeDataset();
 

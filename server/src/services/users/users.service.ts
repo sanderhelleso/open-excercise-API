@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import User from '../../database/models/user.model';
-import { IUser, IRegisterUser } from '../../interfaces/user.interface';
+import { IUser, IRegisterUser, ILoginUser } from '../../interfaces/user.interface';
 import * as bcrypt from 'bcrypt';
 
 const SALT_ROUNDS = 10;
@@ -17,6 +17,27 @@ export class UsersService {
 			return await new User(newUser).save();
 		} catch (error) {
 			throw Error('Failed to create user');
+		}
+	}
+
+	async login(user: ILoginUser): Promise<IUser> {
+		const { email, password } = user;
+
+		try {
+			const user = await User.findOne({ email });
+
+			if (user) {
+				const { passwordHash } = user;
+				const match = await bcrypt.compare(password, passwordHash);
+
+				if (!match) {
+					throw Error('No user found with those credentials');
+				}
+
+				return user;
+			}
+		} catch (error) {
+			throw Error('No user found with those credentials');
 		}
 	}
 }
