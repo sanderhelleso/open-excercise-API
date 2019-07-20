@@ -7,4 +7,8 @@ export class MusclesService {
 	async findAll(): Promise<IMuscle[]> {
 		return await Muscle.find();
 	}
+
+	async findByName(name: string): Promise<IMuscle[]> {
+		return await Muscle.findOne({ name });
+	}
 }

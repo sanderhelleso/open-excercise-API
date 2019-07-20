@@ -10,4 +10,9 @@ export class MusclesController {
 	async findAll(): Promise<IMuscle[]> {
 		return await this.musclesService.findAll();
 	}
+
+	@Get('/:name')
+	async findByName(@Param('name') name: string): Promise<IMuscle> {
+		return await this.musclesService.findByName(name);
+	}
 }
