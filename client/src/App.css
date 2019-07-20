@@ -3,3 +3,8 @@
 .App {
     text-align: center;
 }
+
+.Wrapper {
+    width: 500px;
+    margin: 0 auto;
+}
