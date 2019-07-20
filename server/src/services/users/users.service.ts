@@ -20,7 +20,7 @@ export class UsersService {
 		}
 	}
 
-	async login(user: ILoginUser): Promise<IUser> {
+	async findByLogin(user: ILoginUser): Promise<IUser> {
 		const { email, password } = user;
 
 		try {
@@ -39,5 +39,10 @@ export class UsersService {
 		} catch (error) {
 			throw Error('No user found with those credentials');
 		}
+	}
+
+	async findByPayload(payload: any) {
+		const { email } = payload;
+		return await User.findOne({ email });
 	}
 }
