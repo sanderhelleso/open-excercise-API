@@ -2,11 +2,14 @@ import { Injectable } from '@nestjs/common';
 import User from '../../database/models/user.model';
 import { IUser, IRegisterUser, ILoginUser } from '../../interfaces/user.interface';
 import * as bcrypt from 'bcrypt';
+import { QuotasService } from '../quotas/quotas.service';
 
 const SALT_ROUNDS = 10;
 
 @Injectable()
 export class UsersService {
+	constructor(private readonly quotasService: QuotasService) {}
+
 	async register(user: IRegisterUser): Promise<IUser | null> {
 		const { password } = user;
 		delete user.password;
@@ -50,7 +53,8 @@ export class UsersService {
 
 	async delete(userID: string): Promise<boolean> {
 		try {
-			await User.remove({ _id: userID });
+			await User.deleteOne({ _id: userID });
+			await this.quotasService.delete(userID);
 			return true;
 		} catch (error) {
 			return false;
