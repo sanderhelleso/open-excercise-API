@@ -1,5 +1,4 @@
-import { Injectable, CanActivate, UseGuards, ExecutionContext, HttpException, HttpStatus } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Injectable, CanActivate, ExecutionContext, HttpException, HttpStatus } from '@nestjs/common';
 
 import Quota from '../database/models/quota.model';
 
@@ -11,7 +10,7 @@ const REQUEST_LIMIT_ERROR = new HttpException('Request limit has been exceeded',
 
 @Injectable()
 export class QuotaGuard implements CanActivate {
-	async canActivate(context: ExcecutionContext): Promise<boolean> {
+	async canActivate(context: ExecutionContext): Promise<boolean> {
 		const req = context.switchToHttp().getRequest();
 
 		if (!req.headers.authorization) {
