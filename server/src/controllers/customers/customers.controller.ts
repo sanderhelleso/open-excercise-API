@@ -13,8 +13,8 @@ export class CustomersController {
 	}
 
 	@Get('/:id')
-	public async getCustomer(@Param() param): Promise<Stripe.customers.ICustomer> {
-		return await this.customersService.findCustomer(param.id);
+	public async getCustomer(@Param('id') id: string): Promise<Stripe.customers.ICustomer> {
+		return await this.customersService.findCustomer(id);
 	}
 
 	@Post('/create')
@@ -23,12 +23,12 @@ export class CustomersController {
 	}
 
 	@Patch('/:id')
-	public async updateCustomer(@Param() param, @Body() body): Promise<Stripe.customers.ICustomer> {
-		return await this.customersService.updateCustomer(param.id, body);
+	public async updateCustomer(@Param('id') id: string, @Body() body): Promise<Stripe.customers.ICustomer> {
+		return await this.customersService.updateCustomer(id, body);
 	}
 
 	@Delete('/:id')
-	public async deleteCustomer(@Param() param): Promise<Stripe.IDeleteConfirmation> {
-		return await this.customersService.deleteCustomer(param.id);
+	public async deleteCustomer(@Param('id') id: string): Promise<Stripe.IDeleteConfirmation> {
+		return await this.customersService.deleteCustomer(id);
 	}
 }
