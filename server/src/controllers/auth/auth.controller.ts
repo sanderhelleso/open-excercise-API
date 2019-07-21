@@ -1,13 +1,18 @@
 import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
 import { UsersService } from '../../services/users/users.service';
 import { LoginUserDto, RegisterUserDto, UserDto } from './dto/user.dto';
-import { IUser } from '../../interfaces/user.interface';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../../services/auth/auth.service';
+import { QuotasService } from '../../services/quotas/quotas.service';
+import { IQuota, IQuotaData } from '../../interfaces/quota.interface';
 
 @Controller('auth')
 export class AuthController {
-	constructor(private readonly usersService: UsersService, private readonly authService: AuthService) {}
+	constructor(
+		private readonly usersService: UsersService,
+		private readonly authService: AuthService,
+		private readonly quoatasService: QuotasService
+	) {}
 
 	@Get()
 	@UseGuards(AuthGuard('jwt'))
@@ -25,8 +30,10 @@ export class AuthController {
 
 	@Post('/login')
 	async login(@Body() loginUserDto: LoginUserDto): Promise<UserDto> {
-		const { email, name } = await this.usersService.findByLogin(loginUserDto);
-		const payload = { email, name };
+		const { _id, email, name } = await this.usersService.findByLogin(loginUserDto);
+		const quota: IQuotaData = await this.quoatasService.createQuota(_id);
+
+		const payload = { email, name, quota };
 
 		return this.authService.sendUser(payload);
 	}

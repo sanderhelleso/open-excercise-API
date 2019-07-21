@@ -4,11 +4,11 @@ import { AppService } from './app.service';
 import { ExcercisesModule } from './modules/excercises.module';
 import { MusclesModule } from './modules/muscles.module';
 import { AuthModule } from './modules/auth.module';
-import { QuotasService } from './services/quotas/quotas.service';
+import { QuotasModule } from './modules/quotas.module';
 
 @Module({
-	imports: [ ExcercisesModule, MusclesModule, AuthModule ],
+	imports: [ ExcercisesModule, MusclesModule, AuthModule, QuotasModule ],
 	controllers: [ AppController ],
-	providers: [ AppService, QuotasService ]
+	providers: [ AppService ]
 })
 export class AppModule {}

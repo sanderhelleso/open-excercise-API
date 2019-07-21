@@ -7,12 +7,13 @@ import { IApiKey } from '../../interfaces/api-key.interface';
 
 const MAX_REQUESTS = 1000 * 10;
 const N_BYTES = 256;
+const SALT_ROUNDS = 10;
 const HASH_ALG = 'sha256';
 
 @Injectable()
 export class QuotasService {
-	async createQuota(userID: string): Promise<IQuotaData | boolean> {
-		const { plain, hashed } = this.generateApiKey();
+	async createQuota(userID: string): Promise<IQuotaData | null> {
+		const { plain, hashed } = await this.generateApiKey();
 
 		const quota: ICreateQuota = {
 			api_key_hash: hashed,
@@ -25,13 +26,14 @@ export class QuotasService {
 			const { requests_remaining, refilled_at } = await new Quota(quota).save();
 			return { api_key: plain, requests_remaining, refilled_at };
 		} catch (error) {
-			return false;
+			console.log(error);
+			return null;
 		}
 	}
 
-	private generateApiKey(): IApiKey {
+	private async generateApiKey(): IApiKey {
 		const plain = crypto.createHash(HASH_ALG).update(crypto.randomBytes(N_BYTES)).digest('hex');
-		const hashed = bcrypt.hash(plain, process.env.SALT_ROUNDS);
+		const hashed = await bcrypt.hash(plain, SALT_ROUNDS);
 
 		return { plain, hashed };
 	}
