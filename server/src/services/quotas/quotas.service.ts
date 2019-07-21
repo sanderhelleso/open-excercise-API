@@ -44,7 +44,7 @@ export class QuotasService {
 		}
 	}
 
-	async updateKey(userID: string): Promise<String | null> {
+	async updateKey(userID: string): Promise<string | null> {
 		const quota = Quota.findOne({ belongs_to: userID });
 		if (quota) {
 			const api_key = await this.generateApiKey();
