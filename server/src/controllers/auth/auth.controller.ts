@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Request } from '@nestjs/common';
 import { UsersService } from '../../services/users/users.service';
 import { LoginUserDto, RegisterUserDto, UserDto } from './dto/user.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -16,8 +16,8 @@ export class AuthController {
 
 	@Get()
 	@UseGuards(AuthGuard('jwt'))
-	tempAuth() {
-		return { auth: 'works' };
+	tempAuth(@Request() req) {
+		return { auth: 'works', user: req.user };
 	}
 
 	@Post('/register')
