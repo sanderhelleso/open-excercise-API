@@ -7,10 +7,8 @@ const HAS_DIGIT = new RegExp(/\d/);
 
 @ValidatorConstraint({ name: 'IsPassword', async: false })
 export class IsPassword implements ValidatorConstraintInterface {
-	validate(password: string, args: ValidationArguments) {
-		return (
-			password.length >= MIN && password.length <= MAX && HAS_SPECIAL.test(password) && HAS_DIGIT.test(password)
-		);
+	validate(s: string, args: ValidationArguments) {
+		return s.length >= MIN && s.length <= MAX && HAS_SPECIAL.test(s) && HAS_DIGIT.test(s);
 	}
 
 	defaultMessage(args: ValidationArguments) {

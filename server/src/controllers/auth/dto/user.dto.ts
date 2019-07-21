@@ -1,4 +1,5 @@
-import { IsString, IsEmail } from 'class-validator';
+import { IsString, IsEmail, Validate } from 'class-validator';
+import { IsPassword } from './../../../decorators/IsPassword';
 
 export class RegisterUserDto {
 	@IsString() readonly name: string;
@@ -9,7 +10,10 @@ export class RegisterUserDto {
 
 export class LoginUserDto {
 	@IsEmail() readonly email: string;
-	@IsString() readonly password: string;
+
+	@IsString()
+	@Validate(IsPassword)
+	readonly password: string;
 }
 
 export class UserDto {
