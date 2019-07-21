@@ -9,33 +9,36 @@ import { IApiKey } from '../../../dist/interfaces/api-key.interface';
 
 const MAX_REQUESTS = 1000 * 10;
 const N_BYTES = 256;
-const SALT_ROUNDS = 10;
 const HASH_ALG = 'sha256';
 
 @Injectable()
 export class QuotasService {
 	async findByBelongsTo(userID: string): Promise<IQuotaData | null> {
 		try {
-			const { requests_remaining, refilled_at } = await Quota.findOne({ belongs_to: userID });
-			return { api_key: 'qweqew', requests_remaining, refilled_at };
+			const { api_key, requests_remaining, refilled_at } = await Quota.findOne({ belongs_to: userID });
+			return { api_key, requests_remaining, refilled_at };
 		} catch (error) {
 			return null;
 		}
 	}
 
 	async createQuota(userID: string): Promise<IQuotaData | null> {
-		const { plain, hashed } = await this.generateApiKey();
+		const api_key: string = this.generateApiKey();
+		const requests_remaining: number = MAX_REQUESTS;
+		const refilled_at: number = new Date().getTime();
 
 		const quota: ICreateQuota = {
-			api_key_hash: hashed,
-			requests_remaining: MAX_REQUESTS,
-			refilled_at: new Date().getTime(),
+			api_key,
+			requests_remaining,
+			refilled_at,
 			belongs_to: userID
 		};
 
 		try {
-			const { requests_remaining, refilled_at } = await new Quota(quota).save();
-			return { api_key: plain, requests_remaining, refilled_at };
+			await new Quota(quota).save();
+			delete quota.belongs_to;
+
+			return quota;
 		} catch (error) {
 			return null;
 		}
@@ -44,20 +47,17 @@ export class QuotasService {
 	async updateKey(userID: string): Promise<String | null> {
 		const quota = Quota.findOne({ belongs_to: userID });
 		if (quota) {
-			const { plain, hashed } = await this.generateApiKey();
-			quota.api_key_hash = hashed;
+			const api_key = await this.generateApiKey();
+			quota.api_key = api_key;
 			await quota.save();
 
-			return plain;
+			return api_key;
 		}
 
 		return null;
 	}
 
-	private async generateApiKey(): IApiKey {
-		const plain = crypto.createHash(HASH_ALG).update(crypto.randomBytes(N_BYTES)).digest('hex');
-		const hashed = await bcrypt.hash(plain, SALT_ROUNDS);
-
-		return { plain, hashed };
+	private generateApiKey(): string {
+		return crypto.createHash(HASH_ALG).update(crypto.randomBytes(N_BYTES)).digest('hex');
 	}
 }
