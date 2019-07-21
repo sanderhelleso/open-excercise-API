@@ -22,8 +22,9 @@ export class AuthController {
 
 	@Post('/register')
 	async register(@Body() registerUserDto: RegisterUserDto): Promise<UserDto> {
-		const { email, name } = await this.usersService.register(registerUserDto);
-		const payload = { email, name };
+		const { _id, email, name } = await this.usersService.register(registerUserDto);
+		const quota: IQuotaData = await this.quoatasService.createQuota(_id);
+		const payload = { quota, email, name };
 
 		return this.authService.sendUser(payload);
 	}
@@ -31,7 +32,7 @@ export class AuthController {
 	@Post('/login')
 	async login(@Body() loginUserDto: LoginUserDto): Promise<UserDto> {
 		const { _id, email, name } = await this.usersService.findByLogin(loginUserDto);
-		const quota: IQuotaData = await this.quoatasService.createQuota(_id);
+		const quota: IQuotaData = await this.quoatasService.findByBelongsTo(_id);
 
 		const payload = { email, name, quota };
 

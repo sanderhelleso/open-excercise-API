@@ -14,6 +14,15 @@ const HASH_ALG = 'sha256';
 
 @Injectable()
 export class QuotasService {
+	async findByBelongsTo(userID: string): Promise<IQuotaData | null> {
+		try {
+			const { requests_remaining, refilled_at } = await Quota.findOne({ belongs_to: userID });
+			return { api_key: 'qweqew', requests_remaining, refilled_at };
+		} catch (error) {
+			return null;
+		}
+	}
+
 	async createQuota(userID: string): Promise<IQuotaData | null> {
 		const { plain, hashed } = await this.generateApiKey();
 
