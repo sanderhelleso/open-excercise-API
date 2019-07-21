@@ -3,6 +3,7 @@ import User from '../../database/models/user.model';
 import { IUser, IRegisterUser, ILoginUser } from '../../interfaces/user.interface';
 import * as bcrypt from 'bcrypt';
 import { QuotasService } from '../quotas/quotas.service';
+import { INTERNAL_SERVER_ERR, FAILED_LOGIN_ERROR, FAILED_REGISTER_ERROR } from '../../errors/error-messages';
 
 const SALT_ROUNDS = 10;
 
@@ -10,7 +11,7 @@ const SALT_ROUNDS = 10;
 export class UsersService {
 	constructor(private readonly quotasService: QuotasService) {}
 
-	async register(user: IRegisterUser): Promise<IUser | null> {
+	async register(user: IRegisterUser): Promise<IUser> {
 		const { password } = user;
 		delete user.password;
 
@@ -19,11 +20,11 @@ export class UsersService {
 			const newUser = { ...user, passwordHash };
 			return await new User(newUser).save();
 		} catch (error) {
-			return null;
+			throw FAILED_REGISTER_ERROR;
 		}
 	}
 
-	async findByLogin(user: ILoginUser): Promise<IUser | null> {
+	async findByLogin(user: ILoginUser): Promise<IUser> {
 		const { email, password } = user;
 
 		try {
@@ -36,7 +37,7 @@ export class UsersService {
 				return match ? user : null;
 			}
 		} catch (error) {
-			return null;
+			throw FAILED_LOGIN_ERROR;
 		}
 	}
 
@@ -48,7 +49,7 @@ export class UsersService {
 			return true;
 		}
 
-		return false;
+		throw INTERNAL_SERVER_ERR;
 	}
 
 	async delete(userID: string): Promise<boolean> {
@@ -57,7 +58,7 @@ export class UsersService {
 			await this.quotasService.delete(userID);
 			return true;
 		} catch (error) {
-			return false;
+			throw INTERNAL_SERVER_ERR;
 		}
 	}
 
