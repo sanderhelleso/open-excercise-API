@@ -5,7 +5,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../../services/auth/auth.service';
 import { QuotasService } from '../../services/quotas/quotas.service';
 import { IQuotaData } from '../../interfaces/quota.interface';
-import { UpdatePwDto } from './dto/upadate-password.dto';
+import { PasswordDto } from './dto/password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -42,7 +42,7 @@ export class AuthController {
 
 	@Post('/update-password')
 	@UseGuards(AuthGuard('jwt'))
-	async updatePassword(@Body() { password }: UpdatePwDto, @Req() { user }: any): Promise<boolean> {
+	async updatePassword(@Body() { password }: PasswordDto, @Req() { user }: any): Promise<boolean> {
 		return await this.usersService.updatePassword(password, user.id);
 	}
 
