@@ -1,11 +1,10 @@
-import { Controller, Post, Body, Get, UseGuards, Request, Req } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Req } from '@nestjs/common';
 import { UsersService } from '../../services/users/users.service';
 import { LoginUserDto, RegisterUserDto, UserDto } from './dto/user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../../services/auth/auth.service';
 import { QuotasService } from '../../services/quotas/quotas.service';
-import { IQuota, IQuotaData } from '../../interfaces/quota.interface';
-import { QuotaGuard } from '../../guards/quoata.guard';
+import { IQuotaData } from '../../interfaces/quota.interface';
 import { UpdatePwDto } from './dto/upadate-password.dto';
 
 @Controller('auth')
@@ -44,6 +43,12 @@ export class AuthController {
 	@Post('/update-password')
 	@UseGuards(AuthGuard('jwt'))
 	async updatePassword(@Body() { password }: UpdatePwDto, @Req() { user }: any): Promise<boolean> {
-		return await this.authService.updatePassword(password, user.id);
+		return await this.usersService.updatePassword(password, user.id);
+	}
+
+	@Get('/delete')
+	@UseGuards(AuthGuard('jwt'))
+	async delete(@Req() { user }: any): Promise<boolean> {
+		return await this.usersService.delete(user.id);
 	}
 }

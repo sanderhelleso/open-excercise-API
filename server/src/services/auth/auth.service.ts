@@ -11,10 +11,6 @@ export class AuthService {
 		return await this.userService.findByPayload(payload);
 	}
 
-	async updatePassword(password: string, userID: string): Promise<boolean> {
-		return await this.userService.updatePassword(userID, password);
-	}
-
 	signPayload(payload: any) {
 		return sign(payload, 'secret', { expiresIn: '12h' });
 	}

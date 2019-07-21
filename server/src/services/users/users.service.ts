@@ -48,6 +48,15 @@ export class UsersService {
 		return false;
 	}
 
+	async delete(userID: string): Promise<boolean> {
+		try {
+			await User.remove({ _id: userID });
+			return true;
+		} catch (error) {
+			return false;
+		}
+	}
+
 	async findByPayload(payload: any) {
 		const { email } = payload;
 		return await User.findOne({ email });
