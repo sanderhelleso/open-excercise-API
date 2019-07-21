@@ -1,10 +1,9 @@
-import { AuthGuard } from '@nestjs/passport';
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { IMuscle } from '../../interfaces/muscle.interface';
 import { MusclesService } from '../../services/muscles/muscles.service';
 import { QuotaGuard } from '../../guards/quoata.guard';
 
-@UseGuards(AuthGuard('jwt'), new QuotaGuard())
+@UseGuards(new QuotaGuard())
 @Controller('muscles')
 export class MusclesController {
 	constructor(private readonly musclesService: MusclesService) {}
