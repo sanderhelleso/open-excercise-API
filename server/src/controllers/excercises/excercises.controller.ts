@@ -4,7 +4,7 @@ import { ExcercisesService } from '../../services/excercises/excercises.service'
 import { IExcercise } from '../../interfaces/excercise.interface';
 import { QuotaGuard } from '../../guards/quoata.guard';
 
-@UseGuards(AuthGuard('jwt'), new QuotaGuard())
+@UseGuards(new QuotaGuard())
 @Controller('excercises')
 export class ExcercisesController {
 	constructor(private readonly excercisesService: ExcercisesService) {}
