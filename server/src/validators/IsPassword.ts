@@ -12,6 +12,6 @@ export class IsPassword implements ValidatorConstraintInterface {
 	}
 
 	defaultMessage(args: ValidationArguments) {
-		return `Password must be between ${MIN} and ${MAX} characters, and must contain atleast 1 digit and 1 special character`;
+		return `Password must be between ${MIN} and ${MAX} characters, contain atleast 1 digit, and contain atleast 1 special character`;
 	}
 }
