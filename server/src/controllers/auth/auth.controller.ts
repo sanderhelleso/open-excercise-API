@@ -16,7 +16,7 @@ export class AuthController {
 	) {}
 
 	@Get()
-	@UseGuards(AuthGuard('jwt'), new QuotaGuard())
+	@UseGuards(AuthGuard('jwt'))
 	tempAuth(@Request() req) {
 		return { auth: 'works', user: req.user };
 	}
