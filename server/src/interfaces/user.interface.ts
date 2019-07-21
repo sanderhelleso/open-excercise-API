@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { IQuotaData } from './quota.interface';
 
 export interface IUser extends mongoose.Document {
 	name: string;
@@ -19,8 +20,9 @@ export interface ILoginUser {
 	password: string;
 }
 
-export interface IUserAuth {
+export interface IUserData {
 	email: string;
 	name: string;
 	token: string;
+	quota: IQuotaData;
 }
