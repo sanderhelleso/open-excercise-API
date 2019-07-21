@@ -1,7 +1,9 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { ExcercisesService } from '../../services/excercises/excercises.service';
 import { IExcercise } from '../../interfaces/excercise.interface';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('excercises')
 export class ExcercisesController {
 	constructor(private readonly excercisesService: ExcercisesService) {}
