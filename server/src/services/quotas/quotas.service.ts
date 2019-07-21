@@ -4,6 +4,8 @@ import { ICreateQuota, IQuotaData } from '../../interfaces/quota.interface';
 import * as crypto from 'crypto';
 import * as bcrypt from 'bcrypt';
 import { IApiKey } from '../../interfaces/api-key.interface';
+import { IQuota } from '../../../dist/interfaces/quota.interface';
+import { IApiKey } from '../../../dist/interfaces/api-key.interface';
 
 const MAX_REQUESTS = 1000 * 10;
 const N_BYTES = 256;
@@ -26,9 +28,21 @@ export class QuotasService {
 			const { requests_remaining, refilled_at } = await new Quota(quota).save();
 			return { api_key: plain, requests_remaining, refilled_at };
 		} catch (error) {
-			console.log(error);
 			return null;
 		}
+	}
+
+	async updateKey(userID: string): Promise<String | null> {
+		const quota = Quota.findOne({ belongs_to: userID });
+		if (quota) {
+			const { plain, hashed } = await this.generateApiKey();
+			quota.api_key_hash = hashed;
+			await quota.save();
+
+			return plain;
+		}
+
+		return null;
 	}
 
 	private async generateApiKey(): IApiKey {
