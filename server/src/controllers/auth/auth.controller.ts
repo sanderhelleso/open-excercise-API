@@ -5,6 +5,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../../services/auth/auth.service';
 import { QuotasService } from '../../services/quotas/quotas.service';
 import { IQuota, IQuotaData } from '../../interfaces/quota.interface';
+import { QuotaGuard } from '../../guards/quoata.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -15,7 +16,7 @@ export class AuthController {
 	) {}
 
 	@Get()
-	@UseGuards(AuthGuard('jwt'))
+	@UseGuards(AuthGuard('jwt'), new QuotaGuard())
 	tempAuth(@Request() req) {
 		return { auth: 'works', user: req.user };
 	}
