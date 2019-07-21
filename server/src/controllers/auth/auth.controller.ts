@@ -1,10 +1,11 @@
-import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Request } from '@nestjs/common';
 import { UsersService } from '../../services/users/users.service';
 import { LoginUserDto, RegisterUserDto, UserDto } from './dto/user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../../services/auth/auth.service';
 import { QuotasService } from '../../services/quotas/quotas.service';
 import { IQuota, IQuotaData } from '../../interfaces/quota.interface';
+import { QuotaGuard } from '../../guards/quoata.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -16,8 +17,8 @@ export class AuthController {
 
 	@Get()
 	@UseGuards(AuthGuard('jwt'))
-	tempAuth() {
-		return { auth: 'works' };
+	tempAuth(@Request() req) {
+		return { auth: 'works', user: req.user };
 	}
 
 	@Post('/register')
