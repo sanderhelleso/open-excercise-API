@@ -26,6 +26,8 @@
 		"@nestjs/platform-express": "^6.0.0",
 		"@types/mongoose": "^5.5.8",
 		"bcrypt": "^3.0.6",
+		"cache-manager": "^2.10.0",
+		"cache-manager-redis-store": "^1.5.0",
 		"class-transformer": "^0.2.3",
 		"class-validator": "^0.9.1",
 		"dotenv": "^8.0.0",
@@ -58,11 +60,7 @@
 		"wait-on": "^3.2.0"
 	},
 	"jest": {
-		"moduleFileExtensions": [
-			"js",
-			"json",
-			"ts"
-		],
+		"moduleFileExtensions": [ "js", "json", "ts" ],
 		"rootDir": "src",
 		"testRegex": ".spec.ts$",
 		"transform": {

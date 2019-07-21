@@ -1,11 +1,11 @@
-import { AuthGuard } from '@nestjs/passport';
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards, UseInterceptors, CacheInterceptor } from '@nestjs/common';
 import { ExcercisesService } from '../../services/excercises/excercises.service';
 import { IExcercise } from '../../interfaces/excercise.interface';
 import { QuotaGuard } from '../../guards/quoata.guard';
 
 @UseGuards(new QuotaGuard())
 @Controller('excercises')
+@UseInterceptors(CacheInterceptor)
 export class ExcercisesController {
 	constructor(private readonly excercisesService: ExcercisesService) {}
 
