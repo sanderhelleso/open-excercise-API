@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Request, Req } from '@nestjs/common';
 import { UsersService } from '../../services/users/users.service';
 import { LoginUserDto, RegisterUserDto, UserDto } from './dto/user.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { QuotasService } from '../../services/quotas/quotas.service';
 import { IQuota, IQuotaData } from '../../interfaces/quota.interface';
 import { QuotaGuard } from '../../guards/quoata.guard';
+import { UpdatePwDto } from './dto/upadate-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -17,8 +18,8 @@ export class AuthController {
 
 	@Get()
 	@UseGuards(AuthGuard('jwt'))
-	tempAuth(@Request() req) {
-		return { auth: 'works', user: req.user };
+	tempAuth() {
+		return { auth: 'works' };
 	}
 
 	@Post('/register')
@@ -38,5 +39,11 @@ export class AuthController {
 		const payload = { email, name, quota };
 
 		return this.authService.sendUser(payload);
+	}
+
+	@Post('/update-password')
+	@UseGuards(AuthGuard('jwt'))
+	async updatePassword(@Body() { password }: UpdatePwDto, @Req() { user }: any): Promise<boolean> {
+		return await this.authService.updatePassword(password, user.id);
 	}
 }
