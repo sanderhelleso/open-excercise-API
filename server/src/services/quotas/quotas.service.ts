@@ -53,6 +53,15 @@ export class QuotasService {
 		return null;
 	}
 
+	async delete(userID: string): Promise<boolean> {
+		try {
+			await Quota.deleteOne({ belongs_to: userID });
+			return true;
+		} catch (error) {
+			throw new Error('Unable to delete quotas');
+		}
+	}
+
 	private generateApiKey(): string {
 		return crypto.createHash(HASH_ALG).update(crypto.randomBytes(N_BYTES)).digest('hex');
 	}
