@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import Quota from '../../database/models/quota.model';
 import { ICreateQuota, IQuotaData } from '../../interfaces/quota.interface';
 import * as crypto from 'crypto';
+import { INTERNAL_SERVER_ERR } from '../../errors/error-messages';
 
 const MAX_REQUESTS = 1000 * 10;
 const N_BYTES = 256;
@@ -14,7 +15,7 @@ export class QuotasService {
 			const { api_key, requests_remaining, refilled_at } = await Quota.findOne({ belongs_to: userID });
 			return { api_key, requests_remaining, refilled_at };
 		} catch (error) {
-			return null;
+			throw INTERNAL_SERVER_ERR;
 		}
 	}
 
@@ -36,7 +37,7 @@ export class QuotasService {
 
 			return quota;
 		} catch (error) {
-			return null;
+			throw INTERNAL_SERVER_ERR;
 		}
 	}
 
@@ -50,7 +51,7 @@ export class QuotasService {
 			return api_key;
 		}
 
-		return null;
+		throw INTERNAL_SERVER_ERR;
 	}
 
 	async delete(userID: string): Promise<boolean> {
@@ -58,7 +59,7 @@ export class QuotasService {
 			await Quota.deleteOne({ belongs_to: userID });
 			return true;
 		} catch (error) {
-			throw new Error('Unable to delete quotas');
+			throw INTERNAL_SERVER_ERR;
 		}
 	}
 

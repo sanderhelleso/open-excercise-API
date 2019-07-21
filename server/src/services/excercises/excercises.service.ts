@@ -17,8 +17,7 @@ export class ExcercisesService {
 	}
 
 	async findBySearch(keyword: string): Promise<IExcercise[]> {
-		const trimmed = keyword.trim();
-		const rgx = new RegExp(`${keyword}`, 'i');
+		const rgx = new RegExp(`${keyword.trim()}`, 'i');
 		const result = await Excercise.find({
 			$or: [ { name: rgx }, { muscle: rgx } ]
 		});
