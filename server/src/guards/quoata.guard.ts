@@ -1,6 +1,7 @@
-import { Injectable, CanActivate, ExecutionContext, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, HttpException, HttpStatus, Inject } from '@nestjs/common';
 
 import Quota from '../database/models/quota.model';
+import { AnalyticsGateway } from '../analytics.gateway';
 
 const PREFIX = 'ApiKey ';
 
@@ -10,6 +11,8 @@ const REQUEST_LIMIT_ERROR = new HttpException('Request limit has been exceeded',
 
 @Injectable()
 export class QuotaGuard implements CanActivate {
+	constructor(@Inject('AnalyticsGateway') private readonly analyticsGateway: AnalyticsGateway) {}
+
 	async canActivate(context: ExecutionContext): Promise<boolean> {
 		const req = context.switchToHttp().getRequest();
 
@@ -33,6 +36,8 @@ export class QuotaGuard implements CanActivate {
 
 		quota.requests_remaining--;
 		quota.save();
+
+		this.analyticsGateway.emitAnalyticsPayload(quota.belongs_to, quota.requests_remaining);
 
 		return true;
 	}

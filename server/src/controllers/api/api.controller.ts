@@ -5,7 +5,7 @@ import { QuotaGuard } from '../../guards/quoata.guard';
 import { MusclesService } from '../../services/muscles/muscles.service';
 import { IMuscle } from '../../interfaces/muscle.interface';
 
-@UseGuards(new QuotaGuard())
+@UseGuards(QuotaGuard)
 @Controller('api')
 @UseInterceptors(CacheInterceptor)
 export class ApiController {
