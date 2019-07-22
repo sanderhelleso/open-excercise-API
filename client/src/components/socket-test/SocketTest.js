@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 
 import openSocket from 'socket.io-client';
 
-const userID = '123';
+const userID = '5d3612a43a58e7295849a73e';
 
 const SocketTest = () => {
 	useEffect(() => {
 		const socket = openSocket('http://localhost:4001');
 		socket.emit('recieve_user_id', userID);
 
-		socket.on('recieve_user_id', (data) => console.log(data));
+		socket.on(userID, (data) => console.log(data));
 	}, []);
 
 	return (

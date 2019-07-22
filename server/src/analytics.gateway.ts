@@ -1,4 +1,4 @@
-import { WebSocketGateway, SubscribeMessage, OnGatewayDisconnect } from '@nestjs/websockets';
+import { WebSocketGateway, SubscribeMessage, OnGatewayDisconnect, WebSocketServer } from '@nestjs/websockets';
 
 @WebSocketGateway(4001)
 export class AnalyticsGateway implements OnGatewayDisconnect {
@@ -15,13 +15,12 @@ export class AnalyticsGateway implements OnGatewayDisconnect {
 	@SubscribeMessage('recieve_user_id')
 	handleRecieveUserID(client: any, payload: any) {
 		this.activeClients.set(payload, client);
-		console.log(payload);
-
-		client.emit('recieve_user_id', 'recieved user id');
 	}
 
 	emitAnalyticsPayload(userID: string, payload: any): any {
-		const client = this.activeClients[userID];
-		client.emit('recieve_analytics_payload', payload);
+		if (this.activeClients.has(userID)) {
+			const client = this.activeClients.get(userID);
+			client.emit(userID, payload);
+		}
 	}
 }
