@@ -5,10 +5,11 @@ import { AuthModule } from './modules/auth.module';
 import { QuotasModule } from './modules/quotas.module';
 import { ApiModule } from './modules/api.module';
 import { CustomersModule } from './modules/customers.module';
+import { AppGateway } from './app.gateway';
 
 @Module({
 	imports: [ AuthModule, QuotasModule, ApiModule, CustomersModule ],
 	controllers: [ AppController ],
-	providers: [ AppService ]
+	providers: [ AppService, AppGateway ]
 })
 export class AppModule {}
