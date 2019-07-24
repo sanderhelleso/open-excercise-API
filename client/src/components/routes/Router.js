@@ -3,11 +3,13 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Register from "../register/Register";
 import SocketTest from "../socket-test/SocketTest";
 import { connect } from "react-redux";
+import Dashboard from '../dashboard/Dashboard';
 
 const Router = ({ isAuthenticated }) => {
     return (
         <BrowserRouter>
             <Switch>
+      				<Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/socket-test" component={SocketTest} />
                 <Route
                     exact
