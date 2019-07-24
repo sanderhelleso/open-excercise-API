@@ -34,8 +34,12 @@ export class UsersService {
 				const { passwordHash } = user;
 				const match = await bcrypt.compare(password, passwordHash);
 
-				return match ? user : null;
+				if (match) {
+					return user;
+				}
 			}
+
+			throw new Error();
 		} catch (error) {
 			throw FAILED_LOGIN_ERROR;
 		}
