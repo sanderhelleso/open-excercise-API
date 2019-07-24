@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { Input, Form, Button, Select } from "antd";
-import useFetch from "../../hooks/useFetch"
-import register from "../../actions/authActions"
+import useFetch from "../../hooks/useFetch";
+import register from "../../actions/authActions";
 
 const { Option } = Select;
 
@@ -17,7 +17,6 @@ const Register = () => {
             type: "text",
             name: "name",
             required: true
-
         },
         {
             label: "Email",
@@ -38,26 +37,35 @@ const Register = () => {
         }
     ];
 
-    const purposes = [
-        {
-           value: "mobile App",
-           label: "Mobile App",
-        },
-        {
-            value: "website",
-            label: "Website Development",
-         },
-         {
-            value: "personal",
-            label: "Personal Use",
-         },
-    ]
+    const purposes = ["Web Design", "Personal Use", "Mobile App"];
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
 
-        // useFetch("/auth/register", )
+        const { name, email, password, purpose } = state;
+        const userData = { name, email, password, purpose };
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userData)
+        };
+
+        const response = await fetch(
+            "http://localhost:4000/auth/register",
+            options
+        );
+        if (!response.ok) throw Error(response.message);
+
+        try {
+            const data = await response.json();
+            console.log("Success");
+            console.log(data);
+        } catch (error) {
+            throw error;
+        }
     };
+
+    console.log(state);
 
     return (
         <div className="Wrapper">
@@ -87,7 +95,11 @@ const Register = () => {
                     </Select>
                 </Form.Item>
                 <Form.Item>
-                    <Button style={{width: "100%"}} type="primary" htmlType="submit">
+                    <Button
+                        style={{ width: "100%" }}
+                        type="primary"
+                        onClick={handleSubmit}
+                    >
                         Register
                     </Button>
                 </Form.Item>
