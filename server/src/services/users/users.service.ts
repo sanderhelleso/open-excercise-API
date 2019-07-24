@@ -34,9 +34,7 @@ export class UsersService {
 				const { passwordHash } = user;
 				const match = await bcrypt.compare(password, passwordHash);
 
-				if (match) {
-					return user;
-				}
+				if (match) return user;
 			}
 
 			throw new Error();
