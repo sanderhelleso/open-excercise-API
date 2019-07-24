@@ -1,13 +1,15 @@
 import React, { useReducer } from "react";
-import { Input, Form, Button, Cascader } from "antd";
+import { Input, Form, Button, Select } from "antd";
 import useFetch from "../../hooks/useFetch"
 import register from "../../actions/authActions"
 
+const { Option } = Select;
+
 const Register = () => {
     const [state, updateState] = useReducer(
-        (state, newState) => ({...state, ...newState}),
-        {name: '', email: '', password: '', password_confirm: '', purpose: ''}
-    )
+        (state, newState) => ({ ...state, ...newState }),
+        { name: "", email: "", password: "", purpose: "" }
+    );
 
     const inputs = [
         {
@@ -69,12 +71,20 @@ const Register = () => {
                             required={input.required}
                             type={input.type}
                             value={state[input.name]}
-                            onChange={(e) => updateState({[input.name]: e.target.value})}
+                            onChange={e =>
+                                updateState({ [input.name]: e.target.value })
+                            }
                         />
                     </Form.Item>
                 ))}
                 <Form.Item label="Purpose">
-                    <Cascader options={purposes} onChange={(e) => updateState(e.target.value)} />
+                    <Select onChange={value => updateState({ purpose: value })}>
+                        {purposes.map(purpose => (
+                            <Option key={purpose} value={purpose}>
+                                {purpose}
+                            </Option>
+                        ))}
+                    </Select>
                 </Form.Item>
                 <Form.Item>
                     <Button style={{width: "100%"}} type="primary" htmlType="submit">
