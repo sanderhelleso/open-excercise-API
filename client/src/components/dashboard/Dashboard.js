@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import Header from './header/Header';
 
 const Dashboard = () => {
 	return (
 		<StyledMain>
 			<StyledCont>
-				<div />
-				<div />
-				<div />
+				<Header />
+				<div className="section" />
+				<div className="section" />
 			</StyledCont>
 		</StyledMain>
 	);
@@ -29,8 +30,9 @@ const StyledCont = styled.div`
 	grid-row-gap: 3rem;
 	padding: 3rem 0;
 
-	div {
+	.section {
 		background-color: #eeeeee;
 		min-height: 300px;
+		padding: 2rem;
 	}
 `;
