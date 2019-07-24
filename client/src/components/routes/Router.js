@@ -1,17 +1,36 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Register from '../register/Register';
-import SocketTest from '../socket-test/SocketTest';
+import React from "react";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import Register from "../register/Register";
+import SocketTest from "../socket-test/SocketTest";
+import { connect } from "react-redux";
 import Dashboard from '../dashboard/Dashboard';
 
-export default function Router() {
-	return (
-		<BrowserRouter>
-			<Switch>
-				<Route exact path="/socket-test" component={SocketTest} />
-				<Route exact path="/register" component={Register} />
-				<Route exact path="/dashboard" component={Dashboard} />
-			</Switch>
-		</BrowserRouter>
-	);
-}
+const Router = ({ isAuthenticated }) => {
+    return (
+        <BrowserRouter>
+            <Switch>
+      				<Route exact path="/dashboard" component={Dashboard} />
+                <Route exact path="/socket-test" component={SocketTest} />
+                <Route
+                    exact
+                    path="/register"
+                    component={
+                        isAuthenticated
+                            ? () => <Redirect to="/socket-test" />
+                            : Register
+                    }
+                />
+            </Switch>
+        </BrowserRouter>
+    );
+};
+
+const mapStateToProps = ({ auth }) => {
+    const { isAuthenticated } = auth;
+    return { isAuthenticated };
+};
+
+export default connect(
+    mapStateToProps,
+    null
+)(Router);
