@@ -16,6 +16,7 @@ export default (state = initialState, aciton) => {
         case LOGIN:
             return {
                 ...state,
+                ...aciton.payload,
                 isAuthenticated: true
             };
         default:
