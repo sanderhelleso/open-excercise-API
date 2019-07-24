@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Register from "../register/Register";
+import Login from "../login/Login";
 import SocketTest from "../socket-test/SocketTest";
 import { connect } from "react-redux";
 
@@ -18,6 +19,7 @@ const Router = ({ isAuthenticated }) => {
                             : Register
                     }
                 />
+                <Route exact path="/login" component={Login} />
             </Switch>
         </BrowserRouter>
     );
