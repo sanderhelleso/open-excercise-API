@@ -1,11 +1,13 @@
 import React, { useReducer } from "react";
 import { Input, Form, Button, Select } from "antd";
+import { connect } from "react-redux";
 import useFetch from "../../hooks/useFetch";
-import register from "../../actions/authActions";
+import authActions from "../../actions/authActions";
+import PropTypes from "prop-types";
 
 const { Option } = Select;
 
-const Register = () => {
+const Register = ({ authActions }) => {
     const [state, updateState] = useReducer(
         (state, newState) => ({ ...state, ...newState }),
         { name: "", email: "", password: "", purpose: "" }
@@ -58,14 +60,12 @@ const Register = () => {
 
         try {
             const data = await response.json();
-            console.log("Success");
             console.log(data);
+            authActions(data);
         } catch (error) {
             throw error;
         }
     };
-
-    console.log(state);
 
     return (
         <div className="Wrapper">
@@ -108,4 +108,16 @@ const Register = () => {
     );
 };
 
-export default Register;
+Register.propTypes = {
+    isAuthenticated: PropTypes.bool,
+    register: PropTypes.func.isRequired
+};
+
+const mapStateToProps = ({ auth }) => ({
+    isAuthenticated: auth.isAuthenticated
+});
+
+export default connect(
+    mapStateToProps,
+    { authActions }
+)(Register);
