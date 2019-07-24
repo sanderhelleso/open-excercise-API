@@ -19,7 +19,13 @@ const Router = ({ isAuthenticated }) => {
                             : Register
                     }
                 />
-                <Route exact path="/login" component={Login} />
+                <Route
+                    exact
+                    path="/login"
+                    component={
+                        isAuthenticated ? () => <Redirect to="/" /> : Login
+                    }
+                />
             </Switch>
         </BrowserRouter>
     );
