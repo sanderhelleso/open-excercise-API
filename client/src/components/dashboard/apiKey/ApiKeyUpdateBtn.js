@@ -13,13 +13,13 @@ const ApiKeyUpdateBtn = () => {
 export default ApiKeyUpdateBtn;
 
 const StyledBtn = styled.button`
-	padding: 1rem;
+	padding: 1.15rem;
 	border: none;
 	cursor: pointer;
 	outline: none;
 	text-transform: uppercase;
 	letter-spacing: 1.25px;
-	border-radius: 50%;
+	border-radius: 4px;
 	font-weight: 400;
 	transition: 0.3s ease-in-out;
 	font-family: 'Poppins', sans-serif;
@@ -32,7 +32,7 @@ const StyledBtn = styled.button`
 	align-items: center;
 	box-shadow: 0px 12px 30px 0px rgba(0, 226, 163, 0.5);
 	position: absolute;
-	right: 0;
+	right: -0.25rem;
 
 	svg {
 		stroke: #ffffff;
