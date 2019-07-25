@@ -1,88 +1,72 @@
-import React, { useReducer } from "react";
-import { connect } from "react-redux";
-import loginAction from "../../actions/loginAction";
-import { Form, Input, Button } from "antd";
+import React, { useReducer } from 'react';
+import { connect } from 'react-redux';
+import loginAction from '../../actions/loginAction';
+import { Form, Input, Button } from 'antd';
+import _fetch from '../../lib/_fetch';
+
+const inputs = [
+	{
+		placeholder: 'Enter your email',
+		type: 'email',
+		required: true
+	},
+	{
+		placeholder: 'Enter your password',
+		type: 'password',
+		required: true
+	}
+];
 
 const Login = ({ loginAction }) => {
-    const [state, updateState] = useReducer(
-        (state, newState) => ({ ...state, ...newState }),
-        { email: "", password: "" }
-    );
+	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
+		email: '',
+		password: ''
+	});
 
-    const inputs = [
-        {
-            placeholder: "Enter your email",
-            type: "email",
-            required: true
-        },
-        {
-            placeholder: "Enter your password",
-            type: "password",
-            required: true
-        }
-    ];
+	const handleSubmit = async (e) => {
+		e.preventDefault();
 
-    const handleSubmit = async e => {
-        e.preventDefault();
+		try {
+			const response = await _fetch('http://localhost:4000/auth/login', 'POST', null, state);
+			const data = await response.json();
 
-        const { email, password } = state;
-        const loginData = { email, password };
-        const options = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(loginData)
-        };
+			loginAction(data);
+		} catch (error) {
+			alert(error);
+		}
+	};
 
-        const response = await fetch(
-            "http://localhost:4000/auth/login",
-            options
-        );
-        if (!response.ok) throw Error(response.message);
+	return (
+		<div className="Wrapper">
+			<h1 style={{ textAlign: 'center' }}>Login</h1>
 
-        try {
-            const data = await response.json();
-            loginAction(data);
-        } catch (error) {
-            throw error;
-        }
-    };
+			{inputs.map((input) => (
+				<Form.Item key={input.type}>
+					<Input
+						placeholder={input.placeholder}
+						type={input.type}
+						required={input.required}
+						value={state[input.type]}
+						onChange={(e) => updateState({ [input.type]: e.target.value })}
+					/>
+				</Form.Item>
+			))}
+			<div style={{ textAlign: 'center' }}>
+				<Button type="primary" onClick={handleSubmit}>
+					Log in
+				</Button>
+				<a style={{ paddingLeft: '1rem' }} href="/register">
+					Register now!
+				</a>
 
-    return (
-        <div className="Wrapper">
-            <h1 style={{ textAlign: "center" }}>Login</h1>
-
-            {inputs.map(input => (
-                <Form.Item key={input.type}>
-                    <Input
-                        placeholder={input.placeholder}
-                        type={input.type}
-                        required={input.required}
-                        value={state[input.type]}
-                        onChange={e =>
-                            updateState({ [input.type]: e.target.value })
-                        }
-                    />
-                </Form.Item>
-            ))}
-            <div style={{ textAlign: "center" }}>
-                <Button type="primary" onClick={handleSubmit}>
-                    Log in
-                </Button>
-                <a style={{ paddingLeft: "1rem" }} href="/register">
-                    Register now!
-                </a>
-
-                <Form.Item />
-            </div>
-        </div>
-    );
+				<Form.Item />
+			</div>
+		</div>
+	);
 };
 
 const mapStateToProps = ({ auth }) => ({
-    isAuthenticated: auth.isAuthenticated
+	isAuthenticated: auth.isAuthenticated
 });
 
-export default connect(
-    mapStateToProps,
-    { loginAction }
-)(Login);
+export default connect(mapStateToProps, { loginAction })(Login);
