@@ -8,7 +8,6 @@ const ApiKey = ({ name, api_key }) => {
 
 	return (
 		<StyledCont>
-			<h2>Good morning, {name}</h2>
 			<StyledHeader>
 				<h3>API key</h3>
 				<StyledSep />
@@ -60,14 +59,14 @@ const StyledCont = styled.div`
 	}
 
 	p {
-		max-width: 465px;
-		margin: 1rem 0;
+		max-width: 500px;
+		margin: 1.2rem 0;
 	}
 `;
 
 const StyledDiv = styled.div`
 	margin-top: 2rem;
-	padding: 12.5px 12.5px;
+	padding: 0 12.5px;
 	padding-right: 2.5rem;
 	background-color: #fefefe;
 	height: 50px;
@@ -77,11 +76,12 @@ const StyledDiv = styled.div`
 	position: relative;
 	margin-right: 1rem;
 	border: 1.25px solid #eeeeee;
-	min-width: 580px;
+	min-width: 550px;
 
 	span {
-		font-weight: 400;
+		font-weight: 100;
 		margin-right: 2rem;
+		font-size: 14px;
 		filter: ${({ blur }) => (blur ? 'blur(3px)' : 'blur(0)')};
 	}
 `;
