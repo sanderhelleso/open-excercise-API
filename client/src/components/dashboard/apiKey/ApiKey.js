@@ -71,7 +71,8 @@ const StyledDiv = styled.div`
 	position: relative;
 	margin-right: 1rem;
 	border: 1.25px solid #eeeeee;
-	min-width: 550px;
+	min-width: 560px;
+	max-width: 560px;
 
 	span {
 		font-weight: 100;
