@@ -65,8 +65,6 @@ const Login = ({ loginAction }) => {
 	);
 };
 
-const mapStateToProps = ({ auth }) => ({
-	isAuthenticated: auth.isAuthenticated
-});
+const acions = { loginAction };
 
-export default connect(mapStateToProps, { loginAction })(Login);
+export default connect(null, actions)(Login);
