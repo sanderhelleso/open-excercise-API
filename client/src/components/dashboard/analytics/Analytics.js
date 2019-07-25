@@ -74,4 +74,22 @@ const StyledCont = styled.div`
 	grid-column-gap: 3rem;
 	grid-template-columns: repeat(3, 1fr);
 	margin-top: 2rem;
+
+	@media screen and (max-width: 1010px) {
+		grid-template-columns: 1fr;
+
+		.ana-card {
+			border-radius: 0;
+		}
+
+		.ana-card:first-child {
+			border-top-left-radius: 4px;
+			border-top-right-radius: 4px;
+		}
+
+		.ana-card:last-child {
+			border-bottom-left-radius: 4px;
+			border-bottom-right-radius: 4px;
+		}
+	}
 `;

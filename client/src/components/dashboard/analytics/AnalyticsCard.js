@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const AnalyticsCard = ({ data, desc, icon }) => {
 	return (
-		<StyledDiv>
+		<StyledDiv className="ana-card">
 			<StyledInfo>
 				{icon}
 				<div>
