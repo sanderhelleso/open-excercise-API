@@ -1,16 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import { RefreshCcw } from 'react-feather';
+import generateApiKey from '../../../actions/generateApiKeyAction';
+import { connect } from 'react-redux';
 
-const ApiKeyUpdateBtn = () => {
+const ApiKeyUpdateBtn = ({ generateApiKey }) => {
+	const _generateApiKey = () => {
+		generateApiKey('qeqeq');
+	};
+
 	return (
-		<StyledBtn>
+		<StyledBtn onClick={_generateApiKey}>
 			<RefreshCcw />
 		</StyledBtn>
 	);
 };
 
-export default ApiKeyUpdateBtn;
+const actions = {
+	generateApiKey
+};
+
+export default connect(null, actions)(ApiKeyUpdateBtn);
 
 const StyledBtn = styled.button`
 	padding: 1.15rem;
