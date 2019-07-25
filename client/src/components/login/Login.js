@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { connect } from "react-redux";
 import loginAction from "../../actions/loginAction";
-import { Form, Input, Button } from "antd";
+import styled from "styled-components";
 
 const Login = ({ loginAction }) => {
     const [state, updateState] = useReducer(
@@ -52,8 +52,8 @@ const Login = ({ loginAction }) => {
             <h1 style={{ textAlign: "center" }}>Login</h1>
 
             {inputs.map(input => (
-                <Form.Item key={input.type}>
-                    <Input
+                <div key={input.type}>
+                    <input
                         placeholder={input.placeholder}
                         type={input.type}
                         required={input.required}
@@ -62,17 +62,16 @@ const Login = ({ loginAction }) => {
                             updateState({ [input.type]: e.target.value })
                         }
                     />
-                </Form.Item>
+                </div>
             ))}
             <div style={{ textAlign: "center" }}>
-                <Button type="primary" onClick={handleSubmit}>
+                <button type="primary" onClick={handleSubmit}>
                     Log in
-                </Button>
+                </button>
+
                 <a style={{ paddingLeft: "1rem" }} href="/register">
                     Register now!
                 </a>
-
-                <Form.Item />
             </div>
         </div>
     );
