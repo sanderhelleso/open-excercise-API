@@ -9,7 +9,29 @@ import { connect } from 'react-redux';
 const MAX_REQUESTS = 10000;
 const socket = openSocket('http://localhost:4001');
 
-const Analytics = ({ requests_remaining, api_key }) => {
+const nextMonthStr = (date) => {
+	const refilledDate = new Date(date);
+	const nextRefillDate = new Date(refilledDate.getFullYear(), refilledDate.getMonth() + 1, refilledDate.getDate());
+
+	const [ _, month, day ] = nextRefillDate.toString().split(' ');
+	return `${addZero(day)}. ${month}`;
+};
+
+const addThousandSep = (n) => {
+	if (typeof n == 'number') n = String(n);
+
+	if (n.length > 4) {
+		n = n.split('');
+		n.splice(2, 0, '.');
+		return n.join('');
+	}
+
+	return n;
+};
+
+const addZero = (n) => (n < 10 ? `0${n}` : n);
+
+const Analytics = ({ requests_remaining, api_key, refilled_at }) => {
 	const [ inited, setInited ] = useState(false);
 	const [ _requests_remaining, setRequestsRemaining ] = useState(requests_remaining);
 
@@ -32,17 +54,17 @@ const Analytics = ({ requests_remaining, api_key }) => {
 
 	const cards = [
 		{
-			data: _requests_remaining,
+			data: addThousandSep(_requests_remaining),
 			desc: 'Total remaining',
 			icon: <Activity />
 		},
 		{
-			data: MAX_REQUESTS - _requests_remaining,
+			data: addThousandSep(MAX_REQUESTS - _requests_remaining),
 			desc: 'Total used',
 			icon: <BarChart />
 		},
 		{
-			data: '26.08',
+			data: nextMonthStr(refilled_at),
 			desc: 'Refilles at',
 			icon: <Calendar />
 		}
@@ -63,8 +85,7 @@ const Analytics = ({ requests_remaining, api_key }) => {
 };
 
 const mapStateToProps = ({ quota }) => {
-	const { requests_remaining, api_key } = quota;
-	return { requests_remaining, api_key };
+	return { ...quota };
 };
 
 export default connect(mapStateToProps, null)(Analytics);
