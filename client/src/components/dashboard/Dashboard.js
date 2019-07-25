@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import ApiKey from './apiKey/ApiKey';
+import Analytics from './analytics/Analytics';
 
 const Dashboard = () => {
 	return (
 		<StyledMain>
 			<StyledCont>
 				<ApiKey />
-				<div className="section" />
+				<Analytics />
 				<div className="section" />
 			</StyledCont>
 		</StyledMain>
