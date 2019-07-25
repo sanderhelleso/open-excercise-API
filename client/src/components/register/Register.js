@@ -1,4 +1,4 @@
-import React, { useReducer, Fragment } from 'react';
+import React, { useReducer } from 'react';
 import _fetch from '../../lib/_fetch';
 import login from '../../lib/login';
 import register from '../../img/register.jpg';
@@ -52,8 +52,7 @@ const Register = () => {
 	};
 
 	return (
-		<Fragment>
-			<GlobalStyle />
+		<StyledBg>
 			<Wrapper>
 				<StyledHeader>Register</StyledHeader>
 				<RegisterContainer>
@@ -85,22 +84,18 @@ const Register = () => {
 					<StyledBtn onClick={handleSubmit}>Register</StyledBtn>
 				</RegisterContainer>
 			</Wrapper>
-		</Fragment>
+		</StyledBg>
 	);
 };
 
 export default Register;
 
-const GlobalStyle = createGlobalStyle`
-    body {
-        margin: 0;
-        padding: 0;
-        color: #000;
-        font-family: 'Montserrat', sans-serif;
-        overflow: hidden;
-        background: url(${register}) no-repeat center center fixed ;
-        background-size: cover;
-    }
+const StyledBg = styled.div`
+	min-width: 100%;
+	min-height: 100vh;
+	overflow: hidden;
+	background: url(${register}) no-repeat center center fixed;
+	background-size: cover;
 `;
 
 const Wrapper = styled.form`
