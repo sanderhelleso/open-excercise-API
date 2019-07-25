@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RefreshCcw } from 'react-feather';
-import generateApiKey from '../../../actions/generateApiKeyAction';
+import setApiKeyAction from '../../../actions/setApiKeyAction';
 import { connect } from 'react-redux';
 
-const ApiKeyUpdateBtn = ({ token, generateApiKey }) => {
+const ApiKeyUpdateBtn = ({ token, setApiKeyAction }) => {
 	const [ loading, setLoading ] = useState(false);
 
-	const _generateApiKey = async () => {
+	const generateApiKey = async () => {
 		if (loading) return;
 
 		setLoading(true);
@@ -20,7 +20,7 @@ const ApiKeyUpdateBtn = ({ token, generateApiKey }) => {
 			});
 
 			const api_key = await response.text();
-			generateApiKey(api_key);
+			setApiKeyAction(api_key);
 		} catch (error) {
 			console.log(error);
 		}
@@ -29,7 +29,7 @@ const ApiKeyUpdateBtn = ({ token, generateApiKey }) => {
 	};
 
 	return (
-		<StyledBtn loading={loading} onClick={_generateApiKey} title="Generate new">
+		<StyledBtn loading={loading} onClick={generateApiKey} title="Generate new">
 			<RefreshCcw />
 		</StyledBtn>
 	);
@@ -41,7 +41,7 @@ const mapStateToProps = ({ auth }) => {
 };
 
 const actions = {
-	generateApiKey
+	setApiKeyAction
 };
 
 export default connect(mapStateToProps, actions)(ApiKeyUpdateBtn);

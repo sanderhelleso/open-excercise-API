@@ -1,4 +1,4 @@
-import { GENERATE_API_KEY } from '../actions/types';
+import { SET_API_KEY } from '../actions/types';
 
 const initialState = {
 	api_key: null,
@@ -8,7 +8,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case GENERATE_API_KEY: {
+		case SET_API_KEY: {
 			return {
 				...state,
 				api_key: action.payload
