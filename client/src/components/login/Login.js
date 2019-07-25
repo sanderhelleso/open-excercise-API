@@ -65,6 +65,6 @@ const Login = ({ loginAction }) => {
 	);
 };
 
-const acions = { loginAction };
+const actions = { loginAction };
 
 export default connect(null, actions)(Login);
