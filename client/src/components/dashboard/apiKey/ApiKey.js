@@ -18,5 +18,6 @@ const StyledDiv = styled.div`
 
 	h5 {
 		font-size: 1rem;
+		margin-bottom: 1.5rem;
 	}
 `;
