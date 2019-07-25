@@ -12,6 +12,8 @@ export class UsersService {
 	constructor(private readonly quotasService: QuotasService) {}
 
 	async register(user: IRegisterUser): Promise<IUser> {
+		console.log(user);
+
 		const { password } = user;
 		delete user.password;
 

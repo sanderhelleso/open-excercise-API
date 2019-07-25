@@ -8,6 +8,8 @@ const HAS_DIGIT = new RegExp(/\d/);
 @ValidatorConstraint({ name: 'IsPassword', async: false })
 export class IsPassword implements ValidatorConstraintInterface {
 	validate(s: string, args: ValidationArguments) {
+		if (!s) return false;
+
 		return s.length >= MIN && s.length <= MAX && HAS_SPECIAL.test(s) && HAS_DIGIT.test(s);
 	}
 

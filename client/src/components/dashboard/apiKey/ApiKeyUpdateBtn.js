@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import { RefreshCcw } from 'react-feather';
 import setApiKeyAction from '../../../actions/setApiKeyAction';
 import { connect } from 'react-redux';
+import _fetch from '../../../lib/_fetch';
 
-const ApiKeyUpdateBtn = ({ token, setApiKeyAction }) => {
+const ApiKeyUpdateBtn = ({ setApiKeyAction }) => {
 	const [ loading, setLoading ] = useState(false);
+
+	_fetch();
 
 	const generateApiKey = async () => {
 		if (loading) return;
@@ -13,13 +16,9 @@ const ApiKeyUpdateBtn = ({ token, setApiKeyAction }) => {
 		setLoading(true);
 
 		try {
-			const response = await fetch('http://localhost:4000/quotas/new-key', {
-				headers: {
-					authorization: `Bearer ${token}`
-				}
-			});
+			const data = await _fetch('http://localhost:4000/quotas/new-key');
+			const api_key = await data.text();
 
-			const api_key = await response.text();
 			setApiKeyAction(api_key);
 		} catch (error) {
 			console.log(error);
@@ -35,16 +34,11 @@ const ApiKeyUpdateBtn = ({ token, setApiKeyAction }) => {
 	);
 };
 
-const mapStateToProps = ({ auth }) => {
-	const { token } = auth;
-	return { token };
-};
-
 const actions = {
 	setApiKeyAction
 };
 
-export default connect(mapStateToProps, actions)(ApiKeyUpdateBtn);
+export default connect(null, actions)(ApiKeyUpdateBtn);
 
 const StyledBtn = styled.button`
 	padding: 1.15rem;
