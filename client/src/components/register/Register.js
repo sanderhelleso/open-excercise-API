@@ -1,50 +1,39 @@
-import React, { useReducer, Fragment } from "react";
-import { connect } from "react-redux";
-import styled, { createGlobalStyle } from "styled-components";
+import React, { useReducer } from 'react';
+import { Input, Form, Button, Select } from 'antd';
 import _fetch from '../../lib/_fetch';
-import loginAction from '../../actions/loginAction';import PropTypes from "prop-types";
+import login from '../../lib/login';
 
-
-import register from "../../img/register.jpg";
-import { User, Mail, Lock, Unlock, Target } from "react-feather";
+const { Option } = Select;
 
 const inputs = [
-    {
-        label: "Full Name",
-        type: "text",
-        name: "name",
-        placeholder: "Enter your full name",
-        icon: <User color="#139ff2" />
-    },
-    {
-        label: "Email",
-        type: "email",
-        name: "email",
-        placeholder: "Enter your email",
-        icon: <Mail color="#139ff2" />
-    },
-    {
-        label: "Password",
-        type: "password",
-        name: "password",
-        placeholder: "Enter a password",
-        icon: <Unlock color="#139ff2" />
-    },
-    {
-        label: "Confirm Password",
-        type: "password",
-        name: "password_confirm",
-        placeholder: "Confirm Password",
-        icon: <Lock color="#139ff2" />
-    }
+	{
+		label: 'Full Name',
+		type: 'text',
+		name: 'name',
+		required: true
+	},
+	{
+		label: 'Email',
+		type: 'email',
+		name: 'email',
+		required: true
+	},
+	{
+		label: 'Password',
+		type: 'password',
+		name: 'password',
+		required: true
+	},
+	{
+		label: 'Confirm Password',
+		type: 'password',
+		name: 'password_confirm'
+	}
 ];
-
-
-
 
 const purposes = [ 'Web Design', 'Personal Use', 'Mobile App' ];
 
-const Register = ({ loginAction }) => {
+const Register = () => {
 	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
 		name: '',
 		email: '',
@@ -52,31 +41,12 @@ const Register = ({ loginAction }) => {
 		purpose: ''
 	});
 
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		try {
-			const response = await _fetch('http://localhost:4000/auth/register', 'POST', null, state);
-			const data = await response.json();
-
-			loginAction(data);
-		} catch (error) {
-			alert(error);
-		}
+		login(true, state);
 	};
 
-
-        try {
-            const data = await response.json();
-            console.log(data);
-            registerAction(data);
-        } catch (error) {
-            throw error;
-        }
-    };
-
-    return (
+	 return (
         <Fragment>
             <GlobalStyle />
             <Wrapper>
@@ -117,18 +87,7 @@ const Register = ({ loginAction }) => {
     );
 };
 
-Register.propTypes = {
-    isAuthenticated: PropTypes.bool
-
-};
-
-const actions = { loginAction };
-
-
-export default connect(
-    mapStateToProps,
-    { loginAction }
-)(Register);
+export default Register;
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -226,6 +185,3 @@ const StyledBtn = styled.button`
         cursor: pointer;
     }
 `;
-
-export default connect(null, actions)(Register);
-

@@ -1,9 +1,7 @@
-import React, { useReducer } from "react";
-import { connect } from "react-redux";
-import loginAction from "../../actions/loginAction";
-import styled from "styled-components";
+import React, { useReducer } from 'react';
+import { Form, Input, Button } from 'antd';
 import _fetch from '../../lib/_fetch';
-
+import login from '../../lib/login';
 
 const inputs = [
 	{
@@ -18,7 +16,7 @@ const inputs = [
 	}
 ];
 
-const Login = ({ loginAction }) => {
+const Login = () => {
 	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
 		email: '',
 		password: ''
@@ -26,15 +24,7 @@ const Login = ({ loginAction }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		try {
-			const response = await _fetch('http://localhost:4000/auth/login', 'POST', null, state);
-			const data = await response.json();
-
-			loginAction(data);
-		} catch (error) {
-			alert(error);
-		}
+		login(false, state);
 	};
 
 	return (
@@ -66,9 +56,7 @@ const Login = ({ loginAction }) => {
             </div>
         </div>
     );
-
 };
 
-const actions = { loginAction };
+export default Login;
 
-export default connect(null, actions)(Login);
