@@ -1,21 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RefreshCcw } from 'react-feather';
+import setApiKeyAction from '../../../actions/setApiKeyAction';
+import { connect } from 'react-redux';
 
-const ApiKeyUpdateBtn = () => {
+const ApiKeyUpdateBtn = ({ token, setApiKeyAction }) => {
+	const [ loading, setLoading ] = useState(false);
+
+	const generateApiKey = async () => {
+		if (loading) return;
+
+		setLoading(true);
+
+		try {
+			const response = await fetch('http://localhost:4000/quotas/new-key', {
+				headers: {
+					authorization: `Bearer ${token}`
+				}
+			});
+
+			const api_key = await response.text();
+			setApiKeyAction(api_key);
+		} catch (error) {
+			console.log(error);
+		}
+
+		setLoading(false);
+	};
+
 	return (
-		<StyledBtn>
+		<StyledBtn loading={loading} onClick={generateApiKey} title="Generate new">
 			<RefreshCcw />
 		</StyledBtn>
 	);
 };
 
-export default ApiKeyUpdateBtn;
+const mapStateToProps = ({ auth }) => {
+	const { token } = auth;
+	return { token };
+};
+
+const actions = {
+	setApiKeyAction
+};
+
+export default connect(mapStateToProps, actions)(ApiKeyUpdateBtn);
 
 const StyledBtn = styled.button`
 	padding: 1.15rem;
 	border: none;
-	cursor: pointer;
 	outline: none;
 	text-transform: uppercase;
 	letter-spacing: 1.25px;
@@ -33,6 +66,9 @@ const StyledBtn = styled.button`
 	box-shadow: 0px 12px 30px 0px rgba(0, 226, 163, 0.5);
 	position: absolute;
 	right: -0.25rem;
+
+	cursor: ${({ loading }) => (loading ? 'not-allowed' : 'pointer')};
+	opacity: ${({ loading }) => (loading ? '0.4' : '1')};
 
 	svg {
 		stroke: #ffffff;

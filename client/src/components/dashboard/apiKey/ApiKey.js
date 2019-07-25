@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ApiKeyUpdateBtn from './ApiKeyUpdateBtn';
+import { connect } from 'react-redux';
 
-const ApiKey = () => {
+const ApiKey = ({ name, api_key }) => {
 	const [ blur, setBlur ] = useState(true);
 
 	return (
 		<StyledCont>
+			<h2>Good morning, {name}</h2>
 			<StyledHeader>
 				<h3>API key</h3>
 				<StyledSep />
@@ -17,14 +19,22 @@ const ApiKey = () => {
 				anytime replace your current key with a new one.
 			</p>
 			<StyledDiv blur={blur}>
-				<span>a1954334128f525582e4280f006321708475b17d75aeeddc67db5f09a98b1546</span>
+				<span>{api_key}</span>
 				<ApiKeyUpdateBtn />
 			</StyledDiv>
 		</StyledCont>
 	);
 };
 
-export default ApiKey;
+const mapStateToProps = ({ auth }) => {
+	const { name, quota: { api_key } } = auth;
+
+	const _name = name.split(' ');
+
+	return { name: _name.length ? _name[0] : name, api_key };
+};
+
+export default connect(mapStateToProps, null)(ApiKey);
 
 const StyledHeader = styled.div`
 	display: flex;
@@ -46,7 +56,10 @@ const StyledSep = styled.div`
 `;
 
 const StyledCont = styled.div`
-	margin-top: 2rem;
+	h2 {
+		margin-bottom: 3rem;
+		font-size: 1.75rem;
+	}
 
 	p {
 		max-width: 465px;
