@@ -7,6 +7,7 @@ import openSocket from 'socket.io-client';
 import { connect } from 'react-redux';
 
 const MAX_REQUESTS = 10000;
+
 const socket = openSocket('http://localhost:4001');
 
 const nextMonthStr = (date) => {
