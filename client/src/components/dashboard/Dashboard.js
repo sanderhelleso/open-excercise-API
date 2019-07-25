@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import Header from './header/Header';
+import ApiKey from './apiKey/ApiKey';
 
 const Dashboard = () => {
 	return (
 		<StyledMain>
 			<StyledCont>
-				<Header />
+				<ApiKey />
 				<div className="section" />
 				<div className="section" />
 			</StyledCont>

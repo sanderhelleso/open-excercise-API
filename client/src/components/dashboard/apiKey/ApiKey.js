@@ -14,7 +14,7 @@ const ApiKey = ({ name, api_key }) => {
 				<StyledBtn onClick={() => setBlur(!blur)}>{blur ? 'See' : 'Hide'}</StyledBtn>
 			</StyledHeader>
 			<p>
-				Your API key is required to use our API. Please keep it private and store it in a save place. You can at
+				Your API key is required to use our API. Please keep it private and store it in a safe place. You can at
 				anytime replace your current key with a new one.
 			</p>
 			<StyledDiv blur={blur}>
@@ -53,11 +53,6 @@ const StyledSep = styled.div`
 `;
 
 const StyledCont = styled.div`
-	h2 {
-		margin-bottom: 3rem;
-		font-size: 1.75rem;
-	}
-
 	p {
 		max-width: 500px;
 		margin: 1.2rem 0;
