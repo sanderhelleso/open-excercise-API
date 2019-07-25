@@ -4,9 +4,14 @@ import { WebSocketGateway, SubscribeMessage, OnGatewayDisconnect, WebSocketServe
 export class AnalyticsGateway implements OnGatewayDisconnect {
 	private activeClients: Map<string, any> = new Map<string, any>();
 
-	@SubscribeMessage('recieve_user_id')
-	handleRecieveUserID(client: any, payload: any) {
+	@SubscribeMessage('recieve_client_key')
+	handleRecieveClient(client: any, payload: any) {
 		this.activeClients.set(payload, client);
+	}
+
+	@SubscribeMessage('remove_client_key')
+	handleRemoveClient(key: any) {
+		this.activeClients.delete(key);
 	}
 
 	handleDisconnect(client: any) {
@@ -17,10 +22,10 @@ export class AnalyticsGateway implements OnGatewayDisconnect {
 		});
 	}
 
-	emitAnalyticsPayload(userID: string, payload: any): any {
-		if (this.activeClients.has(userID)) {
-			const client = this.activeClients.get(userID);
-			client.emit(userID, payload);
+	emitAnalyticsPayload(apiKey: string, payload: any): any {
+		if (this.activeClients.has(apiKey)) {
+			const client = this.activeClients.get(apiKey);
+			client.emit(apiKey, payload);
 		}
 	}
 }
