@@ -1,9 +1,9 @@
 import React, { useReducer, Fragment } from "react";
 import { connect } from "react-redux";
 import styled, { createGlobalStyle } from "styled-components";
-import useFetch from "../../hooks/useFetch";
-import registerAction from "../../actions/registerAction";
-import PropTypes from "prop-types";
+import _fetch from '../../lib/_fetch';
+import loginAction from '../../actions/loginAction';import PropTypes from "prop-types";
+
 
 import register from "../../img/register.jpg";
 import { User, Mail, Lock, Unlock, Target } from "react-feather";
@@ -39,30 +39,33 @@ const inputs = [
     }
 ];
 
-const Register = ({ registerAction }) => {
-    const [state, updateState] = useReducer(
-        (state, newState) => ({ ...state, ...newState }),
-        { name: "", email: "", password: "", purpose: "" }
-    );
 
-    const purposes = ["Web Design", "Personal Use", "Mobile App"];
 
-    const handleSubmit = async e => {
-        e.preventDefault();
 
-        const { name, email, password, purpose } = state;
-        const userData = { name, email, password, purpose };
-        const options = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(userData)
-        };
+const purposes = [ 'Web Design', 'Personal Use', 'Mobile App' ];
 
-        const response = await fetch(
-            "http://localhost:4000/auth/register",
-            options
-        );
-        if (!response.ok) throw Error(response.message);
+const Register = ({ loginAction }) => {
+	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
+		name: '',
+		email: '',
+		password: '',
+		purpose: ''
+	});
+
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		try {
+			const response = await _fetch('http://localhost:4000/auth/register', 'POST', null, state);
+			const data = await response.json();
+
+			loginAction(data);
+		} catch (error) {
+			alert(error);
+		}
+	};
+
 
         try {
             const data = await response.json();
@@ -81,7 +84,6 @@ const Register = ({ registerAction }) => {
                 <RegisterContainer>
                     {inputs.map(input => (
                         <InputContainer key={input.label}>
-                            {/* <StyledLabel>{input.label}</StyledLabel> */}
                             {input.icon}
                             <StyledInput
                                 type={input.type}
@@ -95,7 +97,6 @@ const Register = ({ registerAction }) => {
                             />
                         </InputContainer>
                     ))}
-                    {/* <StyledLabel>Purpose</StyledLabel> */}
                     <SelectBox>
                         <Target color="#139ff2" />
                         <StyledSelect
@@ -118,15 +119,15 @@ const Register = ({ registerAction }) => {
 
 Register.propTypes = {
     isAuthenticated: PropTypes.bool
+
 };
 
-const mapStateToProps = ({ auth }) => ({
-    isAuthenticated: auth.isAuthenticated
-});
+const actions = { loginAction };
+
 
 export default connect(
     mapStateToProps,
-    { registerAction }
+    { loginAction }
 )(Register);
 
 const GlobalStyle = createGlobalStyle`
@@ -225,3 +226,6 @@ const StyledBtn = styled.button`
         cursor: pointer;
     }
 `;
+
+export default connect(null, actions)(Register);
+

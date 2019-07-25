@@ -2,54 +2,45 @@ import React, { useReducer } from "react";
 import { connect } from "react-redux";
 import loginAction from "../../actions/loginAction";
 import styled from "styled-components";
+import _fetch from '../../lib/_fetch';
+
+
+const inputs = [
+	{
+		placeholder: 'Enter your email',
+		type: 'email',
+		required: true
+	},
+	{
+		placeholder: 'Enter your password',
+		type: 'password',
+		required: true
+	}
+];
 
 const Login = ({ loginAction }) => {
-    const [state, updateState] = useReducer(
-        (state, newState) => ({ ...state, ...newState }),
-        { email: "", password: "" }
-    );
+	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
+		email: '',
+		password: ''
+	});
 
-    const inputs = [
-        {
-            placeholder: "Enter your email",
-            type: "email",
-            required: true
-        },
-        {
-            placeholder: "Enter your password",
-            type: "password",
-            required: true
-        }
-    ];
+	const handleSubmit = async (e) => {
+		e.preventDefault();
 
-    const handleSubmit = async e => {
-        e.preventDefault();
+		try {
+			const response = await _fetch('http://localhost:4000/auth/login', 'POST', null, state);
+			const data = await response.json();
 
-        const { email, password } = state;
-        const loginData = { email, password };
-        const options = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(loginData)
-        };
+			loginAction(data);
+		} catch (error) {
+			alert(error);
+		}
+	};
 
-        const response = await fetch(
-            "http://localhost:4000/auth/login",
-            options
-        );
-        if (!response.ok) throw Error(response.message);
+	return (
+		<div className="Wrapper">
+			<h1 style={{ textAlign: 'center' }}>Login</h1>
 
-        try {
-            const data = await response.json();
-            loginAction(data);
-        } catch (error) {
-            throw error;
-        }
-    };
-
-    return (
-        <div className="Wrapper">
-            <h1 style={{ textAlign: "center" }}>Login</h1>
 
             {inputs.map(input => (
                 <div key={input.type}>
@@ -75,13 +66,9 @@ const Login = ({ loginAction }) => {
             </div>
         </div>
     );
+
 };
 
-const mapStateToProps = ({ auth }) => ({
-    isAuthenticated: auth.isAuthenticated
-});
+const actions = { loginAction };
 
-export default connect(
-    mapStateToProps,
-    { loginAction }
-)(Login);
+export default connect(null, actions)(Login);

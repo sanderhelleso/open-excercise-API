@@ -1,25 +1,19 @@
-import { REGISTER, LOGIN } from "../actions/types";
+import { LOGIN } from '../actions/types';
 
 const initialState = {
-    isAuthenticated: null,
-    token: null
+	isAuthenticated: null,
+	token: null
 };
 
 export default (state = initialState, aciton) => {
-    switch (aciton.type) {
-        case REGISTER:
-            return {
-                ...state,
-                ...aciton.payload,
-                isAuthenticated: true
-            };
-        case LOGIN:
-            return {
-                ...state,
-                ...aciton.payload,
-                isAuthenticated: true
-            };
-        default:
-            return state;
-    }
+	switch (aciton.type) {
+		case LOGIN:
+			return {
+				...state,
+				...aciton.payload,
+				isAuthenticated: true
+			};
+		default:
+			return state;
+	}
 };
