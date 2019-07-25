@@ -9,7 +9,6 @@ const ApiKey = ({ name, api_key }) => {
 	return (
 		<StyledCont>
 			<h2>Good morning, {name}</h2>
-
 			<StyledHeader>
 				<h3>API key</h3>
 				<StyledSep />
