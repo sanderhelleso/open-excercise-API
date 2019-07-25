@@ -5,7 +5,6 @@ import ApiKey from '../apiKey/ApiKey';
 const Header = () => {
 	return (
 		<StyledDiv>
-			<h2>Good morning, Tarald</h2>
 			<ApiKey />
 		</StyledDiv>
 	);
