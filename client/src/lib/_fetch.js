@@ -8,7 +8,7 @@ export default async (url, method, _headers, _body) => {
 		const body = _body ? JSON.stringify(_body) : null;
 
 		const response = await fetch(url, {
-			method: 'POST',
+			method,
 			headers: {
 				...headers,
 				'Content-Type': 'application/json',

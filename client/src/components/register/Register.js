@@ -1,8 +1,7 @@
 import React, { useReducer } from 'react';
 import { Input, Form, Button, Select } from 'antd';
-import { connect } from 'react-redux';
-import loginAction from '../../actions/loginAction';
 import _fetch from '../../lib/_fetch';
+import login from '../../lib/login';
 
 const { Option } = Select;
 
@@ -34,7 +33,7 @@ const inputs = [
 
 const purposes = [ 'Web Design', 'Personal Use', 'Mobile App' ];
 
-const Register = ({ loginAction }) => {
+const Register = () => {
 	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
 		name: '',
 		email: '',
@@ -44,15 +43,7 @@ const Register = ({ loginAction }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		try {
-			const response = await _fetch('http://localhost:4000/auth/register', 'POST', null, state);
-			const data = await response.json();
-
-			loginAction(data);
-		} catch (error) {
-			alert(error);
-		}
+		login(true, state);
 	};
 
 	return (
@@ -88,6 +79,4 @@ const Register = ({ loginAction }) => {
 	);
 };
 
-const actions = { loginAction };
-
-export default connect(null, actions)(Register);
+export default Register;

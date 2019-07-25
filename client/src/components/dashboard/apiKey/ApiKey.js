@@ -26,9 +26,7 @@ const ApiKey = ({ name, api_key }) => {
 	);
 };
 
-const mapStateToProps = ({ auth }) => {
-	const { name, quota: { api_key } } = auth;
-
+const mapStateToProps = ({ auth: { name }, quota: { api_key } }) => {
 	const _name = name.split(' ');
 
 	return { name: _name.length ? _name[0] : name, api_key };
@@ -79,6 +77,7 @@ const StyledDiv = styled.div`
 	position: relative;
 	margin-right: 1rem;
 	border: 1.25px solid #eeeeee;
+	min-width: 580px;
 
 	span {
 		font-weight: 400;
