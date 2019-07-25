@@ -1,31 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
 import AnalyticsCard from './AnalyticsCard';
-import { Activity } from 'react-feather';
+import { Activity, Calendar, BarChart } from 'react-feather';
 import AnalyticsIcon from './AnalyticsIcon';
 
 const cards = [
 	{
-		title: 'Remaining',
-		desc: 'Total requests remaining',
+		data: '5500',
+		desc: 'Total remaining',
 		icon: <Activity />
 	},
 	{
-		title: 'Usage',
-		desc: 'Total requests used',
-		icon: <Activity />
+		data: '4500',
+		desc: 'Total used',
+		icon: <BarChart />
 	},
 	{
-		title: 'Next Refill',
-		desc: 'Date requests will be refilled',
-		icon: <Activity />
+		data: '26.08',
+		desc: 'Refilles at',
+		icon: <Calendar />
 	}
 ];
 
 const Analytics = () => {
 	const renderCards = () => {
-		return cards.map(({ title, desc, icon }) => (
-			<AnalyticsCard title={title} desc={desc} icon={<AnalyticsIcon icon={icon} />} />
+		return cards.map(({ data, desc, icon }) => (
+			<AnalyticsCard data={data} desc={desc} icon={<AnalyticsIcon icon={icon} />} />
 		));
 	};
 
