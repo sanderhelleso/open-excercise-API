@@ -1,10 +1,13 @@
-import { combineReducers } from "redux";
-import authReducer from "./authReducer";
-import quotaReducer from "./quotaReducer";
 
-const appReducer = combineReducers({
-    auth: authReducer,
-    quota: quotaReducer
+import { combineReducers } from 'redux';
+import authReducer from './authReducer';
+import quotaReducer from './quotaReducer';
+import chartReducer from './chartReducer';
+
+const appReducer =  combineReducers({
+	auth: authReducer,
+	quota: quotaReducer,
+	chart: chartReducer
 });
 
 export default (state, action) => {
