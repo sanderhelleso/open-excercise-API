@@ -2,22 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import ApiKey from './apiKey/ApiKey';
 import Analytics from './analytics/Analytics';
+import Chart from './chart/Chart';
 
-const Dashboard = () => {
-	return (
-		<Wrapper className="column">
-			<Content>
-				<StyledMain>
-					<StyledCont>
-						<ApiKey />
-						<Analytics />
-						<div className="section" />
-					</StyledCont>
-				</StyledMain>
-			</Content>
-		</Wrapper>
-	);
-};
+const Dashboard = () => (
+	<Wrapper className="column">
+		<Content>
+			<StyledMain>
+				<StyledCont>
+					<ApiKey />
+					<Analytics />
+					<Chart />
+				</StyledCont>
+			</StyledMain>
+		</Content>
+	</Wrapper>
+);
 
 export default Dashboard;
 
@@ -46,6 +45,7 @@ const StyledCont = styled.div`
 	.section {
 		background-color: #eeeeee;
 		min-height: 300px;
+		max-height: 300px;
 		padding: 2rem;
 	}
 `;
