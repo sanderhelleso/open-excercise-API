@@ -34,12 +34,12 @@ const SideMenu = ({
     email
 }) => {
     const activePath = match.url;
-    console.log(activePath);
 
     const renderOptions = () => {
         return options.map(option => {
             return (
                 <StyledLi
+                    key={option.name}
                     className={option.path === activePath ? "active" : null}
                     onClick={() => {
                         history.push(`${option.path}`);
