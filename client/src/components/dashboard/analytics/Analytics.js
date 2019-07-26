@@ -7,7 +7,7 @@ import openSocket from 'socket.io-client';
 import { connect } from 'react-redux';
 import addChartPeriodAction from '../../../actions/addChartPeriodAction';
 import addChartPeriodDataAction from '../../../actions/addChartPeriodDataAction';
-import { nextMonthStr, addThousandSep } from '../../../lib/analytics';
+import { nextMonthStr, addThousandSep, HALF_HOUR } from '../../../lib/analytics';
 
 const MAX_REQUESTS = 10000;
 
@@ -15,6 +15,7 @@ const socket = openSocket('http://localhost:4001');
 
 const Analytics = ({ requests_remaining, api_key, refilled_at, addChartPeriodAction, addChartPeriodDataAction }) => {
 	const [ inited, setInited ] = useState(false);
+	const [ periodInterval, setPeriodInterval ] = useState();
 	const [ _requests_remaining, setRequestsRemaining ] = useState(requests_remaining);
 
 	useEffect(
@@ -22,6 +23,11 @@ const Analytics = ({ requests_remaining, api_key, refilled_at, addChartPeriodAct
 			if (inited) {
 				socket.emit('remove_client_key', api_key);
 			} else {
+				const interval = setInterval(() => {
+					addChartPeriodAction();
+				}, HALF_HOUR);
+
+				setPeriodInterval(interval);
 				setInited(true);
 			}
 
@@ -31,6 +37,10 @@ const Analytics = ({ requests_remaining, api_key, refilled_at, addChartPeriodAct
 				setRequestsRemaining(data);
 				addChartPeriodDataAction();
 			});
+
+			return () => {
+				clearInterval(periodInterval);
+			};
 		},
 		[ api_key ]
 	);

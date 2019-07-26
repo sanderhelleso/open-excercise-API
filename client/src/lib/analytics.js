@@ -5,13 +5,18 @@ export const makeChartData = () => {
 	return Array(N_PERIODS).fill(0).map((_, i) => makePeriod(i));
 };
 
-export const makePeriod = (n) => ({
-	Period: `${getTimeStr(n)} - ${getTimeStr(n + 1)}`,
-	Requests: 0
+export const makePeriod = (n, pre) => ({
+	Period: `${getTimeStr(n, pre)} - ${getTimeStr(n + 1, pre)}`,
+	Requests: 0,
+	ts: getPeriod(n, pre).getTime()
 });
 
-export const getTimeStr = (n) => {
-	let period = new Date(new Date().getTime() + n * HALF_HOUR);
+export const getPeriod = (n, pre) => {
+	return new Date((pre || new Date().getTime()) + n * HALF_HOUR);
+};
+
+export const getTimeStr = (n, pre) => {
+	let period = getPeriod(n, pre);
 	const hr = period.getHours();
 	const min = period.getMinutes();
 

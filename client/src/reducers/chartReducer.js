@@ -3,26 +3,31 @@ import { N_PERIODS, makePeriod } from '../lib/analytics';
 
 const initialState = {
 	data: [],
-	last_fetch: null,
-	periodIndex: null
+	periodIndex: 0
 };
 
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case SET_INITIAL_CHART_DATA: {
-			return action.payload;
+			return {
+				...state,
+				data: action.payload
+			};
 		}
 
 		case ADD_CHART_PERIOD: {
 			const extended = [ ...state.data ];
-			const next = N_PERIODS + 1;
+			let next = state.periodIndex + 1;
 
-			extended.shift();
-			extended.push(makePeriod(next));
+			if (next === N_PERIODS) {
+				const pre = extended[N_PERIODS - 1].ts;
+				extended.shift();
+				extended.push(makePeriod(1, pre));
+				next = 0;
+			}
 
 			return {
 				data: extended,
-				last_fetch: new Date().getTime(),
 				periodIndex: next
 			};
 		}
