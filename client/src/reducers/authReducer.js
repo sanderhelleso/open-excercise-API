@@ -1,5 +1,6 @@
 import { LOGIN } from "../actions/types";
 import { LOGOUT } from "../actions/types";
+import rootReducer from "./";
 
 const initialState = {
     isAuthenticated: null,
@@ -16,8 +17,7 @@ export default (state = initialState, aciton) => {
             };
         case LOGOUT:
             return {
-                isAuthenticated: null,
-                token: null
+                state
             };
         default:
             return state;

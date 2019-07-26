@@ -1,3 +1,3 @@
 import { LOGOUT } from "./types";
 
-export default () => ({ type: LOGOUT });
+export default payload => ({ type: LOGOUT, payload });

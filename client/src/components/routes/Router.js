@@ -12,7 +12,6 @@ const Router = ({ isAuthenticated }) => {
         <BrowserRouter>
             <Route path="/*" component={SideMenu} />
             <Switch>
-                <Route exact path="/dashboard" component={Dashboard} />
                 <Route
                     exact
                     path="/"
