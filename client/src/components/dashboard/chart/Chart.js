@@ -1,22 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { AreaChart, Area, Line, YAxis, XAxis, Legend, ResponsiveContainer, Tooltip } from 'recharts';
+import setInitialChartDataAction from '../../../actions/setInitialChartDataAction';
+import { connect } from 'react-redux';
+import { makeChartData } from '../../../lib/analytics';
 
-const generateData = () => {
-	const data = Array(6).fill(0).map((_, i) => ({
-		Period: 'Period ' + i,
-		Requests: Math.floor(Math.random() * 10) + 2,
-		amt: Math.floor(Math.random() * 10) + 2
-	}));
+const Chart = ({ data, setInitialChartDataAction }) => {
+	useEffect(() => {
+		setInitialChartDataAction(makeChartData());
+	}, []);
 
-	return data;
-};
-
-const Chart = () => {
 	return (
 		<StyledChartCont>
 			<ResponsiveContainer width="100%">
-				<AreaChart data={generateData()}>
+				<AreaChart data={data}>
 					<defs>
 						<linearGradient id="colorRequests" x1="0" y1="0" x2="0" y2="1">
 							<stop offset="5%" stopColor="#139ff2" stopOpacity={0.3} />
@@ -50,7 +47,13 @@ const Chart = () => {
 	);
 };
 
-export default Chart;
+const mapStateToProps = ({ chart: { data } }) => ({ data });
+
+const actions = {
+	setInitialChartDataAction
+};
+
+export default connect(mapStateToProps, actions)(Chart);
 
 const StyledChartCont = styled.div`
 	max-height: 350px;

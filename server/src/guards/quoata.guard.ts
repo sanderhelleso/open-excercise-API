@@ -3,7 +3,7 @@ import { Injectable, CanActivate, ExecutionContext, HttpException, HttpStatus, I
 import Quota from '../database/models/quota.model';
 import { AnalyticsGateway } from '../analytics.gateway';
 
-const PREFIX = 'ApiKey ';
+const PREFIX = 'Bearer ';
 
 const NO_KEY_ERROR = new HttpException('No API key provided', HttpStatus.UNAUTHORIZED);
 const INVALID_KEY_ERROR = new HttpException('Invalid API key provided', HttpStatus.UNAUTHORIZED);
@@ -20,8 +20,8 @@ export class QuotaGuard implements CanActivate {
 			throw NO_KEY_ERROR;
 		}
 
-		const api_key = req.headers.authorization.split(PREFIX)[1];
-		if (!api_key) {
+		const api_key = req.headers.authorization.split(PREFIX)[1].trim();
+		if (!api_key.trim) {
 			throw NO_KEY_ERROR;
 		}
 
