@@ -1,23 +1,22 @@
-
-import React from "react";
-import styled from "styled-components";
-import Header from "./header/Header";
+import React from 'react';
+import styled from 'styled-components';
+import ApiKey from './apiKey/ApiKey';
+import Analytics from './analytics/Analytics';
 
 const Dashboard = () => {
     return (
         <Wrapper className="column">
             <Content>
                 <StyledMain>
-                    <StyledCont>
-                        <Header />
-                        <div className="section" />
-                        <div className="section" />
-                    </StyledCont>
+                  <StyledCont>
+                    <ApiKey />
+                    <Analytics />
+                    <div className="section" />
+                  </StyledCont>
                 </StyledMain>
             </Content>
         </Wrapper>
     );
-
 };
 
 export default Dashboard;

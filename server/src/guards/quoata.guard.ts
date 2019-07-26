@@ -37,7 +37,7 @@ export class QuotaGuard implements CanActivate {
 		quota.requests_remaining--;
 		quota.save();
 
-		this.analyticsGateway.emitAnalyticsPayload(quota.belongs_to, quota.requests_remaining);
+		this.analyticsGateway.emitAnalyticsPayload(quota.api_key, quota.requests_remaining);
 
 		return true;
 	}
