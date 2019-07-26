@@ -12,20 +12,33 @@ const App = () => (
 export default App;
 
 const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald:300,400,700&display=swap');
+
 
     body {
         margin: 0;
         padding: 0;
-        font-family: 'Montserrat', sans-serif;
         overflow: hidden;
+        font-family: 'Oswald', sans-serif;
+
     }
 
     h1, h2, h3, h4, h5 {
+        margin: 0;
+        padding: 0;
         color: #444444;
+        font-family: 'Oswald', sans-serif;
+    }
+
+    p, button, a, span, input {
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
     }
 
     p {
         color: #9e9e9e;
+        font-size: 14px;
     }
     
     #root {
