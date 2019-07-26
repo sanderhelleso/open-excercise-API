@@ -1,13 +1,55 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
+import logoutAction from "../../actions/logoutAction";
 import authReducer from "../../reducers/authReducer";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { LogOut } from "react-feather";
 
-const SideMenu = ({ history, isAuthenticated, name, email }) => {
-    const location = history.location;
-    console.log(location);
+const options = [
+    {
+        name: "Dashboard",
+        path: "/"
+    },
+    {
+        name: "Documentation",
+        path: "/documentation"
+    },
+    {
+        name: "Accout",
+        path: "/account"
+    },
+    {
+        name: "Contact",
+        path: "/contact"
+    }
+];
+
+const SideMenu = ({
+    logoutAction,
+    match,
+    history,
+    isAuthenticated,
+    name,
+    email
+}) => {
+    const activePath = match.url;
+    console.log(activePath);
+
+    const renderOptions = () => {
+        return options.map(option => {
+            return (
+                <StyledLi
+                    className={option.path === activePath ? "active" : null}
+                    onClick={() => {
+                        history.push(`${option.path}`);
+                    }}
+                >
+                    {option.name}
+                </StyledLi>
+            );
+        });
+    };
 
     return (
         <Fragment>
@@ -18,14 +60,9 @@ const SideMenu = ({ history, isAuthenticated, name, email }) => {
                             <StyledName>Welcome {name}</StyledName>
                             <StyledEmail>{email}</StyledEmail>
                         </StyledTextContainer>
-                        <StyledUl>
-                            <StyledLi className="active">Dashboard</StyledLi>
-                            <StyledLi>Documentation</StyledLi>
-                            <StyledLi>Account</StyledLi>
-                            <StyledLi>Contact</StyledLi>
-                        </StyledUl>
+                        <StyledUl>{renderOptions()}</StyledUl>
                     </StyledContent>
-                    <StyledButton>
+                    <StyledButton onClick={logoutAction}>
                         Logout
                         <LogOut size="12" />
                     </StyledButton>
@@ -35,7 +72,11 @@ const SideMenu = ({ history, isAuthenticated, name, email }) => {
     );
 };
 
-const mapStateToProps = ({ auth: { isAuthenticated, name, email } }) => ({
+const mapStateToProps = ({
+    logoutAction,
+    auth: { isAuthenticated, name, email }
+}) => ({
+    logoutAction,
     isAuthenticated,
     name,
     email
@@ -44,7 +85,7 @@ const mapStateToProps = ({ auth: { isAuthenticated, name, email } }) => ({
 export default withRouter(
     connect(
         mapStateToProps,
-        { authReducer }
+        { authReducer, logoutAction }
     )(SideMenu)
 );
 
@@ -64,6 +105,7 @@ const StyledContent = styled.div`
 
 const StyledTextContainer = styled.div`
     padding: 1.5rem;
+    border-bottom: 1px solid #cfcfcf;
 `;
 
 const StyledName = styled.p`
@@ -71,11 +113,12 @@ const StyledName = styled.p`
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
+    text-transform: capitalize;
 `;
 
 const StyledEmail = styled.p`
     color: #7a7a7a;
-    font-size: 0.5rem;
+    font-size: 0.75rem;
 `;
 
 const StyledUl = styled.ul`
@@ -119,8 +162,7 @@ const StyledLi = styled.li`
 
 const StyledButton = styled.div`
     padding: 1rem 1.5rem;
-    margin-bottom: 1rem;
-    border: none;
+    border-top: 1px solid #cfcfcf;
     color: #44444480;
     background: none;
     transition: 0.3s all ease-in-out;
@@ -132,7 +174,6 @@ const StyledButton = styled.div`
         color: #444444;
         cursor: pointer;
         border-left: 4px solid #139ff2;
-        background-color: #fafafa;
         -webkit-box-shadow: -5px 0px 10px -5px rgba(217, 217, 217, 1);
         -moz-box-shadow: -5px 0px 10px -5px rgba(217, 217, 217, 1);
         box-shadow: -5px 0px 10px -5px rgba(217, 217, 217, 1);
