@@ -1,8 +1,10 @@
-import { ADD_CHART_PERIOD_DATA, SET_INITIAL_CHART_DATA } from '../actions/types';
+import { ADD_CHART_PERIOD, SET_INITIAL_CHART_DATA, ADD_CHART_PERIOD_DATA } from '../actions/types';
+import { N_PERIODS, makePeriod } from '../lib/analytics';
 
 const initialState = {
 	data: [],
-	last_fetch: null
+	last_fetch: null,
+	periodIndex: null
 };
 
 export default (state = initialState, action) => {
@@ -11,15 +13,27 @@ export default (state = initialState, action) => {
 			return action.payload;
 		}
 
-		case ADD_CHART_PERIOD_DATA: {
-			const { last_fetch, data } = action.payload;
+		case ADD_CHART_PERIOD: {
+			const extended = [ ...state.data ];
+			const next = N_PERIODS + 1;
 
-			const extended = state.data;
-			extended.shift(data);
+			extended.shift();
+			extended.push(makePeriod(next));
 
 			return {
 				data: extended,
-				last_fetch
+				last_fetch: new Date().getTime(),
+				periodIndex: next
+			};
+		}
+
+		case ADD_CHART_PERIOD_DATA: {
+			const extended = [ ...state.data ];
+			extended[state.periodIndex].Requests++;
+
+			return {
+				...state,
+				data: extended
 			};
 		}
 

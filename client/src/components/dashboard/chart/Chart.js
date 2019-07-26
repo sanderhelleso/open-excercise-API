@@ -7,7 +7,7 @@ import { makeChartData } from '../../../lib/analytics';
 
 const Chart = ({ data, setInitialChartDataAction }) => {
 	useEffect(() => {
-		setInitialChartDataAction({ data: makeChartData(), last_fetched: new Date().getTime() });
+		setInitialChartDataAction({ data: makeChartData(), last_fetched: new Date().getTime(), periodIndex: 0 });
 	}, []);
 
 	return (

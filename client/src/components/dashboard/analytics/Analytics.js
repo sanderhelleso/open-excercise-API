@@ -5,14 +5,14 @@ import { Activity, Calendar, BarChart } from 'react-feather';
 import AnalyticsIcon from './AnalyticsIcon';
 import openSocket from 'socket.io-client';
 import { connect } from 'react-redux';
-import addChartPeriodDataAction from '../../../actions/addChartPeriodDataAction';
+import addChartPeriodAction from '../../../actions/addChartPeriodAction';
 import { nextMonthStr, addThousandSep } from '../../../lib/analytics';
 
 const MAX_REQUESTS = 10000;
 
 const socket = openSocket('http://localhost:4001');
 
-const Analytics = ({ requests_remaining, api_key, refilled_at, addChartPeriodDataAction }) => {
+const Analytics = ({ requests_remaining, api_key, refilled_at, addChartPeriodAction }) => {
 	const [ inited, setInited ] = useState(false);
 	const [ _requests_remaining, setRequestsRemaining ] = useState(requests_remaining);
 
@@ -70,7 +70,7 @@ const mapStateToProps = ({ quota }) => {
 };
 
 const actions = {
-	addChartPeriodDataAction
+	addChartPeriodAction
 };
 
 export default connect(mapStateToProps, actions)(Analytics);

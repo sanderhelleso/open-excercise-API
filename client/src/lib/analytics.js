@@ -1,16 +1,17 @@
 export const HALF_HOUR = 1800000;
+export const N_PERIODS = 6;
 
 export const makeChartData = () => {
-	return Array(6).fill(0).map((_, i) => {
-		return {
-			Period: `${getTimeStr(i)} - ${getTimeStr(i + 1)}`,
-			Requests: 0
-		};
-	});
+	return Array(N_PERIODS).fill(0).map((_, i) => makePeriod(i));
 };
 
-export const getTimeStr = (i) => {
-	let period = new Date(new Date().getTime() + i * HALF_HOUR);
+export const makePeriod = (n) => ({
+	Period: `${getTimeStr(n)} - ${getTimeStr(n + 1)}`,
+	Requests: 0
+});
+
+export const getTimeStr = (n) => {
+	let period = new Date(new Date().getTime() + n * HALF_HOUR);
 	const hr = period.getHours();
 	const min = period.getMinutes();
 
