@@ -1,23 +1,22 @@
-import React from "react";
-import styled from "styled-components";
-import ApiKey from "./apiKey/ApiKey";
-import Analytics from "./analytics/Analytics";
+import React from 'react';
+import styled from 'styled-components';
+import ApiKey from './apiKey/ApiKey';
+import Analytics from './analytics/Analytics';
+import Chart from './chart/Chart';
 
-const Dashboard = () => {
-    return (
+const Dashboard = () => (
         <StyledWrapper className="column">
             <StyledContent>
                 <StyledMain>
                     <StyledCont>
                         <ApiKey />
                         <Analytics />
-                        <div className="section" />
+                        <Chart />
                     </StyledCont>
                 </StyledMain>
             </StyledContent>
         </StyledWrapper>
     );
-};
 
 export default Dashboard;
 
@@ -45,9 +44,11 @@ const StyledCont = styled.div`
     grid-row-gap: 3rem;
     padding: 3rem 0;
 
-    .section {
-        background-color: #eeeeee;
-        min-height: 300px;
-        padding: 2rem;
-    }
+	.section {
+		background-color: #eeeeee;
+		min-height: 300px;
+		max-height: 300px;
+		padding: 2rem;
+	}
 `;
+
