@@ -6,13 +6,14 @@ import AnalyticsIcon from './AnalyticsIcon';
 import openSocket from 'socket.io-client';
 import { connect } from 'react-redux';
 import addChartPeriodAction from '../../../actions/addChartPeriodAction';
+import addChartPeriodDataAction from '../../../actions/addChartPeriodDataAction';
 import { nextMonthStr, addThousandSep } from '../../../lib/analytics';
 
 const MAX_REQUESTS = 10000;
 
 const socket = openSocket('http://localhost:4001');
 
-const Analytics = ({ requests_remaining, api_key, refilled_at, addChartPeriodAction }) => {
+const Analytics = ({ requests_remaining, api_key, refilled_at, addChartPeriodAction, addChartPeriodDataAction }) => {
 	const [ inited, setInited ] = useState(false);
 	const [ _requests_remaining, setRequestsRemaining ] = useState(requests_remaining);
 
@@ -28,6 +29,7 @@ const Analytics = ({ requests_remaining, api_key, refilled_at, addChartPeriodAct
 
 			socket.on(api_key, (data) => {
 				setRequestsRemaining(data);
+				addChartPeriodDataAction();
 			});
 		},
 		[ api_key ]
@@ -65,12 +67,11 @@ const Analytics = ({ requests_remaining, api_key, refilled_at, addChartPeriodAct
 	);
 };
 
-const mapStateToProps = ({ quota }) => {
-	return { ...quota };
-};
+const mapStateToProps = ({ quota }) => ({ ...quota });
 
 const actions = {
-	addChartPeriodAction
+	addChartPeriodAction,
+	addChartPeriodDataAction
 };
 
 export default connect(mapStateToProps, actions)(Analytics);

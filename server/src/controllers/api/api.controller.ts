@@ -36,6 +36,7 @@ export class ApiController {
 
 	@Get('/muscles')
 	async findMuscles(): Promise<IMuscle[]> {
+		console.log(123);
 		return await this.musclesService.findAll();
 	}
 
