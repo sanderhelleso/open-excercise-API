@@ -5,34 +5,14 @@ import { Activity, Calendar, BarChart } from 'react-feather';
 import AnalyticsIcon from './AnalyticsIcon';
 import openSocket from 'socket.io-client';
 import { connect } from 'react-redux';
+import addChartPeriodDataAction from '../../../actions/addChartPeriodDataAction';
+import { nextMonthStr, addThousandSep } from '../../../lib/analytics';
 
 const MAX_REQUESTS = 10000;
 
 const socket = openSocket('http://localhost:4001');
 
-const nextMonthStr = (date) => {
-	const refilledDate = new Date(date);
-	const nextRefillDate = new Date(refilledDate.getFullYear(), refilledDate.getMonth() + 1, refilledDate.getDate());
-
-	const [ _, month, day ] = nextRefillDate.toString().split(' ');
-	return `${addZero(day)}. ${month}`;
-};
-
-const addThousandSep = (n) => {
-	if (typeof n == 'number') n = String(n);
-
-	if (n.length > 4) {
-		n = n.split('');
-		n.splice(2, 0, '.');
-		return n.join('');
-	}
-
-	return n;
-};
-
-const addZero = (n) => (n < 10 ? `0${n}` : n);
-
-const Analytics = ({ requests_remaining, api_key, refilled_at }) => {
+const Analytics = ({ requests_remaining, api_key, refilled_at, addChartPeriodDataAction }) => {
 	const [ inited, setInited ] = useState(false);
 	const [ _requests_remaining, setRequestsRemaining ] = useState(requests_remaining);
 
@@ -89,7 +69,11 @@ const mapStateToProps = ({ quota }) => {
 	return { ...quota };
 };
 
-export default connect(mapStateToProps, null)(Analytics);
+const actions = {
+	addChartPeriodDataAction
+};
+
+export default connect(mapStateToProps, actions)(Analytics);
 
 const StyledCont = styled.div`
 	display: grid;
