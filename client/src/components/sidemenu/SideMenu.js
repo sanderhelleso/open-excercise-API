@@ -3,40 +3,42 @@ import { connect } from "react-redux";
 import authReducer from "../../reducers/authReducer";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { LogOut, BookOpen } from "react-feather";
+import { LogOut } from "react-feather";
 
-const SideMenu = ({ history, isAuthenticated, name }) => {
+const SideMenu = ({ history, isAuthenticated, name, email }) => {
     const location = history.location;
     console.log(location);
 
     return (
-        <Wrapper className="column">
+        <Fragment>
             {isAuthenticated ? (
-                <Content>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                    <h3>Welcome {name}</h3>
-                </Content>
+                <StyledWrapper className="column">
+                    <StyledContent>
+                        <StyledTextContainer>
+                            <StyledName>Welcome {name}</StyledName>
+                            <StyledEmail>{email}</StyledEmail>
+                        </StyledTextContainer>
+                        <StyledUl>
+                            <StyledLi className="active">Dashboard</StyledLi>
+                            <StyledLi>Documentation</StyledLi>
+                            <StyledLi>Account</StyledLi>
+                            <StyledLi>Contact</StyledLi>
+                        </StyledUl>
+                    </StyledContent>
+                    <StyledButton>
+                        Logout
+                        <LogOut size="12" />
+                    </StyledButton>
+                </StyledWrapper>
             ) : null}
-        </Wrapper>
+        </Fragment>
     );
 };
 
-const mapStateToProps = ({ auth: { isAuthenticated, name } }) => ({
+const mapStateToProps = ({ auth: { isAuthenticated, name, email } }) => ({
     isAuthenticated,
-    name
+    name,
+    email
 });
 
 export default withRouter(
@@ -46,15 +48,93 @@ export default withRouter(
     )(SideMenu)
 );
 
-const Wrapper = styled.div`
+const StyledWrapper = styled.div`
     flex-shrink: 0;
-    background-color: #000;
+    background-color: #f2f2f2;
     color: #fff;
     max-width: 200px;
     min-width: 200px;
 `;
 
-const Content = styled.div`
+const StyledContent = styled.div`
     flex-grow: 1;
-    padding: 1rem;
+    text-align: left;
+    position: relative;
+`;
+
+const StyledTextContainer = styled.div`
+    padding: 1.5rem;
+`;
+
+const StyledName = styled.p`
+    color: #444444;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+`;
+
+const StyledEmail = styled.p`
+    color: #7a7a7a;
+    font-size: 0.5rem;
+`;
+
+const StyledUl = styled.ul`
+    position: absolute;
+    list-style: none;
+    text-align: left;
+    top: 50%;
+    left: 0;
+    right: 0;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    padding: 0;
+
+    .active {
+        border-left: 4px solid #139ff2;
+        color: #444444;
+        background-color: #fafafa;
+        font-weight: 400;
+        -webkit-box-shadow: -5px 0px 10px -5px rgba(217, 217, 217, 1);
+        -moz-box-shadow: -5px 0px 10px -5px rgba(217, 217, 217, 1);
+        box-shadow: -5px 0px 10px -5px rgba(217, 217, 217, 1);
+    }
+`;
+
+const StyledLi = styled.li`
+    color: #44444480;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid #f2f2f2;
+    transition: 0.2s all ease-in-out;
+    :hover {
+        border-left: 4px solid #139ff2;
+        color: #444444;
+        cursor: pointer;
+        background-color: #fafafa;
+        -webkit-box-shadow: -5px 0px 10px -5px rgba(217, 217, 217, 1);
+        -moz-box-shadow: -5px 0px 10px -5px rgba(217, 217, 217, 1);
+        box-shadow: -5px 0px 10px -5px rgba(217, 217, 217, 1);
+    }
+`;
+
+const StyledButton = styled.div`
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border: none;
+    color: #44444480;
+    background: none;
+    transition: 0.3s all ease-in-out;
+    border-left: 4px solid #f2f2f2;
+    svg {
+        margin-left: 0.5rem;
+    }
+    :hover {
+        color: #444444;
+        cursor: pointer;
+        border-left: 4px solid #139ff2;
+        background-color: #fafafa;
+        -webkit-box-shadow: -5px 0px 10px -5px rgba(217, 217, 217, 1);
+        -moz-box-shadow: -5px 0px 10px -5px rgba(217, 217, 217, 1);
+        box-shadow: -5px 0px 10px -5px rgba(217, 217, 217, 1);
+    }
 `;
