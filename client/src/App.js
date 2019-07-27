@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
-import Router from "./components/routes/Router";
-import { createGlobalStyle } from "styled-components";
+import React, { Fragment } from 'react';
+import Router from './components/routes/Router';
+import { createGlobalStyle } from 'styled-components';
 
 const App = () => (
-    <Fragment>
-        <GlobalStyle />
-        <Router />
-    </Fragment>
+	<Fragment>
+		<GlobalStyle />
+		<Router />
+	</Fragment>
 );
 
 export default App;
@@ -26,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
     h1, h2, h3, h4, h5 {
         margin: 0;
         padding: 0;
+        margin-bottom: 1rem;
         color: #444444;
         font-family: 'Oswald', sans-serif;
     }

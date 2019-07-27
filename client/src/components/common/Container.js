@@ -14,6 +14,7 @@ export default Dashboard;
 const StyledContent = styled.div`
 	flex-grow: 1;
 	overflow-y: auto;
+	max-height: 100vh;
 `;
 
 const StyledMain = styled.main`
