@@ -4,29 +4,49 @@ import { formatDocsLink } from '../../../lib/docsSections';
 import DocsNavigatorItem from './DocsNavigatorItem';
 
 const DocsNavigator = () => {
+	const [ inited, setInited ] = useState(false);
 	const [ items, setItems ] = useState([]);
 	const [ active, setActive ] = useState();
 
 	useEffect(() => {
-		const main = document.querySelector('#main-container');
-		main.addEventListener('scroll', handleScroll);
-
 		const sections = document.querySelectorAll('.docs-section');
 		setItems(Array.from(sections));
-
-		return () => main.removeEventListener('scroll', handleScroll);
+		setInited(true);
 	}, []);
 
+	useEffect(
+		() => {
+			if (inited) {
+				const main = document.querySelector('#main-container');
+				setTimeout(() => {
+					main.addEventListener('scroll', handleScroll);
+				}, 200);
+
+				return () => main.removeEventListener('scroll', handleScroll);
+			}
+		},
+		[ inited ]
+	);
+
 	const handleScroll = ({ target: { scrollTop } }) => {
-		console.log(scrollTop);
+		items.forEach((item, i) => {
+			const { top, bottom } = item.getBoundingClientRect();
+			if (scrollTop >= top && scrollTop <= bottom) {
+				setActive(i);
+			}
+		});
 	};
 
 	const renderItems = () => {
-		console.log(items);
 		return items.map((item, i) => {
 			const title = Array.from(item.childNodes).shift().innerText;
 			return (
-				<DocsNavigatorItem key={`docs-navigator-item-${i}`} title={title} showSep={i !== items.length - 1} />
+				<DocsNavigatorItem
+					key={`docs-navigator-item-${i}`}
+					title={title}
+					active={active === i}
+					showSep={i !== items.length - 1}
+				/>
 			);
 		});
 	};
