@@ -18,9 +18,7 @@ const DocsNavigator = () => {
 		() => {
 			if (inited) {
 				const main = document.querySelector('#main-container');
-				setTimeout(() => {
-					main.addEventListener('scroll', handleScroll);
-				}, 200);
+				main.addEventListener('scroll', handleScroll);
 
 				return () => main.removeEventListener('scroll', handleScroll);
 			}
