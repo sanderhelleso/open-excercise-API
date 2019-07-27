@@ -14,15 +14,20 @@ const sections = [
 			{
 				title: 'By Name',
 				text,
-				active: true
+				method: 'GET',
+				endpoint: '/excercises/name/:name'
 			},
 			{
 				title: 'By Muscle',
-				text
+				text,
+				method: 'GET',
+				endpoint: '/excercises/muscle/:muscle'
 			},
 			{
 				title: 'By Search',
-				text
+				text,
+				method: 'GET',
+				endpoint: '/excercises/search'
 			}
 		]
 	},
@@ -30,11 +35,15 @@ const sections = [
 		muscles: [
 			{
 				title: 'All muscles',
-				text
+				text,
+				method: 'GET',
+				endpoint: '/muscles'
 			},
 			{
 				title: 'By Muscle Name',
-				text
+				text,
+				method: 'GET',
+				endpoint: '/muscles/name/:name'
 			}
 		]
 	}
