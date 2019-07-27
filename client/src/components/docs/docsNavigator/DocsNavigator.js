@@ -5,11 +5,21 @@ import DocsNavigatorItem from './DocsNavigatorItem';
 
 const DocsNavigator = () => {
 	const [ items, setItems ] = useState([]);
+	const [ active, setActive ] = useState();
 
 	useEffect(() => {
+		const main = document.querySelector('#main-container');
+		main.addEventListener('scroll', handleScroll);
+
 		const sections = document.querySelectorAll('.docs-section');
 		setItems(Array.from(sections));
+
+		return () => main.removeEventListener('scroll', handleScroll);
 	}, []);
+
+	const handleScroll = ({ target: { scrollTop } }) => {
+		console.log(scrollTop);
+	};
 
 	const renderItems = () => {
 		console.log(items);
