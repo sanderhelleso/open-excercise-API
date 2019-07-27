@@ -15,7 +15,9 @@ const DocsNavigator = () => {
 		console.log(items);
 		return items.map((item, i) => {
 			const title = Array.from(item.childNodes).shift().innerText;
-			return <DocsNavigatorItem key={`docs-navigator-item-${i}`} title={title} i={i} />;
+			return (
+				<DocsNavigatorItem key={`docs-navigator-item-${i}`} title={title} showSep={i !== items.length - 1} />
+			);
 		});
 	};
 

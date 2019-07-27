@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import DocsHeading from '../components/docs/DocsHeading';
+import { formatDocsLink } from './docsSections';
 
 export const renderDocsSections = (sections) => {
 	return sections.map((section) => {
@@ -15,7 +16,7 @@ export const renderDocsSections = (sections) => {
 						</p>
 					</section>
 					{v.map(({ title, text, active }, j) => (
-						<section key={`docs-section-${j}`} className="docs-section">
+						<section key={`docs-section-${j}`} id={formatDocsLink(title, true)} className="docs-section">
 							<DocsHeading title={title} active={active} />
 							<p>{text}</p>
 						</section>
