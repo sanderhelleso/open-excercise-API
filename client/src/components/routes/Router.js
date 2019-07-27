@@ -6,7 +6,7 @@ import SocketTest from '../socket-test/SocketTest';
 import Login from '../login/Login';
 import { connect } from 'react-redux';
 import Dashboard from '../dashboard/Dashboard';
-import Documentation from '../documentation/Documentation';
+import Docs from '../docs/Docs';
 
 const Router = ({ isAuthenticated }) => {
 	return (
@@ -20,7 +20,7 @@ const Router = ({ isAuthenticated }) => {
 
 				<Route exact path="/register" component={isAuthenticated ? () => <Redirect to="/" /> : Register} />
 
-				<Route exact path="/documentation" component={Documentation} />
+				<Route exact path="/documentation" component={Docs} />
 			</Switch>
 		</BrowserRouter>
 	);

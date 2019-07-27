@@ -23,23 +23,31 @@ const GlobalStyle = createGlobalStyle`
 
     }
 
-    h1, h2, h3, h4, h5 {
+    h1, h2, h3, h4, h5, a {
         margin: 0;
         padding: 0;
         margin-bottom: 1rem;
         color: #444444;
         font-family: 'Oswald', sans-serif;
+        letter-spacing: 1px;
+        font-weight: 400;
     }
 
-    p, button, a, span, input {
+    p, button, span, input {
         margin: 0;
         padding: 0;
         font-family: 'Open Sans', sans-serif;
     }
 
     p {
-        color: #9e9e9e;
+        color: #757575;
+        opacity: 0.85;
         font-size: 14px;
+        line-height: 1.6;
+    }
+
+    a {
+        text-decoration: none;
     }
     
     #root {
