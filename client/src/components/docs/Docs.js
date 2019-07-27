@@ -19,11 +19,28 @@ export default Docs;
 const StyledDocs = styled.div`
 	section {
 		margin: 2rem 0;
-		max-width: 725px;
 
 		h2 {
 			font-size: 1.75rem;
 			text-transform: capitalize;
 		}
+
+		@media screen and (max-width: 1720px) {
+			max-width: 870px;
+		}
+
+		@media screen and (max-width: 1500px) {
+			max-width: 770px;
+		}
+
+		@media screen and (max-width: 1400px) {
+			max-width: 725px;
+		}
+
+		@media screen and (max-width: 1275px) {
+			max-width: 100%;
+		}
+
+	}
 	}
 `;

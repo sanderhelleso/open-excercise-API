@@ -9,6 +9,18 @@ const ENDPOINT_PREFIX = 'http://localhost:4000/api';
 const DocsEndpoint = ({ method, endpoint, exampleEndpoint }) => {
 	const [ exampleData, setExampleData ] = useState();
 
+	const flexibleEndpoint = () => {
+		const variable = endpoint.split('/').pop();
+		const pre = variable.split('');
+
+		if (pre[0] === ':') {
+			pre.shift();
+			return exampleEndpoint.split('/').pop();
+		}
+
+		return false;
+	};
+
 	return (
 		<Fragment>
 			<StyledDiv>
@@ -17,9 +29,13 @@ const DocsEndpoint = ({ method, endpoint, exampleEndpoint }) => {
 					{ENDPOINT_PREFIX}
 					{endpoint}
 				</h5>
-				<DocsEndpointRunExample exampleEndpoint={exampleEndpoint} setExampleData={setExampleData} />
+				<DocsEndpointRunExample
+					exampleEndpoint={exampleEndpoint}
+					setExampleData={setExampleData}
+					canRun={!Boolean(exampleData)}
+				/>
 			</StyledDiv>
-			{exampleData && <DocsEndpointExample exampleData={exampleData} />}
+			{exampleData && <DocsEndpointExample exampleData={exampleData} resultFor={flexibleEndpoint()} />}
 		</Fragment>
 	);
 };

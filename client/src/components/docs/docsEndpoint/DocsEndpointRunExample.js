@@ -3,7 +3,7 @@ import { PlayCircle } from 'react-feather';
 import styled from 'styled-components';
 import _fetch from '../../../lib/_fetch';
 
-const DocsEndpointRunExample = ({ exampleEndpoint, setExampleData }) => {
+const DocsEndpointRunExample = ({ exampleEndpoint, setExampleData, canRun }) => {
 	const runExample = async () => {
 		try {
 			const result = await _fetch(exampleEndpoint, 'GET', null, null, true);
@@ -14,11 +14,11 @@ const DocsEndpointRunExample = ({ exampleEndpoint, setExampleData }) => {
 		}
 	};
 
-	return (
+	return canRun ? (
 		<StyledBtn title="Try it out" onClick={runExample}>
 			<PlayCircle />
 		</StyledBtn>
-	);
+	) : null;
 };
 
 export default DocsEndpointRunExample;
