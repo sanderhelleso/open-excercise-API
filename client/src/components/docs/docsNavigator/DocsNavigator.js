@@ -6,7 +6,7 @@ import DocsNavigatorItem from './DocsNavigatorItem';
 const DocsNavigator = () => {
 	const [ inited, setInited ] = useState(false);
 	const [ items, setItems ] = useState([]);
-	const [ active, setActive ] = useState();
+	const [ active, setActive ] = useState(0);
 
 	useEffect(() => {
 		const sections = document.querySelectorAll('.docs-section');
