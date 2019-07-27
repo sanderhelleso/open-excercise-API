@@ -1,6 +1,6 @@
 import store from '../store';
 
-export default async (url, method, _headers, _body) => {
+export default async (url, method, _headers, _body, isExample) => {
 	try {
 		const { auth: { token } } = store.getState();
 
@@ -12,7 +12,9 @@ export default async (url, method, _headers, _body) => {
 			headers: {
 				...headers,
 				'Content-Type': 'application/json',
-				authorization: `Bearer ${token}`
+				authorization: `Bearer ${isExample
+					? '03cc52b8f916926ee6774399b07ce537fd2b13e5088f8395869f62e290adbcad'
+					: token}`
 			},
 			body
 		});

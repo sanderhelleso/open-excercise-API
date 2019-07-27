@@ -15,19 +15,22 @@ const sections = [
 				title: 'By Name',
 				text,
 				method: 'GET',
-				endpoint: '/excercises/name/:name'
+				endpoint: '/excercises/name/:name',
+				exampleEndpoint: 'http://localhost:4000/api/excercises/name/arnold dumbbell press'
 			},
 			{
 				title: 'By Muscle',
 				text,
 				method: 'GET',
-				endpoint: '/excercises/muscle/:muscle'
+				endpoint: '/excercises/muscle/:muscle',
+				exampleEndpoint: 'http://localhost:4000/api/excercises/muscle/chest'
 			},
 			{
 				title: 'By Search',
 				text,
 				method: 'GET',
-				endpoint: '/excercises/search'
+				endpoint: '/excercises/search',
+				exampleEndpoint: 'http://localhost:4000/api/excercises/search?keyword=push'
 			}
 		]
 	},
@@ -37,13 +40,15 @@ const sections = [
 				title: 'All muscles',
 				text,
 				method: 'GET',
-				endpoint: '/muscles'
+				endpoint: '/muscles',
+				exampleEndpoint: 'http://localhost:4000/api/muscles'
 			},
 			{
 				title: 'By Muscle Name',
 				text,
 				method: 'GET',
-				endpoint: '/muscles/name/:name'
+				endpoint: '/muscles/name/:name',
+				exampleEndpoint: 'http://localhost:4000/api/muscles/name/chest'
 			}
 		]
 	}

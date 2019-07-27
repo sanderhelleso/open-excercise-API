@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import DocksEndpointMethod from './DocsEndpointMethod';
+import { Play, PlayCircle } from 'react-feather';
+import DocsEndpointRunExample from './DocsEndpointRunExample';
 
 const ENDPOINT_PREFIX = 'http://localhost:4000/api';
 
-const DocsEndpoint = ({ method, endpoint }) => {
+const DocsEndpoint = ({ method, endpoint, exampleEndpoint }) => {
 	return (
 		<StyledDiv>
 			<DocksEndpointMethod method={method} />
@@ -12,6 +14,7 @@ const DocsEndpoint = ({ method, endpoint }) => {
 				{ENDPOINT_PREFIX}
 				{endpoint}
 			</h5>
+			<DocsEndpointRunExample exampleEndpoint={exampleEndpoint} />
 		</StyledDiv>
 	);
 };

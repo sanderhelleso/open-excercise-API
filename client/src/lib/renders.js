@@ -16,10 +16,10 @@ export const renderDocsSections = (sections) => {
 							Sed eu massa a sapien vestibulum sollicitudin.{' '}
 						</p>
 					</section>
-					{v.map(({ title, text, method, endpoint }, j) => (
+					{v.map(({ title, text, method, endpoint, exampleEndpoint }, j) => (
 						<section key={`docs-section-${j}`} id={formatDocsLink(title, true)} className="docs-section">
 							<DocsHeading title={title} />
-							<DocsEndpoint method={method} endpoint={endpoint} />
+							<DocsEndpoint method={method} endpoint={endpoint} exampleEndpoint={exampleEndpoint} />
 							<p>{text}</p>
 						</section>
 					))}
