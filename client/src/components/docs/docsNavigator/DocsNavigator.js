@@ -61,4 +61,8 @@ const StyledNavigator = styled.div`
 	width: 150px;
 	display: flex;
 	flex-direction: column;
+
+	@media screen and (max-width: 1270px) {
+		display: none;
+	}
 `;
