@@ -1,20 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Hash } from 'react-feather';
-
-const formatLink = (str) => {
-	str = str.toLowerCase();
-	const splitted = str.split(' ');
-	if (splitted.length) {
-		return splitted.join('-');
-	}
-
-	return str;
-};
+import { formatDocsLink } from '../../lib/docsSections';
 
 const DocsHeading = ({ title, active }) => (
 	<StyledHeading active={active}>
-		<a href={`#${formatLink(title)}`}>{title}</a>
+		<a href={formatDocsLink(title)}>{title}</a>
 		<Hash />
 	</StyledHeading>
 );

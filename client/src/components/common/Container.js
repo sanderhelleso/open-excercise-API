@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Dashboard = ({ children }) => (
-	<StyledContent>
+	<StyledContent id="main-container">
 		<StyledMain>
 			<StyledCont>{children}</StyledCont>
 		</StyledMain>
@@ -11,13 +11,13 @@ const Dashboard = ({ children }) => (
 
 export default Dashboard;
 
-const StyledContent = styled.div`
+const StyledContent = styled.main`
 	flex-grow: 1;
 	overflow-y: auto;
 	max-height: 100vh;
 `;
 
-const StyledMain = styled.main`
+const StyledMain = styled.div`
 	min-width: 100%;
 	min-height: 100vh;
 	background-color: #fafafa;

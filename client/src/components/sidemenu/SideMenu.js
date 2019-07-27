@@ -29,9 +29,10 @@ const SideMenu = ({ logoutAction, match, history, isAuthenticated, name, email }
 	const activePath = match.url;
 
 	const renderOptions = () => {
-		return options.map((option) => {
+		return options.map((option, i) => {
 			return (
 				<StyledLi
+					key={`sidemenu-option-${i}`}
 					className={option.path === activePath ? 'active' : null}
 					onClick={() => {
 						history.push(`${option.path}`);
