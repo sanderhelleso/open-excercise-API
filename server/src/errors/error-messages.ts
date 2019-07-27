@@ -10,6 +10,11 @@ export const FAILED_REGISTER_ERROR = new HttpException(
 	HttpStatus.INTERNAL_SERVER_ERROR
 );
 
+export const DUPLICATE_REGISTER_ERROR = new HttpException(
+	'An account with that e-mail already exists',
+	HttpStatus.CONFLICT
+);
+
 export const FAILED_LOGIN_ERROR = new HttpException(
 	'No user matching those credentials were found',
 	HttpStatus.UNAUTHORIZED

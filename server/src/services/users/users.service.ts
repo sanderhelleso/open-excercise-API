@@ -3,9 +3,15 @@ import User from '../../database/models/user.model';
 import { IUser, IRegisterUser, ILoginUser } from '../../interfaces/user.interface';
 import * as bcrypt from 'bcrypt';
 import { QuotasService } from '../quotas/quotas.service';
-import { INTERNAL_SERVER_ERR, FAILED_LOGIN_ERROR, FAILED_REGISTER_ERROR } from '../../errors/error-messages';
+import {
+	INTERNAL_SERVER_ERR,
+	FAILED_LOGIN_ERROR,
+	FAILED_REGISTER_ERROR,
+	DUPLICATE_REGISTER_ERROR
+} from '../../errors/error-messages';
 
 const SALT_ROUNDS = 10;
+const DUPLICATE_ENTITY_CODE = 11000;
 
 @Injectable()
 export class UsersService {
@@ -19,7 +25,11 @@ export class UsersService {
 			const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 			const newUser = { ...user, passwordHash };
 			return await new User(newUser).save();
-		} catch (error) {
+		} catch ({ code }) {
+			if (code === DUPLICATE_ENTITY_CODE) {
+				throw DUPLICATE_REGISTER_ERROR;
+			}
+
 			throw FAILED_REGISTER_ERROR;
 		}
 	}
