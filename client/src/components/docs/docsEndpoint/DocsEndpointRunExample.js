@@ -6,7 +6,7 @@ import _fetch from '../../../lib/_fetch';
 const DocsEndpointRunExample = ({ exampleEndpoint, setExampleData, canRun }) => {
 	const runExample = async () => {
 		try {
-			const result = await _fetch(exampleEndpoint, 'GET', null, null, true);
+			const result = await _fetch(exampleEndpoint);
 			const data = await result.json();
 			setExampleData(JSON.stringify(data, null, 4));
 		} catch (error) {
