@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import DocsHeading from '../components/docs/DocsHeading';
 
 export const renderDocsSections = (sections) => {
-	return sections.map(({ title, text, active }) => {
-		return (
-			<section>
-				<DocsHeading title={title} active={active} />
-				<p>{text}</p>
-			</section>
-		);
+	return sections.map((section) => {
+		return Object.entries(section).map(([ k, v ]) => {
+			return (
+				<Fragment>
+					<section>
+						<h2>{k}</h2>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean congue gravida sem sit amet
+							scelerisque. Nunc tincidunt nibh quis quam tristique, sit amet porttitor magna pellentesque.
+							Sed eu massa a sapien vestibulum sollicitudin.{' '}
+						</p>
+					</section>
+					{v.map(({ title, text, active }) => (
+						<section>
+							<DocsHeading title={title} active={active} />
+							<p>{text}</p>
+						</section>
+					))}
+				</Fragment>
+			);
+		});
 	});
 };
