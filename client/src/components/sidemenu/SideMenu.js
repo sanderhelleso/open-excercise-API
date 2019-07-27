@@ -25,10 +25,18 @@ const options = [
 	}
 ];
 
-const SideMenu = ({ logoutAction, match, history, isAuthenticated, name, email }) => {
-	const activePath = match.url;
 
-	const renderOptions = () => {
+const SideMenu = ({
+    logoutAction,
+    match,
+    history,
+    isAuthenticated,
+    name,
+    email
+}) => {
+    const activePath = match.url;
+
+    const renderOptions = () => {
 		return options.map((option, i) => {
 			return (
 				<StyledLi
@@ -43,6 +51,7 @@ const SideMenu = ({ logoutAction, match, history, isAuthenticated, name, email }
 			);
 		});
 	};
+
 
 	return (
 		<Fragment>
