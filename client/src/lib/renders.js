@@ -3,9 +3,9 @@ import DocsHeading from '../components/docs/DocsHeading';
 
 export const renderDocsSections = (sections) => {
 	return sections.map((section) => {
-		return Object.entries(section).map(([ k, v ]) => {
+		return Object.entries(section).map(([ k, v ], i) => {
 			return (
-				<Fragment>
+				<Fragment key={`docs-section-cont-${i}`}>
 					<section>
 						<h2>{k}</h2>
 						<p>
@@ -14,8 +14,8 @@ export const renderDocsSections = (sections) => {
 							Sed eu massa a sapien vestibulum sollicitudin.{' '}
 						</p>
 					</section>
-					{v.map(({ title, text, active }) => (
-						<section>
+					{v.map(({ title, text, active }, j) => (
+						<section key={`docs-section-${j}`} className="docs-section">
 							<DocsHeading title={title} active={active} />
 							<p>{text}</p>
 						</section>

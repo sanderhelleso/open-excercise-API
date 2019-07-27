@@ -5,12 +5,14 @@ import DocsNavigator from './docsNavigator/DocsNavigator';
 import docsSections from '../../lib/docsSections';
 import { renderDocsSections } from '../../lib/renders';
 
-const Docs = () => (
-	<Container>
-		<DocsNavigator />
-		<StyledDocs>{renderDocsSections(docsSections)}</StyledDocs>
-	</Container>
-);
+const Docs = () => {
+	return (
+		<Container>
+			<DocsNavigator />
+			<StyledDocs>{renderDocsSections(docsSections)}</StyledDocs>
+		</Container>
+	);
+};
 
 export default Docs;
 

@@ -40,4 +40,14 @@ const sections = [
 	}
 ];
 
+export const formatDocsLink = (str) => {
+	str = str.toLowerCase().split(' ');
+
+	if (str.length) {
+		str = str.join('-');
+	}
+
+	return `#${str}`;
+};
+
 export default sections;
