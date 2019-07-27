@@ -8,10 +8,8 @@ const DocsEndpointRunExample = ({ exampleEndpoint, setExampleData }) => {
 		try {
 			const result = await _fetch(exampleEndpoint, 'GET', null, null, true);
 			const data = await result.json();
-			//setExampleData(data);
-			console.log(data);
+			setExampleData(JSON.stringify(data, null, 4));
 		} catch (error) {
-			console.log(error);
 			alert(error);
 		}
 	};

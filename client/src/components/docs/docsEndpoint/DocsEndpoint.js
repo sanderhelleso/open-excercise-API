@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import styled from 'styled-components';
 import DocksEndpointMethod from './DocsEndpointMethod';
-import { Play, PlayCircle } from 'react-feather';
 import DocsEndpointRunExample from './DocsEndpointRunExample';
+import DocsEndpointExample from './DocsEndpointExample';
 
 const ENDPOINT_PREFIX = 'http://localhost:4000/api';
 
 const DocsEndpoint = ({ method, endpoint, exampleEndpoint }) => {
+	const [ exampleData, setExampleData ] = useState();
+
 	return (
-		<StyledDiv>
-			<DocksEndpointMethod method={method} />
-			<h5>
-				{ENDPOINT_PREFIX}
-				{endpoint}
-			</h5>
-			<DocsEndpointRunExample exampleEndpoint={exampleEndpoint} />
-		</StyledDiv>
+		<Fragment>
+			<StyledDiv>
+				<DocksEndpointMethod method={method} />
+				<h5>
+					{ENDPOINT_PREFIX}
+					{endpoint}
+				</h5>
+				<DocsEndpointRunExample exampleEndpoint={exampleEndpoint} setExampleData={setExampleData} />
+			</StyledDiv>
+			{exampleData && <DocsEndpointExample exampleData={exampleData} />}
+		</Fragment>
 	);
 };
 
