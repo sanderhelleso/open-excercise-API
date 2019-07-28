@@ -4,12 +4,16 @@ import styled from 'styled-components';
 import DocsNavigator from './docsNavigator/DocsNavigator';
 import docsSections from '../../lib/docsSections';
 import { renderDocsSections } from '../../lib/renders';
+import DocsIntro from './DocsIntro';
 
 const Docs = () => {
 	return (
 		<Container>
 			<DocsNavigator />
-			<StyledDocs>{renderDocsSections(docsSections)}</StyledDocs>
+			<StyledDocs>
+				<DocsIntro />
+				{renderDocsSections(docsSections)}
+			</StyledDocs>
 		</Container>
 	);
 };
@@ -18,7 +22,7 @@ export default Docs;
 
 const StyledDocs = styled.div`
 	section {
-		margin: 4rem 0;
+		margin-bottom: 4rem;
 
 		h2 {
 			font-size: 1.75rem;
