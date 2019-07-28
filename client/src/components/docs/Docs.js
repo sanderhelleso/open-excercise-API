@@ -6,6 +6,7 @@ import docsSections from '../../lib/docsSections';
 import { renderDocsSections } from '../../lib/renders';
 import DocsIntro from './DocsIntro';
 import DocsResponses from './docsResponses/DocsResponses';
+import DocsGetStarted from './docsGetStarted/DocsGetStarted';
 
 const Docs = () => {
 	return (
@@ -13,6 +14,7 @@ const Docs = () => {
 			<DocsNavigator />
 			<StyledDocs>
 				<DocsIntro />
+				<DocsGetStarted />
 				<DocsResponses />
 				{renderDocsSections(docsSections)}
 			</StyledDocs>
@@ -29,6 +31,15 @@ const StyledDocs = styled.div`
 		h2 {
 			font-size: 1.75rem;
 			text-transform: capitalize;
+		}
+
+		p {
+			span {
+				background-color: #e1f5fe;
+				padding: 2px 7px;
+				border-radius: 4px;
+				color: #139ff2;
+			}
 		}
 
 		@media screen and (max-width: 1720px) {
