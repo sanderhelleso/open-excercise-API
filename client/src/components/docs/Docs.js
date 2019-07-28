@@ -25,6 +25,8 @@ const Docs = () => {
 export default Docs;
 
 const StyledDocs = styled.div`
+	padding-bottom: 50px;
+
 	section {
 		margin-bottom: 4rem;
 
