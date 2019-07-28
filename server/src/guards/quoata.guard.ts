@@ -5,9 +5,9 @@ import { AnalyticsGateway } from '../analytics.gateway';
 
 const PREFIX = 'Bearer ';
 
-const NO_KEY_ERROR = new HttpException('No API key provided', HttpStatus.UNAUTHORIZED);
-const INVALID_KEY_ERROR = new HttpException('Invalid API key provided', HttpStatus.UNAUTHORIZED);
-const REQUEST_LIMIT_ERROR = new HttpException('Request limit has been exceeded', HttpStatus.UNAUTHORIZED);
+const NO_KEY_ERROR = new HttpException('No API key provided', HttpStatus.FORBIDDEN);
+const INVALID_KEY_ERROR = new HttpException('Invalid API key provided', HttpStatus.FORBIDDEN);
+const REQUEST_LIMIT_ERROR = new HttpException('Request limit has been exceeded', HttpStatus.PAYMENT_REQUIRED);
 
 @Injectable()
 export class QuotaGuard implements CanActivate {

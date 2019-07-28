@@ -8,7 +8,11 @@ const responses = [
 		success: true
 	},
 	{
-		code: 401,
+		code: 402,
+		desc: 'Request limit reached'
+	},
+	{
+		code: 403,
 		desc: 'Missing or invalid API Key'
 	},
 	{

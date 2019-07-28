@@ -51,5 +51,6 @@ const StyledDocs = styled.div`
 	.docs-section-main {
 		border-top: 1px solid #e0e0e0;
 		padding-top: 2.5rem;
+		margin-bottom: 3.5rem;
 	}
 `;

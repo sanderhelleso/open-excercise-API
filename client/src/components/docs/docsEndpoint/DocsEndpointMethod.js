@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const DocsEndpointMethod = ({ method }) => <StyledMethod>{method}</StyledMethod>;
+const DocsEndpointMethod = ({ method }) => <StyledMethod title="Endpoint method">{method}</StyledMethod>;
 
 export default DocsEndpointMethod;
 

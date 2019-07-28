@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import DocsHeading from '../components/docs/DocsHeading';
 import { formatDocsLink } from './docsSections';
 import DocsEndpoint from '../components/docs/docsEndpoint/DocsEndpoint';
+import DocsEntity from '../components/docs/DocsEntity';
 
 export const renderDocsSections = (sections) => {
 	return sections.map((section) => {
@@ -10,13 +11,10 @@ export const renderDocsSections = (sections) => {
 				<Fragment key={`docs-section-cont-${i}`}>
 					<section className="docs-section-main">
 						<h2>{k}</h2>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean congue gravida sem sit amet
-							scelerisque. Nunc tincidunt nibh quis quam tristique, sit amet porttitor magna pellentesque.
-							Sed eu massa a sapien vestibulum sollicitudin.{' '}
-						</p>
+						<p>{v.text}</p>
+						<DocsEntity attributes={v.attributes} />
 					</section>
-					{v.map(({ title, text, method, endpoint, exampleEndpoint }, j) => (
+					{v.sections.map(({ title, text, method, endpoint, exampleEndpoint }, j) => (
 						<section key={`docs-section-${j}`} id={formatDocsLink(title, true)} className="docs-section">
 							<DocsHeading title={title} />
 							<p>{text}</p>
