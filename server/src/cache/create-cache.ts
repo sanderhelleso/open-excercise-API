@@ -2,7 +2,7 @@ import { DynamicModule, CacheModule } from '@nestjs/common';
 import * as redisStore from 'cache-manager-redis-store';
 
 const ONE_DAY: number = 86400;
-const MAX_KEYS: number = 20;
+const MAX_KEYS: number = 6;
 
 export const Cache: DynamicModule = CacheModule.register({
 	store: redisStore,

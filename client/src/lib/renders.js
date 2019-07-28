@@ -19,8 +19,8 @@ export const renderDocsSections = (sections) => {
 					{v.map(({ title, text, method, endpoint, exampleEndpoint }, j) => (
 						<section key={`docs-section-${j}`} id={formatDocsLink(title, true)} className="docs-section">
 							<DocsHeading title={title} />
-							<DocsEndpoint method={method} endpoint={endpoint} exampleEndpoint={exampleEndpoint} />
 							<p>{text}</p>
+							<DocsEndpoint method={method} endpoint={endpoint} exampleEndpoint={exampleEndpoint} />
 						</section>
 					))}
 				</Fragment>
