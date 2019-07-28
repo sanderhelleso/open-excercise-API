@@ -58,7 +58,7 @@ const StyledNavigator = styled.div`
 	position: absolute;
 	top: 5rem;
 	right: 3rem;
-	width: 150px;
+	width: 160px;
 	display: flex;
 	flex-direction: column;
 

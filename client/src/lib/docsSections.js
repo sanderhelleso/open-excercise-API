@@ -9,21 +9,21 @@ const sections = [
 				'Excercise contains the attributes name and muscle. Indicating what excercise this is and what muscle get used when performing the excercise.',
 			sections: [
 				{
-					title: 'By Name',
+					title: 'Excercise Name',
 					text: 'Get data for a specific excercise',
 					method: 'GET',
 					endpoint: '/excercises/name/:name',
 					exampleEndpoint: 'http://localhost:4000/api/excercises/name/arnold dumbbell press'
 				},
 				{
-					title: 'By Muscle',
+					title: 'Excercise Muscle',
 					text: 'Get data for all excercises used in a specific muscle',
 					method: 'GET',
 					endpoint: '/excercises/muscle/:muscle',
 					exampleEndpoint: 'http://localhost:4000/api/excercises/muscle/chest'
 				},
 				{
-					title: 'By Search',
+					title: 'Search with keyword',
 					text: 'Get data for all excercises similar to the search',
 					method: 'GET',
 					endpoint: '/excercises/search?keyword=something',
@@ -49,7 +49,7 @@ const sections = [
 					exampleEndpoint: 'http://localhost:4000/api/muscles'
 				},
 				{
-					title: 'By Muscle Name',
+					title: 'Muscle Name',
 					text: 'Get data for a specific muscle category',
 					method: 'GET',
 					endpoint: '/muscles/name/:name',
