@@ -2,11 +2,11 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { formatDocsLink } from '../../../lib/docsSections';
 
-const DocsNavigatorItem = ({ title, active, showSep }) => {
+const DocsNavigatorItem = ({ title, showSep }) => {
 	return (
 		<Fragment>
-			<StyledItem active={active}>
-				<StyledCircle active={active} />
+			<StyledItem>
+				<StyledCircle />
 				<a href={formatDocsLink(title)}>{title}</a>
 			</StyledItem>
 			{showSep && <StyledSep />}
@@ -22,8 +22,8 @@ const StyledItem = styled.div`
 	align-items: center;
 
 	a {
-		color: ${({ active }) => (active ? '#139ff2' : '#9e9e9e')};
-		font-weight: ${({ active }) => (active ? '400' : '100')};
+		color: #9e9e9e;
+		font-weight: 100;
 		font-size: 13px;
 		margin: 0;
 		margin-left: 1.5rem;
@@ -41,8 +41,8 @@ const StyledCircle = styled.div`
 	transition: 0.2s ease;
 	min-height: 8px;
 	border-radius: 50%;
-	border: 2px solid ${({ active }) => (active ? '#139ff2' : '#eeeeee')};
-	background-color: ${({ active }) => (active ? '#139ff2' : 'transparent')};
+	border: 2px solid #eeeeee;
+	background-color: transparent;
 `;
 
 const StyledSep = styled.div`
