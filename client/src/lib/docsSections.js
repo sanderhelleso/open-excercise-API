@@ -1,7 +1,7 @@
 const sections = [
 	{
 		excercise: {
-			aributes: {
+			attributes: {
 				name: 'string',
 				muscle: 'string'
 			},
@@ -26,7 +26,7 @@ const sections = [
 					title: 'By Search',
 					text: 'Get data for all excercises similar to the search',
 					method: 'GET',
-					endpoint: '/excercises/search',
+					endpoint: '/excercises/search?keyword=something',
 					exampleEndpoint: 'http://localhost:4000/api/excercises/search?keyword=push'
 				}
 			]
@@ -34,7 +34,7 @@ const sections = [
 	},
 	{
 		muscle: {
-			aributes: {
+			attributes: {
 				name: 'string',
 				excercises: 'number'
 			},

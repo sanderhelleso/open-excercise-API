@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import DocsHeading from '../components/docs/DocsHeading';
 import { formatDocsLink } from './docsSections';
 import DocsEndpoint from '../components/docs/docsEndpoint/DocsEndpoint';
+import DocsEntity from '../components/docs/DocsEntity';
 
 export const renderDocsSections = (sections) => {
 	return sections.map((section) => {
@@ -11,6 +12,7 @@ export const renderDocsSections = (sections) => {
 					<section className="docs-section-main">
 						<h2>{k}</h2>
 						<p>{v.text}</p>
+						<DocsEntity attributes={v.attributes} />
 					</section>
 					{v.sections.map(({ title, text, method, endpoint, exampleEndpoint }, j) => (
 						<section key={`docs-section-${j}`} id={formatDocsLink(title, true)} className="docs-section">

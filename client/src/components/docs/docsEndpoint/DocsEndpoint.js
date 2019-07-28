@@ -11,6 +11,12 @@ const DocsEndpoint = ({ method, endpoint, exampleEndpoint }) => {
 
 	const flexibleEndpoint = () => {
 		const variable = endpoint.split('/').pop();
+		const query = variable.split('?');
+
+		if (query.length > 1) {
+			return exampleEndpoint.split('=').pop();
+		}
+
 		const pre = variable.split('');
 
 		if (pre[0] === ':') {
@@ -25,7 +31,7 @@ const DocsEndpoint = ({ method, endpoint, exampleEndpoint }) => {
 		<Fragment>
 			<StyledDiv>
 				<DocksEndpointMethod method={method} />
-				<h5>
+				<h5 title="Endpoint">
 					{ENDPOINT_PREFIX}
 					{endpoint}
 				</h5>
