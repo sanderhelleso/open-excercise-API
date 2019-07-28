@@ -11,7 +11,7 @@ const exampleHeader = JSON.stringify(
 );
 
 const DocsGetStarted = () => (
-	<section className="docs-section-main">
+	<section className="docs-section-main docs-section">
 		<h2>Get Started</h2>
 		<StyledP>
 			In order to use our API you need a valid API key. The API key must be present in the{' '}

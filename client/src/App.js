@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
         color: #757575;
         opacity: 0.85;
         font-size: 14px;
-        line-height: 1.6;
+        line-height: 1.8;
     }
 
     a {

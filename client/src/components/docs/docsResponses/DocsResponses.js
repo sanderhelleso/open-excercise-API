@@ -27,7 +27,7 @@ const DocsResponses = () => {
 	};
 
 	return (
-		<section className="docs-section-main">
+		<section className="docs-section-main docs-section">
 			<h2>Responses</h2>
 			{renderResponses()}
 		</section>

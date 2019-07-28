@@ -29,7 +29,7 @@ const DocsNavigator = () => {
 	const handleScroll = ({ target: { scrollTop } }) => {
 		items.forEach((item, i) => {
 			const { top, bottom } = item.getBoundingClientRect();
-			if (scrollTop >= top && scrollTop <= bottom) {
+			if (scrollTop >= top && bottom <= window.innerHeight - 100) {
 				setActive(i);
 			}
 		});
