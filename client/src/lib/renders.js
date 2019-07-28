@@ -8,7 +8,7 @@ export const renderDocsSections = (sections) => {
 		return Object.entries(section).map(([ k, v ], i) => {
 			return (
 				<Fragment key={`docs-section-cont-${i}`}>
-					<section>
+					<section className="docs-section-main">
 						<h2>{k}</h2>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean congue gravida sem sit amet
