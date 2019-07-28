@@ -19,6 +19,8 @@ const DocsIntro = () => (
 export default DocsIntro;
 
 const StyledSection = styled.section`
+	margin-bottom: 3rem !important;
+
 	h1 {
 		font-size: 2.25rem;
 	}
