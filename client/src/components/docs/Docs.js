@@ -18,7 +18,7 @@ export default Docs;
 
 const StyledDocs = styled.div`
 	section {
-		margin: 2rem 0;
+		margin: 4rem 0;
 
 		h2 {
 			font-size: 1.75rem;
