@@ -9,7 +9,7 @@ export const renderDocsSections = (sections) => {
 		return Object.entries(section).map(([ k, v ], i) => {
 			return (
 				<Fragment key={`docs-section-cont-${i}`}>
-					<section className="docs-section-main docs-section">
+					<section id={formatDocsLink(k, true)} className="docs-section-main docs-section">
 						<h2>{k}</h2>
 						{v.text}
 						<DocsEntity attributes={v.attributes} />

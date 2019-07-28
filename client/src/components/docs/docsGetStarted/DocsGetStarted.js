@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import DocsEndpointExample from '../docsEndpoint/DocsEndpointExample';
+import { formatDocsLink } from '../../../lib/docsSections';
 
 const exampleHeader = JSON.stringify(
 	{
@@ -11,7 +12,7 @@ const exampleHeader = JSON.stringify(
 );
 
 const DocsGetStarted = () => (
-	<section className="docs-section-main docs-section">
+	<section className="docs-section-main docs-section" id={formatDocsLink('get started', true)}>
 		<h2>Get Started</h2>
 		<StyledP>
 			In order to use our API you need a valid API key. The API key must be present in the{' '}

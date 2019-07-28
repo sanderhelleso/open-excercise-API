@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { formatDocsLink } from '../../../lib/docsSections';
 import DocsNavigatorItem from './DocsNavigatorItem';
 
 const DocsNavigator = () => {
 	const [ inited, setInited ] = useState(false);
 	const [ items, setItems ] = useState([]);
-	const [ active, setActive ] = useState(0);
+	const [ active, setActive ] = useState();
 
 	useEffect(() => {
 		const sections = document.querySelectorAll('.docs-section');
@@ -18,9 +17,9 @@ const DocsNavigator = () => {
 		() => {
 			if (inited) {
 				const main = document.querySelector('#main-container');
-				main.addEventListener('scroll', handleScroll);
+				//main.addEventListener('scroll', handleScroll);
 
-				return () => main.removeEventListener('scroll', handleScroll);
+				//return () => main.removeEventListener('scroll', handleScroll);
 			}
 		},
 		[ inited ]
