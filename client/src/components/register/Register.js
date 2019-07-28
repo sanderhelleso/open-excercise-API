@@ -50,6 +50,23 @@ const Register = ({ history }) => {
         }
     );
 
+    const renderInputs = () => {
+        return inputs.map(input => (
+            <InputContainer key={input.label}>
+                {input.icon}
+                <StyledInput
+                    type={input.type}
+                    value={state[input.name]}
+                    onChange={e =>
+                        updateState({
+                            [input.name]: e.target.value
+                        })
+                    }
+                    placeholder={input.placeholder}
+                />
+            </InputContainer>
+        ));
+    };
     const handleSubmit = async e => {
         e.preventDefault();
         login(true, state);
@@ -60,21 +77,7 @@ const Register = ({ history }) => {
             <Wrapper>
                 <StyledHeader>Register</StyledHeader>
                 <RegisterContainer>
-                    {inputs.map(input => (
-                        <InputContainer key={input.label}>
-                            {input.icon}
-                            <StyledInput
-                                type={input.type}
-                                value={state[input.name]}
-                                onChange={e =>
-                                    updateState({
-                                        [input.name]: e.target.value
-                                    })
-                                }
-                                placeholder={input.placeholder}
-                            />
-                        </InputContainer>
-                    ))}
+                    {renderInputs()}
                     <SelectBox>
                         <Target color="#139ff2" />
                         <StyledSelect
