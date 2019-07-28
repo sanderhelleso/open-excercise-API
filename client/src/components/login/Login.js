@@ -57,9 +57,7 @@ const Login = ({ history }) => {
         <StyledBg>
             <StyledForm noValidate>
                 <StyledHeader>Login</StyledHeader>
-
                 {renderInputs()}
-
                 <div>
                     <StyledBtn type="submit" onClick={handleSubmit}>
                         Log in
@@ -96,6 +94,10 @@ const StyledForm = styled.form`
     background: #f1f1f1;
     border-radius: 5px;
     padding: 2rem;
+    @media screen and (max-width: 1000px) {
+        max-width: 70%;
+        width: 70%;
+    }
 `;
 
 const StyledHeader = styled.h1`
@@ -127,7 +129,7 @@ const StyledInput = styled.input`
     background: none;
     border-bottom: 0.5px solid #139ff2;
     :focus {
-        border: 0.5px solid #139ff2;
+        border: 0.2px solid #139ff2;
     }
     ::placeholder {
         color: #00000066;
@@ -153,6 +155,7 @@ const StyledSpan = styled.span`
     justify-content: center;
     font-size: 0.75rem;
     transition: 0.3s all ease-in-out;
+
     :hover {
         cursor: pointer;
         color: #0e84c9;

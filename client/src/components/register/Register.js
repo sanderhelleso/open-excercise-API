@@ -125,6 +125,10 @@ const Wrapper = styled.form`
     transform: translate(-50%, -50%);
     background: #f1f1f1;
     border-radius: 5px;
+    @media screen and (max-width: 1000px) {
+        max-width: 70%;
+        width: 70%;
+    }
 `;
 
 const StyledHeader = styled.h1`
