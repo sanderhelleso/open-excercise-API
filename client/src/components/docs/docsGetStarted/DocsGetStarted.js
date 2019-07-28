@@ -18,6 +18,10 @@ const DocsGetStarted = () => (
 			<span>Authorization</span> header, prefixed witih either <span>Bearer</span> or <span>ApiKey</span>.
 		</StyledP>
 		<DocsEndpointExample exampleData={exampleHeader} customText="Example request header" />
+		<p>
+			Note that when you sign up you automatically recieves <span>10k monthly requests</span>. If this is not
+			enough, we offer a premium, affordable pay as you go plan.
+		</p>
 	</section>
 );
 
