@@ -11,8 +11,8 @@ import DocsGetStarted from './docsGetStarted/DocsGetStarted';
 const Docs = () => {
 	return (
 		<Container>
-			<DocsNavigator />
 			<StyledDocs>
+				<DocsNavigator />
 				<DocsIntro />
 				<DocsGetStarted />
 				<DocsResponses />
@@ -25,8 +25,28 @@ const Docs = () => {
 export default Docs;
 
 const StyledDocs = styled.div`
+	padding-bottom: 50px;
+	position: relative;
+
+	@media screen and (max-width: 1720px) {
+		max-width: 870px;
+	}
+
+	@media screen and (max-width: 1500px) {
+		max-width: 770px;
+	}
+
+	@media screen and (max-width: 1400px) {
+		max-width: 725px;
+	}
+
+	@media screen and (max-width: 1275px) {
+		max-width: 100%;
+	}
+
 	section {
 		margin-bottom: 4rem;
+		padding-top: 2rem;
 
 		h2 {
 			font-size: 1.75rem;
@@ -40,22 +60,6 @@ const StyledDocs = styled.div`
 				border-radius: 4px;
 				color: #139ff2;
 			}
-		}
-
-		@media screen and (max-width: 1720px) {
-			max-width: 870px;
-		}
-
-		@media screen and (max-width: 1500px) {
-			max-width: 770px;
-		}
-
-		@media screen and (max-width: 1400px) {
-			max-width: 725px;
-		}
-
-		@media screen and (max-width: 1275px) {
-			max-width: 100%;
 		}
 	}
 

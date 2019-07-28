@@ -1,5 +1,6 @@
 import React from 'react';
 import DocsResponse from './DocsResponse';
+import { formatDocsLink } from '../../../lib/docsSections';
 
 const responses = [
 	{
@@ -27,7 +28,7 @@ const DocsResponses = () => {
 	};
 
 	return (
-		<section className="docs-section-main">
+		<section className="docs-section-main docs-section" id={formatDocsLink('responses', true)}>
 			<h2>Responses</h2>
 			{renderResponses()}
 		</section>
