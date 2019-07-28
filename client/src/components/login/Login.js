@@ -30,6 +30,23 @@ const Login = ({ history }) => {
         }
     );
 
+    const renderInputs = () => {
+        return inputs.map(input => (
+            <InputContainer key={input.type}>
+                {input.icon}
+                <StyledInput
+                    placeholder={input.placeholder}
+                    type={input.type}
+                    required={input.required}
+                    value={state[input.type]}
+                    onChange={e =>
+                        updateState({ [input.type]: e.target.value })
+                    }
+                />
+            </InputContainer>
+        ));
+    };
+
     const handleSubmit = async e => {
         e.preventDefault();
 
@@ -41,20 +58,7 @@ const Login = ({ history }) => {
             <StyledForm noValidate>
                 <StyledHeader>Login</StyledHeader>
 
-                {inputs.map(input => (
-                    <InputContainer key={input.type}>
-                        {input.icon}
-                        <StyledInput
-                            placeholder={input.placeholder}
-                            type={input.type}
-                            required={input.required}
-                            value={state[input.type]}
-                            onChange={e =>
-                                updateState({ [input.type]: e.target.value })
-                            }
-                        />
-                    </InputContainer>
-                ))}
+                {renderInputs()}
 
                 <div>
                     <StyledBtn type="submit" onClick={handleSubmit}>
