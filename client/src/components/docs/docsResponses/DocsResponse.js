@@ -11,20 +11,20 @@ const DocsResponse = ({ code, desc, success }) => (
 export default DocsResponse;
 
 const StyledDiv = styled.div`
-	margin-bottom: 0.75rem;
+	margin-bottom: 1rem;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 
 	span {
 		margin-right: 0.5rem;
-		border-radius: 6px;
-		min-width: 50px;
+		border-radius: 3px;
+		min-width: 40px;
 		padding: 5px;
-		background-color: ${({ success }) => (success ? '#c8e6c9' : '#ffcdd2')};
-		border: 1px solid ${({ success }) => (success ? '#a5d6a7' : '#ef9a9a')};
+		background-color: ${({ success }) => (success ? '#69f0ae' : '#ff1744')};
 		text-align: center;
-		color: #000;
+		color: ${({ success }) => (success ? '#000' : '#ffebee')};
+		font-size: 0.9rem;
 	}
 
 	h5 {

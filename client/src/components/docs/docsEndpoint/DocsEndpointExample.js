@@ -2,17 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 import { Code } from 'react-feather';
 
-const DocsEndpointExample = ({ exampleData, resultFor }) => (
-	<StyledDiv>
-		<StyledHeader>
-			<h4>Result for {resultFor ? <span>{resultFor}</span> : 'endpoint'}</h4>
-			<h5>
-				<Code /> JSON
-			</h5>
-		</StyledHeader>
-		<StyledPre>{exampleData}</StyledPre>
-	</StyledDiv>
-);
+const DocsEndpointExample = ({ exampleData, resultFor, customText }) => {
+	const setText = () => {
+		if (customText) {
+			return <h4>{customText}</h4>;
+		}
+
+		return <h4>Result for {resultFor ? <span>{resultFor}</span> : 'endpoint'}</h4>;
+	};
+
+	return (
+		<StyledDiv>
+			<StyledHeader>
+				{setText()}
+				<h5>
+					<Code /> JSON
+				</h5>
+			</StyledHeader>
+			<StyledPre>{exampleData}</StyledPre>
+		</StyledDiv>
+	);
+};
 
 export default DocsEndpointExample;
 

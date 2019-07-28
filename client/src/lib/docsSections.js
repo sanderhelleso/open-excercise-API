@@ -1,3 +1,5 @@
+import React from 'react';
+
 const sections = [
 	{
 		excercise: {
@@ -5,8 +7,12 @@ const sections = [
 				name: 'string',
 				muscle: 'string'
 			},
-			text:
-				'Excercise contains the attributes name and muscle. Indicating what excercise this is and what muscle get used when performing the excercise.',
+			text: (
+				<p>
+					Excercise contains the attributes <span>name</span> and <span>muscle</span>. Indicating what
+					excercise this is and what muscle get used when performing the excercise.
+				</p>
+			),
 			sections: [
 				{
 					title: 'Excercise Name',
@@ -38,8 +44,12 @@ const sections = [
 				name: 'string',
 				excercises: 'number'
 			},
-			text:
-				'Muscle contains the attributes name and excercises. Indicating what muscle this is and the amount of available excecises under this muscle group.',
+			text: (
+				<p>
+					Muscle contains the attributes <span>name</span> and <span>excercises</span>. Indicating what muscle
+					this is and the amount of available excecises under this muscle group.
+				</p>
+			),
 			sections: [
 				{
 					title: 'All muscles',

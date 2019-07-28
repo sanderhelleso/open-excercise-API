@@ -11,7 +11,7 @@ export const renderDocsSections = (sections) => {
 				<Fragment key={`docs-section-cont-${i}`}>
 					<section className="docs-section-main">
 						<h2>{k}</h2>
-						<p>{v.text}</p>
+						{v.text}
 						<DocsEntity attributes={v.attributes} />
 					</section>
 					{v.sections.map(({ title, text, method, endpoint, exampleEndpoint }, j) => (
