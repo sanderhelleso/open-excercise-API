@@ -103,7 +103,7 @@ const StyledCont = styled.div`
 	padding: 1.5rem 0;
 	justify-content: center;
 	align-items: center;
-	max-height: 375px;
+	max-height: 420px;
 	justify-content: center;
 	align-items: center;
 `;
