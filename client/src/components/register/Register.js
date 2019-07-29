@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import _fetch from "../../lib/_fetch";
 import login from "../../lib/login";
-import register from "../../img/register.jpg";
+import Background from "../../img/Background.jpg";
 import { Target, User, Mail, Lock, Unlock } from "react-feather";
 import styled, { createGlobalStyle } from "styled-components";
 import { withRouter } from "react-router-dom";
@@ -110,7 +110,7 @@ const StyledBg = styled.div`
     min-width: 100%;
     min-height: 100vh;
     overflow: hidden;
-    background: url(${register}) no-repeat center center fixed;
+    background: url(${Background}) no-repeat center center fixed;
     background-size: cover;
 `;
 
