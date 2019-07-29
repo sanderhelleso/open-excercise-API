@@ -2,31 +2,34 @@ import React, { useReducer } from 'react';
 import styled from 'styled-components';
 import PaymentCard from './PaymentFormCard';
 
-import { formatCreditCardNumber, formatCVC, formatExpirationDate, formatFormData } from '../../../lib/creditCard';
+import { formatCreditCardNumber, formatCVC, formatExpirationDate } from '../../../lib/creditCard';
 
 const fields = [
 	{
-		label: 'card number',
 		name: 'number',
-		type: 'number',
+		type: 'tel',
+		placeholder: 'Card Number',
+		pattern: '[d| ]{16,22}',
 		gridArea: 'cardNumber'
 	},
 	{
-		label: 'name',
 		name: 'name',
 		type: 'text',
+		placeholder: 'Name',
 		gridArea: 'cardName'
 	},
 	{
-		label: 'valid thru',
+		placeholder: 'Valid thru',
 		name: 'expiry',
-		type: 'number',
+		type: 'tel',
+		pattern: 'dd/dd',
 		gridArea: 'cardValid'
 	},
 	{
-		label: 'CVC',
+		placeholder: 'CVC',
 		name: 'cvc',
-		type: 'number',
+		type: 'tel',
+		pattern: 'd{3,4}',
 		gridArea: 'cardCVC'
 	}
 ];
@@ -53,6 +56,8 @@ const PaymentForm = () => {
 			value = formatCVC(value);
 		}
 
+		console.log(value);
+
 		updateState({ [name]: value });
 	};
 
@@ -60,7 +65,7 @@ const PaymentForm = () => {
 		return fields.map((field) => {
 			return (
 				<StyledInputCont gridArea={field.gridArea}>
-					<input {...field} placeholder={field.name} onChange={handleChange} onFocus={handleFocus} />
+					<input {...field} value={state[field.name]} onChange={handleChange} onFocus={handleFocus} />
 				</StyledInputCont>
 			);
 		});
