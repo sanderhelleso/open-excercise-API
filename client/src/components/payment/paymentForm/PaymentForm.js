@@ -4,6 +4,8 @@ import PaymentCard from './PaymentFormCard';
 
 import { formatCreditCardNumber, formatCVC, formatExpirationDate } from '../../../lib/creditCard';
 import PaymentFormHeader from './PaymentFormHeader';
+import PaymentFormInput from './PaymentFormInput';
+import PaymentFormBtn from './PaymentFormBtn';
 
 const fields = [
 	{
@@ -60,12 +62,19 @@ const PaymentForm = () => {
 		updateState({ [name]: value });
 	};
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+	};
+
 	const renderFields = () => {
 		return fields.map((field) => {
 			return (
-				<StyledInputCont gridArea={field.gridArea}>
-					<input {...field} value={state[field.name]} onChange={handleChange} onFocus={handleFocus} />
-				</StyledInputCont>
+				<PaymentFormInput
+					field={field}
+					value={state[field.name]}
+					handleChange={handleChange}
+					handleFocus={handleFocus}
+				/>
 			);
 		});
 	};
@@ -75,7 +84,10 @@ const PaymentForm = () => {
 			<PaymentFormHeader />
 			<StyledDiv>
 				<PaymentCard {...state} />
-				<StyledGrid>{renderFields()}</StyledGrid>
+				<StyledForm onSubmit={handleSubmit}>
+					{renderFields()}
+					<PaymentFormBtn />
+				</StyledForm>
 			</StyledDiv>
 		</StyledCont>
 	);
@@ -102,36 +114,12 @@ const StyledDiv = styled.div`
 	padding-top: 1rem;
 `;
 
-const StyledInputCont = styled.div`grid-area: ${({ gridArea }) => gridArea};`;
-
-const StyledGrid = styled.div`
+const StyledForm = styled.form`
 	display: grid;
-	grid-template: 'cardNumber cardNumber' 'cardName cardName' 'cardValid cardCVC';
+	grid-template: 'cardNumber cardNumber' 'cardName cardName' 'cardValid cardCVC' 'paymentBtn paymentBtn';
 	grid-column-gap: 2rem;
 	grid-row-gap: 1rem;
 	max-height: 150px;
 	margin-right: 6rem;
 	margin-top: 0.7rem;
-
-	input {
-		min-width: 100%;
-		border-radius: 4px;
-		transition: 0.3s ease-in-out;
-		outline: none;
-		border: 1px solid #e0e0e0;
-		padding: 5px 10px;
-		min-height: 30px;
-		font-size: 1rem;
-
-		&::placeholder {
-			opacity: 0.7;
-			text-transform: capitalize;
-		}
-
-		&:focus,
-		&:active {
-			border: 1px solid #139ff2;
-			box-shadow: 0 0 0 2px #e1f5fe;
-		}
-	}
 `;
