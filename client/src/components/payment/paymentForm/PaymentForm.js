@@ -1,36 +1,56 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import styled from 'styled-components';
 import PaymentCard from './PaymentFormCard';
 
 const fields = [
 	{
-		name: 'card number',
+		label: 'card number',
+		name: 'number',
 		type: 'number',
 		gridArea: 'cardNumber'
 	},
 	{
+		label: 'name',
 		name: 'name',
 		type: 'text',
 		gridArea: 'cardName'
 	},
 	{
-		name: 'valid thru',
+		label: 'valid thru',
+		name: 'expiry',
 		type: 'number',
 		gridArea: 'cardValid'
 	},
 	{
-		name: 'CVC',
+		label: 'CVC',
+		name: 'cvc',
 		type: 'number',
 		gridArea: 'cardCVC'
 	}
 ];
 
 const PaymentForm = () => {
+	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
+		number: '',
+		name: '',
+		expiry: '',
+		cvc: '',
+		focused: ''
+	});
+
+	const handleFocus = ({ target: { name } }) => {
+		updateState({ focused: name });
+	};
+
+	const handleChange = ({ target: { name, value } }) => {
+		updateState({ [name]: value });
+	};
+
 	const renderFields = () => {
 		return fields.map((field) => {
 			return (
 				<StyledInputCont gridArea={field.gridArea}>
-					<input {...field} placeholder={field.name} />
+					<input {...field} placeholder={field.name} onChange={handleChange} onFocus={handleFocus} />
 				</StyledInputCont>
 			);
 		});
@@ -43,7 +63,7 @@ const PaymentForm = () => {
 				<StyledSum>$ 600</StyledSum>
 			</StyledHeader>
 			<StyledDiv>
-				<PaymentCard />
+				<PaymentCard {...state} />
 				<StyledGrid>{renderFields()}</StyledGrid>
 			</StyledDiv>
 		</StyledCont>
