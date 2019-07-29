@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "react": "^16.8.6",
+        "react-credit-cards": "^0.7.0",
         "react-dom": "^16.8.6",
         "react-feather": "^2.0.3",
         "react-redux": "^7.1.0",
