@@ -3,7 +3,7 @@ import _fetch from "../../lib/_fetch";
 import login from "../../lib/login";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
-import register from "../../img/register.jpg";
+import Background from "../../img/Background.jpg";
 import { User, Mail } from "react-feather";
 
 const inputs = [
@@ -78,7 +78,7 @@ const StyledBg = styled.div`
     min-width: 100%;
     min-height: 100vh;
     overflow: hidden;
-    background: url(${register}) no-repeat center center fixed;
+    background: url(${Background}) no-repeat center center fixed;
     background-size: cover;
 `;
 
