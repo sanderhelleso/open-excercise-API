@@ -6,18 +6,17 @@ import styled from "styled-components";
 import Background from "../../img/Background.jpg";
 import { User, Mail } from "react-feather";
 import Button from "../common/Button"
+import Input from "../common/Input"
 
 const inputs = [
     {
         placeholder: "Enter your email",
         type: "email",
-        required: true,
         icon: <User color="#139ff2" />
     },
     {
         placeholder: "Enter your password",
         type: "password",
-        required: true,
         icon: <Mail color="#139ff2" />
     }
 ];
@@ -33,18 +32,15 @@ const Login = ({ history }) => {
 
     const renderInputs = () => {
         return inputs.map(input => (
-            <InputContainer key={input.type}>
-                {input.icon}
-                <StyledInput
-                    placeholder={input.placeholder}
-                    type={input.type}
-                    required={input.required}
-                    value={state[input.type]}
-                    onChange={e =>
-                        updateState({ [input.type]: e.target.value })
-                    }
-                />
-            </InputContainer>
+            <Input
+                key={inputs.name}
+                icon={input.icon}
+                type={input.type}
+                value={state[input.type]}
+                onChange={e => updateState({[input.type]: e.target.value})}
+                placeholder={input.placeholder}
+
+            />
         ));
     };
 
@@ -59,12 +55,10 @@ const Login = ({ history }) => {
             <StyledForm noValidate>
                 <StyledHeader>Login</StyledHeader>
                 {renderInputs()}
-       
-                    <Button text="Login" onClick={handleSubmit} primary />
-                    <StyledSpan onClick={() => history.push("/register")}>
-                        Register now!
-                    </StyledSpan>
-              
+                <Button text="Login" onClick={handleSubmit} primary />
+                <StyledSpan onClick={() => history.push("/register")}>
+                    Register now!
+                </StyledSpan>
             </StyledForm>
         </StyledBg>
     );

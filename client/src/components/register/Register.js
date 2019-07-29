@@ -6,6 +6,7 @@ import { Target, User, Mail, Lock, Unlock } from "react-feather";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import Button from "../common/Button"
+import Input from "../common/Input"
 
 const inputs = [
     {
@@ -38,7 +39,7 @@ const inputs = [
     }
 ];
 
-const purposes = ["","Web Design", "Personal Use", "Mobile App"];
+const purposes = ["Web Design", "Personal Use", "Mobile App"];
 
 const Register = ({ history }) => {
     const [state, updateState] = useReducer(
@@ -53,21 +54,18 @@ const Register = ({ history }) => {
 
     const renderInputs = () => {
         return inputs.map(input => (
-            <InputContainer key={input.label}>
-                {input.icon}
-                <StyledInput
-                    type={input.type}
-                    value={state[input.name]}
-                    onChange={e =>
-                        updateState({
-                            [input.name]: e.target.value
-                        })
-                    }
-                    placeholder={input.placeholder}
-                />
-            </InputContainer>
-        ));
-    };
+            <Input
+                key={input.name}
+                icon={input.icon}
+                type={input.type}
+                value={state[input.name]}
+                onChange={e => updateState({[input.name]: e.target.value})}
+                placeholder={input.placeholder}
+
+            />
+        ))
+    }
+
     const handleSubmit = async e => {
         e.preventDefault();
         login(true, state);
@@ -85,6 +83,7 @@ const Register = ({ history }) => {
                             onChange={({ target: { value } }) =>
                                 updateState({ purpose: value })
                             }
+                            required
                         >
                             {purposes.map(purpose => (
                                 <option key={purpose} value={purpose}>
@@ -147,22 +146,6 @@ const InputContainer = styled.div`
 const RegisterContainer = styled.div`
     margin: 0 2rem;
     text-align: left;
-`;
-
-const StyledInput = styled.input`
-    box-sizing: border-box;
-    width: 100%;
-    padding: 0.75rem 0.1rem;
-    margin-left: 0.5rem;
-    border: none;
-    background: none;
-    border-bottom: 0.5px solid #139ff2;
-    :focus {
-        border: 0.5px solid #139ff2;
-    }
-    ::placeholder {
-        color: #00000066;
-    }
 `;
 
 const SelectBox = styled.div`
