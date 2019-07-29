@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PaymentCard from './PaymentFormCard';
 
 import { formatCreditCardNumber, formatCVC, formatExpirationDate } from '../../../lib/creditCard';
+import PaymentFormHeader from './PaymentFormHeader';
 
 const fields = [
 	{
@@ -56,8 +57,6 @@ const PaymentForm = () => {
 			value = formatCVC(value);
 		}
 
-		console.log(value);
-
 		updateState({ [name]: value });
 	};
 
@@ -73,10 +72,7 @@ const PaymentForm = () => {
 
 	return (
 		<StyledCont>
-			<StyledHeader>
-				<h1>Pay</h1>
-				<StyledSum>$ 600</StyledSum>
-			</StyledHeader>
+			<PaymentFormHeader />
 			<StyledDiv>
 				<PaymentCard {...state} />
 				<StyledGrid>{renderFields()}</StyledGrid>
@@ -98,26 +94,6 @@ const StyledCont = styled.div`
 	max-height: 375px;
 	justify-content: center;
 	align-items: center;
-`;
-
-const StyledHeader = styled.div`
-	margin: 1rem 3.5rem;
-	margin-bottom: 2rem;
-	display: flex;
-	justify-content: space-between;
-	border-bottom: 1px solid #eeeeee;
-	padding-bottom: 1rem;
-	margin-bottom: 2rem;
-
-	h1 {
-		margin-left: 0.5rem;
-	}
-`;
-
-const StyledSum = styled.div`
-	font-size: 2rem;
-	position: relative;
-	margin-right: 1rem;
 `;
 
 const StyledDiv = styled.div`
