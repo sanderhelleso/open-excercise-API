@@ -2,6 +2,8 @@ import React, { useReducer } from 'react';
 import styled from 'styled-components';
 import PaymentCard from './PaymentFormCard';
 
+import { formatCreditCardNumber, formatCVC, formatExpirationDate, formatFormData } from '../../../lib/creditCard';
+
 const fields = [
 	{
 		label: 'card number',
@@ -43,6 +45,14 @@ const PaymentForm = () => {
 	};
 
 	const handleChange = ({ target: { name, value } }) => {
+		if (name === 'number') {
+			value = formatCreditCardNumber(value);
+		} else if (name === 'expiry') {
+			value = formatExpirationDate(value);
+		} else if (name === 'cvc') {
+			value = formatCVC(value);
+		}
+
 		updateState({ [name]: value });
 	};
 
