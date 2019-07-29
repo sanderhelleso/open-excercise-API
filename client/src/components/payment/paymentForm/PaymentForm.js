@@ -40,9 +40,7 @@ const PaymentForm = () => {
 		<StyledCont>
 			<StyledHeader>
 				<h1>Pay</h1>
-				<StyledSum>
-					<span />$ 600
-				</StyledSum>
+				<StyledSum>$ 600</StyledSum>
 			</StyledHeader>
 			<StyledDiv>
 				<PaymentCard />
@@ -59,40 +57,38 @@ const StyledCont = styled.div`
 	border: 1.25px solid #eeeeee;
 	border-radius: 4px;
 	box-shadow: 0px 7.5px 15px rgba(0, 0, 0, 0.045);
-	padding: 1.5rem;
-	padding-right: 3.5rem;
+	padding: 1.5rem 0;
 	justify-content: center;
 	align-items: center;
-	max-height: 350px;
+	max-height: 375px;
 	justify-content: center;
 	align-items: center;
 `;
 
 const StyledHeader = styled.div`
-	margin: 1rem 3.25rem;
-	margin-right: 2.75rem;
-	margin-bottom: 1.5rem;
+	margin: 1rem 3.5rem;
+	margin-bottom: 2rem;
 	display: flex;
 	justify-content: space-between;
+	border-bottom: 1px solid #eeeeee;
+	padding-bottom: 1rem;
+	margin-bottom: 2rem;
+
+	h1 {
+		margin-left: 0.5rem;
+	}
 `;
 
 const StyledSum = styled.div`
 	font-size: 2rem;
 	position: relative;
-
-	span {
-		min-width: 100px;
-		min-height: 7px;
-		border-radius: 20px;
-		position: absolute;
-		bottom: 5px;
-		background-color: #cadefc;
-	}
+	margin-right: 1rem;
 `;
 
 const StyledDiv = styled.div`
 	display: flex;
 	flex-direction: row;
+	padding-top: 1rem;
 `;
 
 const StyledInputCont = styled.div`grid-area: ${({ gridArea }) => gridArea};`;
@@ -103,8 +99,8 @@ const StyledGrid = styled.div`
 	grid-column-gap: 2rem;
 	grid-row-gap: 1rem;
 	max-height: 150px;
-	margin-right: auto;
-	margin-top: 1rem;
+	margin-right: 6rem;
+	margin-top: 0.7rem;
 
 	input {
 		min-width: 100%;
