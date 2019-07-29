@@ -3,13 +3,12 @@ import styled from 'styled-components'
 
 const Button = ({text, onClick, primary}) => {
     return(
-<StyledBtn
-        onClick={onClick}
-        
-        primary={primary}
-    >
-        {text}
-    </StyledBtn>
+        <StyledBtn
+                onClick={onClick}
+                primary={primary}
+            >
+                {text}
+        </StyledBtn>
     )
     
 }   

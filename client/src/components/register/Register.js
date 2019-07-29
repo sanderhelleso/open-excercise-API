@@ -3,8 +3,9 @@ import _fetch from "../../lib/_fetch";
 import login from "../../lib/login";
 import Background from "../../img/Background.jpg";
 import { Target, User, Mail, Lock, Unlock } from "react-feather";
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import { withRouter } from "react-router-dom";
+import Button from "../common/Button"
 
 const inputs = [
     {
@@ -37,7 +38,7 @@ const inputs = [
     }
 ];
 
-const purposes = ["Web Design", "Personal Use", "Mobile App"];
+const purposes = ["","Web Design", "Personal Use", "Mobile App"];
 
 const Register = ({ history }) => {
     const [state, updateState] = useReducer(
@@ -92,8 +93,7 @@ const Register = ({ history }) => {
                             ))}
                         </StyledSelect>
                     </SelectBox>
-
-                    <StyledBtn onClick={handleSubmit}>Register</StyledBtn>
+                    <Button onClick={handleSubmit} text="Register" primary />
 
                     <StyledSpan onClick={() => history.push("/")}>
                         Click here to login instead!
@@ -149,12 +149,6 @@ const RegisterContainer = styled.div`
     text-align: left;
 `;
 
-const StyledLabel = styled.label`
-    display: block;
-    margin-bottom: 0.1rem;
-    font-size: 1rem;
-`;
-
 const StyledInput = styled.input`
     box-sizing: border-box;
     width: 100%;
@@ -186,20 +180,6 @@ const StyledSelect = styled.select`
     background: none;
     border-bottom: 0.5px solid #139ff2;
     :hover {
-        cursor: pointer;
-    }
-`;
-
-const StyledBtn = styled.button`
-    width: 100%;
-    border: none;
-    color: #fff;
-    background: #139ff2;
-    padding: 0.75rem;
-    margin-bottom: 1.5rem;
-    transition: 0.3s all ease-in-out;
-    :hover {
-        background: #0e84c9;
         cursor: pointer;
     }
 `;

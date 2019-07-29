@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Background from "../../img/Background.jpg";
 import { User, Mail } from "react-feather";
+import Button from "../common/Button"
 
 const inputs = [
     {
@@ -58,15 +59,12 @@ const Login = ({ history }) => {
             <StyledForm noValidate>
                 <StyledHeader>Login</StyledHeader>
                 {renderInputs()}
-                <div>
-                    <StyledBtn type="submit" onClick={handleSubmit}>
-                        Log in
-                    </StyledBtn>
-
+       
+                    <Button text="Login" onClick={handleSubmit} primary />
                     <StyledSpan onClick={() => history.push("/register")}>
                         Register now!
                     </StyledSpan>
-                </div>
+              
             </StyledForm>
         </StyledBg>
     );
@@ -133,20 +131,6 @@ const StyledInput = styled.input`
     }
     ::placeholder {
         color: #00000066;
-    }
-`;
-
-const StyledBtn = styled.button`
-    width: 100%;
-    border: none;
-    color: #fff;
-    background: #139ff2;
-    padding: 0.75rem;
-    margin-bottom: 1.5rem;
-    transition: 0.3s all ease-in-out;
-    :hover {
-        background: #0e84c9;
-        cursor: pointer;
     }
 `;
 
