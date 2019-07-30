@@ -15,12 +15,9 @@ const Router = ({ isAuthenticated }) => {
 			<Route path="/*" component={SideMenu} />
 			<Switch>
 				<Route exact path="/" component={isAuthenticated ? Dashboard : Login} />
-
 				<Route exact path="/login" component={isAuthenticated ? () => <Redirect to="/" /> : Login} />
 				<Route exact path="/socket-test" component={SocketTest} />
-
 				<Route exact path="/register" component={isAuthenticated ? () => <Redirect to="/" /> : Register} />
-
 				<Route exact path="/documentation" component={Docs} />
 				<Route exact path="/payment" component={Payment} />
 			</Switch>

@@ -1,12 +1,13 @@
-import React, { useReducer } from "react";
+import React, { useReducer, Fragment } from "react";
 import _fetch from "../../lib/_fetch";
 import login from "../../lib/login";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Background from "../../img/Background.jpg";
-import { User, Mail } from "react-feather";
+import { User, Mail, Lock } from "react-feather";
 import Button from "../common/Button"
 import Input from "../common/Input"
+import Modal from "../common/modal/Modal"
 
 const inputs = [
     {
@@ -17,7 +18,7 @@ const inputs = [
     {
         placeholder: "Enter your password",
         type: "password",
-        icon: <Mail color="#139ff2" />
+        icon: <Lock color="#139ff2" />
     }
 ];
 
@@ -26,14 +27,14 @@ const Login = ({ history }) => {
         (state, newState) => ({ ...state, ...newState }),
         {
             email: "",
-            password: ""
+            password: "",
         }
     );
 
     const renderInputs = () => {
         return inputs.map(input => (
             <Input
-                key={inputs.name}
+                key={input.type}
                 icon={input.icon}
                 type={input.type}
                 value={state[input.type]}
@@ -50,16 +51,36 @@ const Login = ({ history }) => {
         login(false, state);
     };
 
+    const handleReset =  e => {
+        e.preventDefault();
+        console.log("Hello")
+    }
+
+    const modalProps = {
+        role: "dialog",
+        headerText: "Reset Password",
+        buttonText: "Proceed",
+        buttonClick: handleReset,
+        triggerText: "Forgot Password?",
+        modalContentItems: 
+        <Fragment>
+            <p style={{marginBottom: "1rem"}}>Please enter your email below to reset your password. When you enter your email and click 'Proceed', you will recieve an email with further instructions.</p>
+            <Input 
+            icon={<Mail color="#139ff2" />}
+            placeholder="Enter your email"
+            ></Input>
+        </Fragment>    
+    }
+
+
     return (
         <StyledBg>
             <StyledForm noValidate>
                 <StyledHeader>Login</StyledHeader>
                 {renderInputs()}
                 <Button text="Login" onClick={handleSubmit} primary />
-                <StyledSpan onClick={() => history.push("/reset")}>
-                      Forgot Password?
-                  </StyledSpan>
-                <StyledSpan onClick={() => history.push("/register")}>
+                <Modal {...modalProps} />
+                <StyledSpan tabIndex="0" onClick={() => history.push("/register")}>
                     Register now!
                 </StyledSpan>
             </StyledForm>
@@ -101,35 +122,6 @@ const StyledHeader = styled.h1`
     display: inline-block;
 `;
 
-const InputContainer = styled.div`
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    justify-items: center;
-
-    .alert {
-        border: 1px solid red;
-    }
-    .valid {
-        border: 1px solid green;
-    }
-`;
-
-const StyledInput = styled.input`
-    box-sizing: border-box;
-    width: 100%;
-    padding: 0.75rem 0.1rem;
-    margin-left: 0.5rem;
-    border: none;
-    background: none;
-    border-bottom: 0.5px solid #139ff2;
-    :focus {
-        border: 0.2px solid #139ff2;
-    }
-    ::placeholder {
-        color: #00000066;
-    }
-`;
 
 const StyledSpan = styled.span`
     display: flex;
