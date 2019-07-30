@@ -7,6 +7,7 @@ import Login from '../login/Login';
 import { connect } from 'react-redux';
 import Dashboard from '../dashboard/Dashboard';
 import Docs from '../docs/Docs';
+import Payment from '../payment/Payment';
 
 const Router = ({ isAuthenticated }) => {
 	return (
@@ -21,6 +22,7 @@ const Router = ({ isAuthenticated }) => {
 				<Route exact path="/register" component={isAuthenticated ? () => <Redirect to="/" /> : Register} />
 
 				<Route exact path="/documentation" component={Docs} />
+				<Route exact path="/payment" component={Payment} />
 			</Switch>
 		</BrowserRouter>
 	);
