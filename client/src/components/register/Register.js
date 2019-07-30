@@ -10,28 +10,25 @@ import Input from "../common/Input"
 
 const inputs = [
     {
-        label: "Full Name",
         type: "text",
         name: "name",
         placeholder: "Enter your full name",
         icon: <User color="#139ff2" />
     },
     {
-        label: "Email",
+
         type: "email",
         name: "email",
         placeholder: "Enter your email",
         icon: <Mail color="#139ff2" />
     },
     {
-        label: "Password",
         type: "password",
         name: "password",
         placeholder: "Enter a password",
         icon: <Unlock color="#139ff2" />
     },
     {
-        label: "Confirm Password",
         type: "password",
         name: "password_confirm",
         placeholder: "Confirm Password",
