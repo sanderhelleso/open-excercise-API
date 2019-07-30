@@ -29,7 +29,10 @@ const StyledDiv = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	border-radius: 4px;
 	box-shadow: ${({ withShadow }) => (withShadow ? '0px 10px 20px rgba(0, 0, 0, 0.085)' : 'none')};
+	background-color: ${({ withShadow }) => (withShadow ? '#ffffff' : 'transparent')};
+
 	h3 {
 		font-size: 1.15rem;
 		margin-bottom: 1.25rem;
