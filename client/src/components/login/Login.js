@@ -56,6 +56,9 @@ const Login = ({ history }) => {
                 <StyledHeader>Login</StyledHeader>
                 {renderInputs()}
                 <Button text="Login" onClick={handleSubmit} primary />
+                <StyledSpan onClick={() => history.push("/reset")}>
+                      Forgot Password?
+                  </StyledSpan>
                 <StyledSpan onClick={() => history.push("/register")}>
                     Register now!
                 </StyledSpan>
@@ -133,7 +136,7 @@ const StyledSpan = styled.span`
     justify-content: center;
     font-size: 0.75rem;
     transition: 0.3s all ease-in-out;
-
+    margin-bottom: 1rem;
     :hover {
         cursor: pointer;
         color: #0e84c9;
