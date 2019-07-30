@@ -107,6 +107,7 @@ const StyledCont = styled.div`
 	max-height: 420px;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: 4rem;
 `;
 
 const StyledDiv = styled.div`
