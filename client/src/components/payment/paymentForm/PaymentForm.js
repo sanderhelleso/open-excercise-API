@@ -84,7 +84,7 @@ const PaymentForm = () => {
 			<PaymentFormHeader />
 			<StyledDiv>
 				<PaymentCard {...state} />
-				<StyledForm onSubmit={handleSubmit}>
+				<StyledForm id="payment-form" onSubmit={handleSubmit}>
 					{renderFields()}
 					<PaymentFormBtn />
 				</StyledForm>

@@ -21,5 +21,5 @@ const StyledCont = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	margin: 3.5rem 0;
+	margin-top: 3.5rem;
 `;

@@ -1,22 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import PaymentFormSelectPlan from './PaymentFormSelectPlan';
 import { connect } from 'react-redux';
 
-const PaymentFormHeader = ({ price }) => (
+const PaymentFormHeader = ({ name, subtext }) => (
 	<StyledHeader>
-		<h1>Pay</h1>
+		<h1>{name} Plan</h1>
 		<StyledSelectCont>
-			<PaymentFormSelectPlan />
-			<StyledSum>$ {price}</StyledSum>
+			<StyledSum>{subtext}</StyledSum>
 		</StyledSelectCont>
 	</StyledHeader>
 );
 
 const mapStateToProps = ({ plans: { selectedOption } }) => {
-	const { price } = selectedOption;
-	console.log(selectedOption);
-	return { price };
+	const { name, subtext } = selectedOption;
+	return { name, subtext };
 };
 
 export default connect(mapStateToProps, null)(PaymentFormHeader);

@@ -5,6 +5,7 @@ import { ArrowRight } from 'react-feather';
 const PaymentFormBtn = () => {
 	return (
 		<StyledDiv>
+			<img src={`${process.env.PUBLIC_URL}/img/powered_by_stripe.png`} />
 			<StyledButton>
 				PAY <ArrowRight />
 			</StyledButton>
@@ -15,7 +16,6 @@ const PaymentFormBtn = () => {
 export default PaymentFormBtn;
 
 const StyledButton = styled.button`
-	margin-left: auto;
 	padding: 1rem 2.5rem;
 	border: none;
 	outline: none;
@@ -46,7 +46,15 @@ const StyledButton = styled.button`
 const StyledDiv = styled.div`
 	min-width: 100%;
 	display: flex;
+	align-items: center;
 	grid-area: paymentBtn;
 	margin-left: 1.2rem;
 	margin-top: 1rem;
+
+	img {
+		margin-left: auto;
+		margin-right: 3rem;
+		width: 119px;
+		height: 26px;
+	}
 `;
