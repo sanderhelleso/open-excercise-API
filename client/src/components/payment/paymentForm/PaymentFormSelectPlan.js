@@ -24,7 +24,8 @@ export default connect(mapStateToProps, actions)(PaymentFormSelectPlan);
 
 const StyledSelect = styled(Select)`
     min-width: 250px;
-    margin-right: 2rem;
+    margin-right: 1rem;
     font-weight: 400;
     font-family: 'Open Sans', sans-serif;
+    outline: none;
 `;
