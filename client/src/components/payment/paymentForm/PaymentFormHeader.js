@@ -29,6 +29,9 @@ const StyledHeader = styled.div`
 
 	h1 {
 		margin-left: 0.5rem;
+		color: #9e9e9e;
+		opacity: 0.8;
+		font-weight: 100;
 	}
 `;
 
