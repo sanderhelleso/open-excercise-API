@@ -1,35 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import PlanOption from './PlanOption';
+import { connect } from 'react-redux';
 
-const options = [
-	{
-		name: 'Individual',
-		subtext: 'FREE',
-		features: [ 'Free forver', 'For individuals', 'Up to 10k requests' ]
-	},
-	{
-		name: 'Small Business',
-		subtext: '$50/mo',
-		features: [ 'For medium sized apps', 'Up to 150k requests', 'Email support' ],
-		withShadow: true
-	},
-	{
-		name: 'Enterprise',
-		subtext: '$150/mo',
-		features: [ 'For larger apps', 'Up to 750k requests', 'Dedicated account support' ]
-	}
-];
+const PlanOptions = ({ optionsData }) => {
+	const renderOptions = () => {
+		return optionsData.map((option, i) => {
+			return <PlanOption key={i} {...option} i={i} />;
+		});
+	};
 
-const renderOptions = () => {
-	return options.map((option) => {
-		return <PlanOption {...option} />;
-	});
+	return <StyledCont>{renderOptions()}</StyledCont>;
 };
 
-const PlanOptions = () => <StyledCont>{renderOptions()}</StyledCont>;
+const mapStateToProps = ({ plans: { optionsData } }) => ({ optionsData });
 
-export default PlanOptions;
+export default connect(mapStateToProps, null)(PlanOptions);
 
 const StyledCont = styled.div`
 	display: flex;
