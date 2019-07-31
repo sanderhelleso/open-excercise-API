@@ -1,6 +1,6 @@
 import { SET_SELECTED_PLAN } from '../actions/types';
 
-const options = [
+const optionsData = [
 	{
 		name: 'Individual',
 		subtext: 'FREE',
@@ -19,9 +19,12 @@ const options = [
 	}
 ];
 
+const options = optionsData.slice(1, optionsData.length).map(({ name }, i) => ({ value: i, label: name }));
+
 const initialState = {
-	selectedOption: options[1],
-	selectedOptionIndex: 1,
+	selectedOption: optionsData[0],
+	selectedOptionIndex: 0,
+	optionsData,
 	options
 };
 

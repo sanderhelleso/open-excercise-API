@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import PlanOption from './PlanOption';
 import { connect } from 'react-redux';
 
-const PlanOptions = ({ options, selectedOptionIndex }) => {
+const PlanOptions = ({ optionsData, selectedOptionIndex }) => {
 	const renderOptions = () => {
-		return options.map((option, i) => {
+		return optionsData.map((option, i) => {
 			return <PlanOption {...option} i={i} selected={i === selectedOptionIndex} />;
 		});
 	};
@@ -13,11 +13,7 @@ const PlanOptions = ({ options, selectedOptionIndex }) => {
 	return <StyledCont>{renderOptions()}</StyledCont>;
 };
 
-const mapStateToProps = ({ plans }) => {
-	const { options, selectedOptionIndex } = plans;
-	return { options, selectedOptionIndex };
-};
-
+const mapStateToProps = ({ plans: { optionsData } }) => ({ optionsData });
 export default connect(mapStateToProps, null)(PlanOptions);
 
 const StyledCont = styled.div`

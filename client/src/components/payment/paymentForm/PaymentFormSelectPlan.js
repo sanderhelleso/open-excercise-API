@@ -1,16 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
+import { connect } from 'react-redux';
+import setSelectedPlanAction from '../../../actions/setSelectedPlanAction';
 
-const options = [
-	{ value: 'chocolate', label: 'Chocolate' },
-	{ value: 'strawberry', label: 'Strawberry' },
-	{ value: 'vanilla', label: 'Vanilla' }
-];
+const PaymentFormSelectPlan = ({ options, setSelectedPlanAction }) => {
+	return <StyledSelect options={options} />;
+};
 
-const PaymentFormSelectPlan = () => <StyledSelect options={options} />;
+const mapStateToProps = ({ plans: { options } }) => {
+	return { options };
+};
 
-export default PaymentFormSelectPlan;
+const actions = {
+	setSelectedPlanAction
+};
+
+export default connect(mapStateToProps, actions)(PaymentFormSelectPlan);
 
 const StyledSelect = styled(Select)`
     min-width: 250px;
