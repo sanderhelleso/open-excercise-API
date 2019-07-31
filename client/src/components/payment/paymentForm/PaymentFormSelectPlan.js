@@ -4,12 +4,16 @@ import Select from 'react-select';
 import { connect } from 'react-redux';
 import setSelectedPlanAction from '../../../actions/setSelectedPlanAction';
 
-const PaymentFormSelectPlan = ({ options, setSelectedPlanAction }) => {
-	return <StyledSelect options={options} />;
+const PaymentFormSelectPlan = ({ options, selectedOptionIndex, setSelectedPlanAction }) => {
+	const handleChange = ({ value }) => {
+		setSelectedPlanAction(value);
+	};
+
+	return <StyledSelect defaultValue={options[selectedOptionIndex]} options={options} onChange={handleChange} />;
 };
 
-const mapStateToProps = ({ plans: { options } }) => {
-	return { options };
+const mapStateToProps = ({ plans: { options, selectedOptionIndex } }) => {
+	return { options, selectedOptionIndex };
 };
 
 const actions = {
