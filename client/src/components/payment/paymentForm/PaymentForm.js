@@ -6,6 +6,7 @@ import { formatCreditCardNumber, formatCVC, formatExpirationDate } from '../../.
 import PaymentFormHeader from './PaymentFormHeader';
 import PaymentFormInput from './PaymentFormInput';
 import PaymentFormBtn from './PaymentFormBtn';
+import { CardElement, injectStripe } from 'react-stripe-elements';
 
 const fields = [
 	{
@@ -82,6 +83,7 @@ const PaymentForm = () => {
 	return (
 		<StyledCont>
 			<PaymentFormHeader />
+			<CardElement />
 			<StyledDiv>
 				<PaymentCard {...state} />
 				<StyledForm id="payment-form" onSubmit={handleSubmit}>
@@ -93,7 +95,7 @@ const PaymentForm = () => {
 	);
 };
 
-export default PaymentForm;
+export default injectStripe(PaymentForm);
 
 const StyledCont = styled.div`
 	background-color: #fefefe;
