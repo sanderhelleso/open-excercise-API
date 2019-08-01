@@ -7,8 +7,9 @@ import setSelectedPlanAction from '../../actions/setSelectedPlanAction';
 const PlansSelect = ({ options, selectedOptionIndex, setSelectedPlanAction }) => {
 	const handleChange = ({ value }) => {
 		setSelectedPlanAction(value);
-		const ele = document.querySelector('#payment-form').querySelector('input');
-		ele.focus();
+		const ele = document.querySelector('#payment-form');
+
+		ele.querySelector('input').focus();
 		ele.scrollIntoView();
 	};
 

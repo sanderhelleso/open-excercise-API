@@ -2,11 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { ArrowRight } from 'react-feather';
 
-const PaymentFormBtn = () => {
+const PaymentFormBtn = ({ createToken, complete }) => {
+	const handleSubmit = async () => {
+		console.log(complete);
+		if (!complete) return;
+
+		const { token } = await createToken();
+		console.log(token);
+	};
+
 	return (
 		<StyledDiv>
 			<img src={`${process.env.PUBLIC_URL}/img/powered_by_stripe.png`} />
-			<StyledButton>
+			<StyledButton onClick={handleSubmit} complete={complete}>
 				PAY <ArrowRight />
 			</StyledButton>
 		</StyledDiv>
@@ -25,13 +33,15 @@ const StyledButton = styled.button`
 	font-weight: 400;
 	transition: 0.3s ease-in-out;
 	transform: scale(1.001);
-	background-color: #139ff2;
-	cursor: pointer;
-	box-shadow: 0px 12px 30px 0px rgba(19, 159, 242, 0.5);
 	font-size: 0.9rem;
-	color: #ffffff;
 	position: relative;
 	min-width: 150px;
+	margin-right: 1.4rem;
+
+	cursor: ${({ complete }) => (complete ? 'pointer' : 'not-allowed')};
+	color: ${({ complete }) => (complete ? '#ffffff' : '#9e9e9e')};
+	box-shadow: ${({ complete }) => (complete ? ' 0px 12px 30px 0px rgba(19, 159, 242, 0.5)' : 'none')};
+	background-color: ${({ complete }) => (complete ? '#139ff2' : '#e0e0e0')};
 
 	svg {
 		position: absolute;
@@ -49,7 +59,7 @@ const StyledDiv = styled.div`
 	align-items: center;
 	grid-area: paymentBtn;
 	margin-left: 1.2rem;
-	margin-top: 1rem;
+	margin-top: 3rem;
 
 	img {
 		margin-left: auto;

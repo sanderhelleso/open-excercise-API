@@ -11,6 +11,7 @@
         "react-router": "^5.0.1",
         "react-router-dom": "^5.0.1",
         "react-scripts": "3.0.1",
+        "react-stripe-elements": "^4.0.0",
         "recharts": "^1.6.2",
         "redux": "^4.0.4",
         "socket.io-client": "^2.2.0",
