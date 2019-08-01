@@ -4,7 +4,7 @@ import { Elements, StripeProvider } from 'react-stripe-elements';
 
 const PaymentFormConsumer = () => {
 	return (
-		<StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_TEST}>
+		<StripeProvider apiKey={`${process.env.REACT_APP_STRIPE_PK_TEST}`}>
 			<Elements>
 				<PaymentForm />
 			</Elements>
