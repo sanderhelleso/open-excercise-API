@@ -3,22 +3,19 @@ import { SET_SELECTED_PLAN } from '../actions/types';
 const optionsData = [
 	{
 		name: 'Individual',
-		subtext: 'FREE',
-		features: [ 'Free forver', 'For individuals', 'Up to 10k requests' ],
+		features: [ 'For individuals', 'Up to 10k requests', 'Free forver' ],
 		price: 0
 	},
 	{
 		name: 'Small Business',
-		subtext: '$50/mo',
 		features: [ 'For medium sized apps', 'Up to 150k requests', 'Email support' ],
 		price: 50,
 		withShadow: true
 	},
 	{
 		name: 'Enterprise',
-		subtext: '$150/mo',
 		price: 150,
-		features: [ 'For larger apps', 'Up to 750k requests', 'Dedicated account support' ]
+		features: [ 'For larger apps', 'Up to 750k requests', 'Dedicated support' ]
 	}
 ];
 

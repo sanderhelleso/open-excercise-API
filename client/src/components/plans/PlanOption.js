@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const PlanOption = ({ name, subtext, features, withShadow }) => {
+const PlanOption = ({ name, price, features, withShadow }) => {
 	const renderFeatures = () => {
 		return features.map((feature, i) => {
 			return <StyledSpan withBorder={i !== features.length - 1}>{feature}</StyledSpan>;
@@ -11,7 +11,7 @@ const PlanOption = ({ name, subtext, features, withShadow }) => {
 	return (
 		<StyledDiv withShadow={withShadow}>
 			<h3>{name}</h3>
-			<h5>{subtext}</h5>
+			<h5>{price ? `$${price}/mo` : 'FREE'}</h5>
 			<StyledFeatures>{renderFeatures()}</StyledFeatures>
 		</StyledDiv>
 	);
