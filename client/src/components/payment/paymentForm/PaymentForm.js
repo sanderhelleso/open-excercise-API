@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import PaymentFormHeader from './PaymentFormHeader';
@@ -22,14 +22,20 @@ const createOptions = {
 	}
 };
 
-const PaymentForm = () => {
+const PaymentForm = ({ stripe: { createToken } }) => {
+	const [ error, setError ] = useState('');
+	const [ complete, setComplete ] = useState(false);
+
+	const handleChange = ({ error, complete }) => {
+		setError(error ? error.message : '');
+		setComplete(complete);
+	};
+
 	return (
-		<StyledCont>
+		<StyledCont id="payment-form">
 			<PaymentFormHeader />
-			<StyledDiv>
-				<CardElement {...createOptions} />
-				<PaymentFormBtn />
-			</StyledDiv>
+			<CardElement {...createOptions} onChange={handleChange} />
+			<PaymentFormBtn createToken={createToken} complete={complete} />
 		</StyledCont>
 	);
 };
@@ -50,9 +56,7 @@ const StyledCont = styled.div`
 	align-items: center;
 	margin-bottom: 4rem;
 	padding: 3rem;
-`;
 
-const StyledDiv = styled.div`
 	.StripeElement {
 		border-radius: 4px;
 		border: 1px solid #e0e0e0;
