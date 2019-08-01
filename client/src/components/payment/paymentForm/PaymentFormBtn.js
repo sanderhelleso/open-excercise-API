@@ -32,6 +32,7 @@ const StyledButton = styled.button`
 	color: #ffffff;
 	position: relative;
 	min-width: 150px;
+	margin-right: 1.4rem;
 
 	svg {
 		position: absolute;
@@ -49,7 +50,7 @@ const StyledDiv = styled.div`
 	align-items: center;
 	grid-area: paymentBtn;
 	margin-left: 1.2rem;
-	margin-top: 1rem;
+	margin-top: 3rem;
 
 	img {
 		margin-left: auto;

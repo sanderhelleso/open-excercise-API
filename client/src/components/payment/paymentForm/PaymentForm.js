@@ -1,95 +1,34 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import PaymentCard from './PaymentFormCard';
 
-import { formatCreditCardNumber, formatCVC, formatExpirationDate } from '../../../lib/creditCard';
 import PaymentFormHeader from './PaymentFormHeader';
-import PaymentFormInput from './PaymentFormInput';
 import PaymentFormBtn from './PaymentFormBtn';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 
-const fields = [
-	{
-		name: 'number',
-		type: 'tel',
-		placeholder: 'Card Number',
-		pattern: '[d| ]{16,22}',
-		gridArea: 'cardNumber'
-	},
-	{
-		name: 'name',
-		type: 'text',
-		placeholder: 'Name',
-		gridArea: 'cardName'
-	},
-	{
-		placeholder: 'Valid thru',
-		name: 'expiry',
-		type: 'tel',
-		pattern: 'dd/dd',
-		gridArea: 'cardValid'
-	},
-	{
-		placeholder: 'CVC',
-		name: 'cvc',
-		type: 'tel',
-		pattern: 'd{3,4}',
-		gridArea: 'cardCVC'
+const createOptions = {
+	style: {
+		base: {
+			iconColor: '#139ff2',
+			color: '#31325F',
+			lineHeight: '40px',
+			fontWeight: 100,
+			fontSize: '16px',
+			border: '1px solid red',
+
+			'::placeholder': {
+				color: '#CFD7E0'
+			}
+		}
 	}
-];
+};
 
 const PaymentForm = () => {
-	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
-		number: '',
-		name: '',
-		expiry: '',
-		cvc: '',
-		focused: ''
-	});
-
-	const handleFocus = ({ target: { name } }) => {
-		updateState({ focused: name });
-	};
-
-	const handleChange = ({ target: { name, value } }) => {
-		if (name === 'number') {
-			value = formatCreditCardNumber(value);
-		} else if (name === 'expiry') {
-			value = formatExpirationDate(value);
-		} else if (name === 'cvc') {
-			value = formatCVC(value);
-		}
-
-		updateState({ [name]: value });
-	};
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-	};
-
-	const renderFields = () => {
-		return fields.map((field) => {
-			return (
-				<PaymentFormInput
-					field={field}
-					value={state[field.name]}
-					handleChange={handleChange}
-					handleFocus={handleFocus}
-				/>
-			);
-		});
-	};
-
 	return (
 		<StyledCont>
 			<PaymentFormHeader />
-			<CardElement />
 			<StyledDiv>
-				<PaymentCard {...state} />
-				<StyledForm id="payment-form" onSubmit={handleSubmit}>
-					{renderFields()}
-					<PaymentFormBtn />
-				</StyledForm>
+				<CardElement {...createOptions} />
+				<PaymentFormBtn />
 			</StyledDiv>
 		</StyledCont>
 	);
@@ -105,25 +44,25 @@ const StyledCont = styled.div`
 	padding: 1.5rem 0;
 	justify-content: center;
 	align-items: center;
-	min-height: 420px;
-	max-height: 420px;
+	min-height: 270px;
+	max-height: 270px;
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 4rem;
+	padding: 3rem;
 `;
 
 const StyledDiv = styled.div`
-	display: flex;
-	flex-direction: row;
-	padding-top: 1rem;
-`;
+	.StripeElement {
+		border-radius: 4px;
+		border: 1px solid #e0e0e0;
+		padding: 3px 10px;
+		transition: 0.3s ease-in-out;
+	}
 
-const StyledForm = styled.form`
-	display: grid;
-	grid-template: 'cardNumber cardNumber' 'cardName cardName' 'cardValid cardCVC' 'paymentBtn paymentBtn';
-	grid-column-gap: 2rem;
-	grid-row-gap: 1rem;
-	max-height: 150px;
-	margin-right: 6rem;
-	margin-top: 0.7rem;
+	.StripeElement--focus {
+		border-color: #139ff2;
+		outline: 0;
+		box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+	}
 `;
