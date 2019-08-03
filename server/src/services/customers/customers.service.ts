@@ -23,7 +23,12 @@ export class CustomersService {
 	async createCustomer(customerInfo: CreateCustomerDto, userID: string): Promise<boolean> {
 		try {
 			let customer = await Customer.findOne({ userID });
-			if (!customer) customer = new Customer({ userID });
+
+			if (!customer) {
+				customer = new Customer({ userID });
+			} else if (customer.plan === customerInfo.plan) {
+				throw new Error('User is already on this plan');
+			}
 
 			const { ccLast4 } = customerInfo;
 			delete customerInfo.ccLast4;
@@ -41,6 +46,7 @@ export class CustomersService {
 			customer.stripeID = stripeID;
 			customer.ccLast4 = ccLast4;
 			customer.plan = customerInfo.plan;
+
 			await customer.save();
 		} catch (error) {
 			throw new Error('Unable to add plan subscription');
