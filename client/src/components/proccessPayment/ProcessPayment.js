@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import styled, { css } from 'styled-components';
 import Container from '../common/Container';
 import Loader from '../common/Loader';
@@ -6,9 +6,12 @@ import { fadeIn, fadeOut } from '../../lib/keyframes';
 import _fetch from '../../lib/_fetch';
 import { connect } from 'react-redux';
 import setNotProccesingPaymentAction from '../../actions/setNotProccessingPaymentAction';
+import { Check } from 'react-feather';
+import { withRouter } from 'react-router-dom';
 
-const ProcessPayment = ({ body, setNotProccesingPaymentAction }) => {
+const ProcessPayment = ({ body, setNotProccesingPaymentAction, history }) => {
 	const [ loading, setLoading ] = useState(true);
+	const [ showSucc, setShowSucc ] = useState(false);
 
 	useEffect(() => {
 		proccess();
@@ -21,22 +24,40 @@ const ProcessPayment = ({ body, setNotProccesingPaymentAction }) => {
 
 			setLoading(false);
 			setTimeout(() => {
-				setNotProccesingPaymentAction();
-			}, 450);
+				setShowSucc(true);
+				setTimeout(() => {
+					setNotProccesingPaymentAction();
+					history.replace('/');
+				}, 1000);
+			}, 350);
 		} catch (error) {
-			alert(error);
+			setNotProccesingPaymentAction();
 		}
 	};
 
-	return (
-		<Container>
-			<StyledDiv loading={loading}>
+	const renderContent = () => {
+		if (showSucc) {
+			return (
+				<StyledCheck>
+					<Check />
+				</StyledCheck>
+			);
+		}
+
+		return (
+			<Fragment>
 				<span>
 					<Loader size={60} color="#139ff2" />
 				</span>
 				<h1>Proccesing Payment</h1>
 				<p>Hang thight while we upgrade your plan</p>
-			</StyledDiv>
+			</Fragment>
+		);
+	};
+
+	return (
+		<Container>
+			<StyledDiv loading={loading}>{renderContent()}</StyledDiv>
 		</Container>
 	);
 };
@@ -59,7 +80,7 @@ const actions = {
 	setNotProccesingPaymentAction
 };
 
-export default connect(mapStateToProps, actions)(ProcessPayment);
+export default connect(mapStateToProps, actions)(withRouter(ProcessPayment));
 
 const StyledDiv = styled.main`
 	animation: ${({ loading }) => (loading ? css`${fadeIn} 0.3s;` : css`${fadeOut} 0.5s;`)} ease forwards;
@@ -70,5 +91,22 @@ const StyledDiv = styled.main`
 
 	span {
 		margin-bottom: 3rem;
+	}
+`;
+
+const StyledCheck = styled.div`
+	animation: ${fadeIn} 0.3s ease forwards;
+	border-radius: 50%;
+	border: 6px solid #12e2a3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 90px;
+	min-height: 90px;
+
+	svg {
+		height: 2rem;
+		width: 2rem;
+		stroke: #12e2a3;
 	}
 `;
