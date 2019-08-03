@@ -1,8 +1,10 @@
-import { Controller, Get, Param, Body, Post, Patch, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, Patch, Delete, UseGuards, Req } from '@nestjs/common';
 import { CustomersService } from '../../services/customers/customers.service';
 import { CreateCustomerDto } from './dto/customer.dto';
 import * as Stripe from 'stripe';
 import { AuthGuard } from '@nestjs/passport';
+import { User } from '../../decorators/user.decorator';
+import { IReqUser } from '../../interfaces/user.interface';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('customers')
@@ -20,8 +22,11 @@ export class CustomersController {
 	}
 
 	@Post('/create')
-	public async createCustomer(@Body() createCustomerDTO: CreateCustomerDto): Promise<Stripe.customers.ICustomer> {
-		return await this.customersService.createCustomer(createCustomerDTO);
+	public async createCustomer(
+		@User() { id }: IReqUser,
+		@Body() createCustomerDTO: CreateCustomerDto
+	): Promise<boolean> {
+		return await this.customersService.createCustomer(createCustomerDTO, id);
 	}
 
 	@Patch('/:id')

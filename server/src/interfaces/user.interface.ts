@@ -26,3 +26,7 @@ export interface IUserData {
 	token: string;
 	quota: IQuotaData;
 }
+
+export interface IReqUser {
+	id: string;
+}
