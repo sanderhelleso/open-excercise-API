@@ -4,7 +4,6 @@ import { ArrowRight } from 'react-feather';
 
 const PaymentFormBtn = ({ createToken, complete }) => {
 	const handleSubmit = async () => {
-		console.log(complete);
 		if (!complete) return;
 
 		const { token } = await createToken();

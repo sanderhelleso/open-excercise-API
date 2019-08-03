@@ -34,7 +34,7 @@ const PaymentForm = ({ stripe: { createToken } }) => {
 	return (
 		<StyledCont id="payment-form">
 			<PaymentFormHeader />
-			<CardElement {...createOptions} onChange={handleChange} />
+			<CardElement {...createOptions} onChange={handleChange} hidePostalCode={true} />
 			<PaymentFormBtn createToken={createToken} complete={complete} />
 		</StyledCont>
 	);
