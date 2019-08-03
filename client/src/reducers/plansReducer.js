@@ -8,12 +8,14 @@ const optionsData = [
 	},
 	{
 		name: 'Small Business',
+		id: 'small_business',
 		features: [ 'For medium sized apps', 'Up to 150k requests', 'Email support' ],
 		price: 50,
 		withShadow: true
 	},
 	{
 		name: 'Enterprise',
+		id: 'enterprise',
 		price: 150,
 		features: [ 'For larger apps', 'Up to 750k requests', 'Dedicated support' ]
 	}
