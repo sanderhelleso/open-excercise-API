@@ -16,6 +16,9 @@ const ProcessPayment = ({ body, setNotProccesingPaymentAction, setSubDataAction,
 
 	useEffect(() => {
 		proccess();
+
+		window.onbeforeunload = () => 'Please wait until the payment is proccessed';
+		return () => (window.onbeforeunload = null);
 	}, []);
 
 	const proccess = async () => {
