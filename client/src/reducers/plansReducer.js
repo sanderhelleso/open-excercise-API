@@ -24,10 +24,10 @@ const optionsData = [
 const options = optionsData.slice(1, optionsData.length).map(({ name }, i) => ({ value: i, label: name }));
 
 const initialState = {
-	selectedOption: optionsData[1],
-	selectedOptionIndex: 0,
 	optionsData,
-	options
+	options,
+	selectedOption: optionsData[1],
+	selectedOptionIndex: 0
 };
 
 export default (state = initialState, action) => {
