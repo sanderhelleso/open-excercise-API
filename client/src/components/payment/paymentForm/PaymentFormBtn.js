@@ -3,15 +3,21 @@ import styled from 'styled-components';
 import { ArrowRight } from 'react-feather';
 import { connect } from 'react-redux';
 import _fetch from '../../../lib/_fetch';
+import setProccesingPaymentAction from '../../../actions/setProccessingPaymentAction';
 
-const PaymentFormBtn = ({ createToken, complete, email, plan }) => {
+const PaymentFormBtn = ({ createToken, complete, setProccesingPaymentAction }) => {
 	const handleSubmit = async () => {
 		if (!complete) return;
 
-		try {
-			/*const { token: { card, id } } = await createToken();
+		const { token: { card, id } } = await createToken();
 
-			const body = { source: id, ccLast4: card.last4, email, plan };
+		setProccesingPaymentAction({
+			source: id,
+			ccLast4: card.last4
+		});
+
+		try {
+			/*const body = { source: id, ccLast4: card.last4, email, plan };
 			const response = await _fetch(`http://localhost:4000/customers/create`, 'POST', null, body);
 			const data = await response.json();
 
@@ -31,13 +37,11 @@ const PaymentFormBtn = ({ createToken, complete, email, plan }) => {
 	);
 };
 
-const mapStateToProps = ({ auth, plans }) => {
-	const { email } = auth;
-	const { selectedOption: { id } } = plans;
-	return { email, plan: id };
+const actions = {
+	setProccesingPaymentAction
 };
 
-export default connect(mapStateToProps, null)(PaymentFormBtn);
+export default connect(null, actions)(PaymentFormBtn);
 
 const StyledButton = styled.button`
 	padding: 1rem 2.5rem;

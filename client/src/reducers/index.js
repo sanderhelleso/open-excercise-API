@@ -10,7 +10,7 @@ const appReducer = combineReducers({
 	quota: quotaReducer,
 	chart: chartReducer,
 	plans: plansReducer,
-	proccesPayment: proccessPaymentReducer
+	proccessPayment: proccessPaymentReducer
 });
 
 export default (state, action) => {
