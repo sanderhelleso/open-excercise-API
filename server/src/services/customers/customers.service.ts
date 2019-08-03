@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import * as Stripe from 'stripe';
 import { stripe } from '../../stripe/stripe';
+import { CreateCustomerDto } from '../../controllers/customers/dto/customer.dto';
+import planMap from '../../utils/planMap';
 
 @Injectable()
 export class CustomersService {
@@ -16,8 +18,13 @@ export class CustomersService {
 		return await customer;
 	}
 
-	async createCustomer(customerInfo: Stripe.customers.ICustomerCreationOptions): Promise<Stripe.customers.ICustomer> {
+	async createCustomer(customerInfo: CreateCustomerDto): Promise<Stripe.customers.ICustomer> {
+		const { ccLast4: string } = customerInfo;
+		delete customerInfo.ccLast4;
+
+		customerInfo.plan = planMap[customerInfo.plan];
 		const customer = await this.stripe.customers.create(customerInfo);
+
 		return customer;
 	}
 
