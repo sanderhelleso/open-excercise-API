@@ -4,12 +4,14 @@ import quotaReducer from './quotaReducer';
 import chartReducer from './chartReducer';
 import plansReducer from './plansReducer';
 import proccessPaymentReducer from './proccessPaymentReducer';
+import subscriptionReducer from './subscriptionReducer';
 
 const appReducer = combineReducers({
 	auth: authReducer,
 	quota: quotaReducer,
 	chart: chartReducer,
 	plans: plansReducer,
+	subscription: subscriptionReducer,
 	proccessPayment: proccessPaymentReducer
 });
 

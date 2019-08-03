@@ -5,11 +5,12 @@ import Loader from '../common/Loader';
 import { fadeIn, fadeOut } from '../../lib/keyframes';
 import _fetch from '../../lib/_fetch';
 import { connect } from 'react-redux';
-import setNotProccesingPaymentAction from '../../actions/setNotProccessingPaymentAction';
 import { Check } from 'react-feather';
 import { withRouter } from 'react-router-dom';
+import setNotProccesingPaymentAction from '../../actions/setNotProccessingPaymentAction';
+import setSubDataAction from '../../actions/setSubDataAction';
 
-const ProcessPayment = ({ body, setNotProccesingPaymentAction, history }) => {
+const ProcessPayment = ({ body, setNotProccesingPaymentAction, setSubDataAction, history }) => {
 	const [ loading, setLoading ] = useState(true);
 	const [ showSucc, setShowSucc ] = useState(false);
 
@@ -19,10 +20,11 @@ const ProcessPayment = ({ body, setNotProccesingPaymentAction, history }) => {
 
 	const proccess = async () => {
 		try {
-			const response = await _fetch(`http://localhost:4000/customers/create`, 'POST', null, body);
-			const data = await response.json();
+			await _fetch(`http://localhost:4000/customers/create`, 'POST', null, body);
 
+			setSubDataAction({ planID: body.plan, ccLast4: body.ccLast4 });
 			setLoading(false);
+
 			setTimeout(() => {
 				setShowSucc(true);
 				setTimeout(() => {
@@ -77,7 +79,8 @@ const mapStateToProps = ({ auth, plans, proccessPayment }) => {
 };
 
 const actions = {
-	setNotProccesingPaymentAction
+	setNotProccesingPaymentAction,
+	setSubDataAction
 };
 
 export default connect(mapStateToProps, actions)(withRouter(ProcessPayment));
