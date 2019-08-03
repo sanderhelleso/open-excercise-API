@@ -1,13 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ArrowRight } from 'react-feather';
+import { connect } from 'react-redux';
+import _fetch from '../../../lib/_fetch';
 
-const PaymentFormBtn = ({ createToken, complete }) => {
+const PaymentFormBtn = ({ createToken, complete, email }) => {
 	const handleSubmit = async () => {
 		if (!complete) return;
 
-		const { token } = await createToken();
-		console.log(token);
+		try {
+			const { token } = await createToken();
+
+			const body = { source: token.id, email };
+			const response = await _fetch(`http://localhost:4000/customers/create`, 'POST', null, body);
+			const data = await response.json();
+
+			console.log(data);
+		} catch (error) {
+			alert(error);
+		}
 	};
 
 	return (
@@ -20,7 +31,12 @@ const PaymentFormBtn = ({ createToken, complete }) => {
 	);
 };
 
-export default PaymentFormBtn;
+const mapStateToProps = ({ auth }) => {
+	const { email } = auth;
+	return { email };
+};
+
+export default connect(mapStateToProps, null)(PaymentFormBtn);
 
 const StyledButton = styled.button`
 	padding: 1rem 2.5rem;

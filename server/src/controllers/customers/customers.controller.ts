@@ -1,8 +1,10 @@
-import { Controller, Get, Param, Body, Post, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, Patch, Delete, UseGuards } from '@nestjs/common';
 import { CustomersService } from '../../services/customers/customers.service';
 import { CreateCustomerDto } from './dto/customer.dto';
 import * as Stripe from 'stripe';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('customers')
 export class CustomersController {
 	constructor(private readonly customersService: CustomersService) {}
