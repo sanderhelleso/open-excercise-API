@@ -20,16 +20,6 @@ const PaymentFormBtn = ({ createToken, complete, setProccesingPaymentAction }) =
 			source: id,
 			ccLast4: card.last4
 		});
-
-		try {
-			/*const body = { source: id, ccLast4: card.last4, email, plan };
-			const response = await _fetch(`http://localhost:4000/customers/create`, 'POST', null, body);
-			const data = await response.json();
-
-			//console.log(data);*/
-		} catch (error) {
-			alert(error);
-		}
 	};
 
 	const renderInner = () => {
