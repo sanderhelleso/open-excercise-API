@@ -5,6 +5,7 @@ import { CreateCustomerDto } from '../../controllers/customers/dto/customer.dto'
 import planMap from '../../utils/planMap';
 import Customer from '../../database/models/customer.model';
 import { ICustomer } from '../../interfaces/customer.interface';
+import { FAILED_ADD_PLAN } from '../../errors/error-messages';
 
 @Injectable()
 export class CustomersService {
@@ -22,19 +23,19 @@ export class CustomersService {
 
 	async createCustomer(customerInfo: CreateCustomerDto, userID: string): Promise<boolean> {
 		try {
+			customerInfo.plan = planMap[customerInfo.plan];
+			const { ccLast4 } = customerInfo;
+			delete customerInfo.ccLast4;
+
 			let customer = await Customer.findOne({ userID });
 
 			if (!customer) {
 				customer = new Customer({ userID });
 			} else if (customer.plan === customerInfo.plan) {
-				throw new Error('User is already on this plan');
+				throw FAILED_ADD_PLAN;
 			}
 
-			const { ccLast4 } = customerInfo;
-			delete customerInfo.ccLast4;
-
 			let stripeID: string = customer.stripeID;
-			customerInfo.plan = planMap[customerInfo.plan];
 
 			if (!stripeID) {
 				const { id } = await this.stripe.customers.create(customerInfo);
@@ -49,7 +50,7 @@ export class CustomersService {
 
 			await customer.save();
 		} catch (error) {
-			throw new Error('Unable to add plan subscription');
+			throw error;
 		}
 
 		return true;
