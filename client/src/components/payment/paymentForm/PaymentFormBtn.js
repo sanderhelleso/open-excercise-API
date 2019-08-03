@@ -4,14 +4,14 @@ import { ArrowRight } from 'react-feather';
 import { connect } from 'react-redux';
 import _fetch from '../../../lib/_fetch';
 
-const PaymentFormBtn = ({ createToken, complete, email }) => {
+const PaymentFormBtn = ({ createToken, complete, email, plan }) => {
 	const handleSubmit = async () => {
 		if (!complete) return;
 
 		try {
 			const { token: { card, id } } = await createToken();
 
-			const body = { source: id, ccLast4: card.last4, email };
+			const body = { source: id, ccLast4: card.last4, email, plan };
 			//const response = await _fetch(`http://localhost:4000/customers/create`, 'POST', null, body);
 			//const data = await response.json();
 
@@ -31,9 +31,10 @@ const PaymentFormBtn = ({ createToken, complete, email }) => {
 	);
 };
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, plans }) => {
 	const { email } = auth;
-	return { email };
+	const { selectedOption: { name } } = plans;
+	return { email, plan: name };
 };
 
 export default connect(mapStateToProps, null)(PaymentFormBtn);
