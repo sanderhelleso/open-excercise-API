@@ -3,12 +3,14 @@ import authReducer from './authReducer';
 import quotaReducer from './quotaReducer';
 import chartReducer from './chartReducer';
 import plansReducer from './plansReducer';
+import proccessPaymentReducer from './proccessPaymentReducer';
 
 const appReducer = combineReducers({
 	auth: authReducer,
 	quota: quotaReducer,
 	chart: chartReducer,
-	plans: plansReducer
+	plans: plansReducer,
+	proccesPayment: proccessPaymentReducer
 });
 
 export default (state, action) => {

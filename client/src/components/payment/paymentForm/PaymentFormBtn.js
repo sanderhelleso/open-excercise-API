@@ -9,13 +9,13 @@ const PaymentFormBtn = ({ createToken, complete, email, plan }) => {
 		if (!complete) return;
 
 		try {
-			const { token: { card, id } } = await createToken();
+			/*const { token: { card, id } } = await createToken();
 
 			const body = { source: id, ccLast4: card.last4, email, plan };
 			const response = await _fetch(`http://localhost:4000/customers/create`, 'POST', null, body);
 			const data = await response.json();
 
-			//console.log(data);
+			//console.log(data);*/
 		} catch (error) {
 			alert(error);
 		}
