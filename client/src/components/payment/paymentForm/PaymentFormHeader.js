@@ -1,26 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
-const PaymentFormHeader = () => (
+const PaymentFormHeader = ({ name, price }) => (
 	<StyledHeader>
-		<h1>Pay</h1>
-		<StyledSum>$ 600</StyledSum>
+		<h1>{name} Plan</h1>
+		<StyledSelectCont>
+			<StyledSum>${price}/mo</StyledSum>
+		</StyledSelectCont>
 	</StyledHeader>
 );
 
-export default PaymentFormHeader;
+const mapStateToProps = ({ plans: { selectedOption } }) => {
+	const { name, price } = selectedOption;
+	return { name, price };
+};
+
+export default connect(mapStateToProps, null)(PaymentFormHeader);
 
 const StyledHeader = styled.div`
-	margin: 1rem 3.5rem;
-	margin-bottom: 2rem;
+	margin-bottom: 3rem;
 	display: flex;
 	justify-content: space-between;
 	border-bottom: 1px solid #eeeeee;
 	padding-bottom: 1rem;
-	margin-bottom: 2rem;
 
 	h1 {
 		margin-left: 0.5rem;
+		color: #9e9e9e;
+		opacity: 0.8;
+		font-weight: 100;
 	}
 `;
 
@@ -28,4 +37,13 @@ const StyledSum = styled.div`
 	font-size: 2rem;
 	position: relative;
 	margin-right: 1rem;
+	min-width: 80px;
+	text-align: right;
+`;
+
+const StyledSelectCont = styled.div`
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	margin-left: auto;
 `;

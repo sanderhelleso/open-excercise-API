@@ -19,3 +19,8 @@ export const FAILED_LOGIN_ERROR = new HttpException(
 	'No user matching those credentials were found',
 	HttpStatus.UNAUTHORIZED
 );
+
+export const FAILED_ADD_PLAN = new HttpException(
+	'You already have an active subscription to this plan',
+	HttpStatus.CONFLICT
+);

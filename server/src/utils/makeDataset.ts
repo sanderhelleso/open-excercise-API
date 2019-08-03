@@ -4,7 +4,7 @@ import * as util from 'util';
 
 const readFile = util.promisify(fs.readFile);
 
-async function makeDataset(): Promise<object> {
+async function makeDataset(): Promise<any> {
 	const excercises: object = {};
 	const muscles: object = {};
 

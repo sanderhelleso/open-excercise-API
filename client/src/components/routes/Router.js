@@ -19,7 +19,7 @@ const Router = ({ isAuthenticated }) => {
 				<Route exact path="/socket-test" component={SocketTest} />
 				<Route exact path="/register" component={isAuthenticated ? () => <Redirect to="/" /> : Register} />
 				<Route exact path="/documentation" component={Docs} />
-				<Route exact path="/payment" component={Payment} />
+				<Route exact path="/plans" component={Payment} />
 			</Switch>
 		</BrowserRouter>
 	);

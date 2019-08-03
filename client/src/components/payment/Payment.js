@@ -1,11 +1,13 @@
 import React from 'react';
 import Container from '../common/Container';
-import PaymentForm from './paymentForm/PaymentForm';
+import PaymentFormConsumer from './paymentForm/PaymentFormConsumer';
+import Plans from '../plans/Plans';
 
 const Payment = () => {
 	return (
 		<Container>
-			<PaymentForm />
+			<Plans />
+			<PaymentFormConsumer />
 		</Container>
 	);
 };

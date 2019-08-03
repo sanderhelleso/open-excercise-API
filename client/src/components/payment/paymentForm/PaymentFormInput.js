@@ -28,8 +28,8 @@ const StyledInputCont = styled.div`
 
 		&:focus,
 		&:active {
-			border: 1px solid #139ff2;
-			box-shadow: 0 0 0 2px #e1f5fe;
+			border: 1px solid #2684ff;
+			box-shadow: 0 0 0 1px #139ff2;
 		}
 	}
 `;
