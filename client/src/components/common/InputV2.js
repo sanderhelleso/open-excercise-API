@@ -33,7 +33,9 @@ const StyledInput = styled.input`
 	}
 	&:focus,
 	&:active {
-		border: 1px solid #139ff2;
+		border-color: #139ff2;
+		outline: 0;
+		box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
 	}
 	&:disabled {
 		background-color: #eeeeee;

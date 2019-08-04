@@ -41,9 +41,6 @@ const StyledDiv = styled.div`
 		}
 
 		form {
-			padding-top: 2rem;
-			border-top: 1px solid #eeeeee;
-			margin-top: 2rem;
 			display: flex;
 			flex-direction: row;
 
@@ -56,6 +53,9 @@ const StyledDiv = styled.div`
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			padding-bottom: 2rem;
+			border-bottom: 1px solid #eeeeee;
+			margin-bottom: 2rem;
 		}
 
 		button {
@@ -72,6 +72,7 @@ const StyledDiv = styled.div`
 			box-shadow: 0px 12px 30px 0px rgba(19, 159, 242, 0.5);
 			background-color: #139ff2;
 			max-width: 125px;
+			max-height: 50px;
 		}
 	}
 `;

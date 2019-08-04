@@ -1,12 +1,13 @@
 import React from 'react';
+import AccountBillingPlan from './AccountBillingPlan';
 
 const AccountBilling = () => {
 	return (
 		<section>
 			<div className="account-section-header">
-				<h2>Billing</h2>
-				<button>update</button>
+				<h2>Plan & Billing</h2>
 			</div>
+			<AccountBillingPlan />
 		</section>
 	);
 };
