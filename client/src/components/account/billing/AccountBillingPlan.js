@@ -68,7 +68,6 @@ const StyledDiv = styled.div`
 	display: flex;
 	flex-direction: row;
 	min-width: 400px;
-	margin-right: auto;
 
 	div {
 		margin-left: 0.5rem;
