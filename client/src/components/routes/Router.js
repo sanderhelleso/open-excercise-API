@@ -16,7 +16,11 @@ const Router = ({ isAuthenticated }) => {
                 <Route
                     exact
                     path="/"
-                    component={isAuthenticated ? Dashboard : Login}
+                    component={
+                        isAuthenticated
+                            ? Dashboard
+                            : () => <Redirect to="/login" />
+                    }
                 />
                 <Route
                     exact
