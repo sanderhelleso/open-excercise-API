@@ -3,8 +3,8 @@ import Quota from '../../database/models/quota.model';
 import { ICreateQuota, IQuotaData } from '../../interfaces/quota.interface';
 import * as crypto from 'crypto';
 import { INTERNAL_SERVER_ERR } from '../../errors/error-messages';
+import planLimitsMap from '../../utils/planLimitsMap';
 
-const MAX_REQUESTS = 1000 * 10;
 const N_BYTES = 256;
 const HASH_ALG = 'sha256';
 
@@ -12,8 +12,8 @@ const HASH_ALG = 'sha256';
 export class QuotasService {
 	async findByBelongsTo(userID: string): Promise<IQuotaData | null> {
 		try {
-			const { api_key, requests_remaining, refilled_at } = await Quota.findOne({ belongs_to: userID });
-			return { api_key, requests_remaining, refilled_at };
+			const { api_key, requests_limit, requests_remaining, refilled_at } = await Quota.findOne({ userID });
+			return { api_key, requests_limit, requests_remaining, refilled_at };
 		} catch (error) {
 			throw INTERNAL_SERVER_ERR;
 		}
@@ -21,19 +21,20 @@ export class QuotasService {
 
 	async createQuota(userID: string): Promise<IQuotaData | null> {
 		const api_key: string = this.generateApiKey();
-		const requests_remaining: number = MAX_REQUESTS;
+		const requests_limit: number = planLimitsMap.individual;
 		const refilled_at: number = new Date().getTime();
 
 		const quota: ICreateQuota = {
 			api_key,
-			requests_remaining,
 			refilled_at,
-			belongs_to: userID
+			userID,
+			requests_limit,
+			requests_remaining: requests_limit
 		};
 
 		try {
 			await new Quota(quota).save();
-			delete quota.belongs_to;
+			delete quota.userID;
 
 			return quota;
 		} catch (error) {
@@ -42,7 +43,7 @@ export class QuotasService {
 	}
 
 	async updateKey(userID: string): Promise<string | null> {
-		const quota = await Quota.findOne({ belongs_to: userID });
+		const quota = await Quota.findOne({ userID });
 		if (quota) {
 			const api_key = await this.generateApiKey();
 			quota.api_key = api_key;
@@ -56,7 +57,7 @@ export class QuotasService {
 
 	async delete(userID: string): Promise<boolean> {
 		try {
-			await Quota.deleteOne({ belongs_to: userID });
+			await Quota.deleteOne({ userID });
 			return true;
 		} catch (error) {
 			throw INTERNAL_SERVER_ERR;

@@ -9,8 +9,18 @@ import { Check } from 'react-feather';
 import { withRouter } from 'react-router-dom';
 import setNotProccesingPaymentAction from '../../actions/setNotProccessingPaymentAction';
 import setSubDataAction from '../../actions/setSubDataAction';
+import setQuotaAction from '../../actions/setQuotaAction';
+import setSelectedPlanAction from '../../actions/setSelectedPlanAction';
+import { optionsData } from '../../lib/planOptions';
 
-const ProcessPayment = ({ body, setNotProccesingPaymentAction, setSubDataAction, history }) => {
+const ProcessPayment = ({
+	body,
+	setSelectedPlanAction,
+	setQuotaAction,
+	setNotProccesingPaymentAction,
+	setSubDataAction,
+	history
+}) => {
 	const [ loading, setLoading ] = useState(true);
 	const [ showSucc, setShowSucc ] = useState(false);
 
@@ -23,9 +33,13 @@ const ProcessPayment = ({ body, setNotProccesingPaymentAction, setSubDataAction,
 
 	const proccess = async () => {
 		try {
-			await _fetch(`http://localhost:4000/customers/create`, 'POST', null, body);
+			const response = await _fetch(`http://localhost:4000/customers/create`, 'POST', null, body);
+			const data = await response.json();
+			const newOptionIndex = optionsData.indexOf(optionsData.find(({ id }, i) => id !== body.plan && i));
 
+			setQuotaAction(data);
 			setSubDataAction({ planID: body.plan, ccLast4: body.ccLast4 });
+			setSelectedPlanAction(newOptionIndex);
 			setLoading(false);
 
 			setTimeout(() => {
@@ -54,7 +68,7 @@ const ProcessPayment = ({ body, setNotProccesingPaymentAction, setSubDataAction,
 				<span>
 					<Loader size={60} color="#139ff2" />
 				</span>
-				<h1>Proccesing Payment</h1>
+				<h1>Proccessing Payment</h1>
 				<p>Hang thight while we upgrade your plan</p>
 			</Fragment>
 		);
@@ -82,6 +96,8 @@ const mapStateToProps = ({ auth, plans, proccessPayment }) => {
 };
 
 const actions = {
+	setSelectedPlanAction,
+	setQuotaAction,
 	setNotProccesingPaymentAction,
 	setSubDataAction
 };
