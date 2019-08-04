@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ButtonV2 = ({ text, disabled, flat, onClick }) => {
+const ButtonV2 = ({ text, disabled, flat, danger, onClick }) => {
 	return (
-		<StyledButton flat={flat} disabled={disabled} onClick={onClick}>
+		<StyledButton flat={flat} danger={danger} disabled={disabled} onClick={onClick}>
 			{text}
 		</StyledButton>
 	);
@@ -24,9 +24,10 @@ const StyledButton = styled.button`
 	max-width: 125px;
 	max-height: 55px;
 
-	${({ disabled, flat }) => {
+	${({ disabled, flat, danger }) => {
 		if (disabled) return disabledStyles;
 		if (flat) return flatStyles;
+		if (danger) return dangerlStyles;
 
 		return normalStyles;
 	}};
@@ -48,4 +49,10 @@ const normalStyles = `
 	color: #ffffff;
 	box-shadow: 0px 12px 30px 0px rgba(19, 159, 242, 0.5);
 	background-color: #139ff2;
+`;
+
+const dangerlStyles = `
+	color: #ffffff;
+	box-shadow: 0px 12px 30px 0px rgba(255, 73, 73, 0.5);
+	background-color: #ff4949;
 `;
