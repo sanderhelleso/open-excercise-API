@@ -1,10 +1,17 @@
 import React from 'react';
 import Container from '../common/Container';
+import AccountBilling from './billing/AccountBilling';
+import AccountInfo from './info/AccountInfo';
+import AccountPassword from './password/AccountPassword';
+import AccountDanger from './danger/AccountDanger';
 
 const Account = () => {
 	return (
 		<Container>
-			<h1>Account</h1>
+			<AccountInfo />
+			<AccountPassword />
+			<AccountBilling />
+			<AccountDanger />
 		</Container>
 	);
 };
