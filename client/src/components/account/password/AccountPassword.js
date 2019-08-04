@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import InputV2 from '../../common/InputV2';
+import ButtonV2 from '../../common/ButtonV2';
 
 const fields = [
 	{
@@ -40,7 +41,7 @@ const AccountPassword = () => {
 		<section>
 			<div className="account-section-header">
 				<h2>Password</h2>
-				<button>update</button>
+				<ButtonV2 text="update" />
 			</div>
 			<form>{renderFields()}</form>
 		</section>

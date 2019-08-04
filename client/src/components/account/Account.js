@@ -57,22 +57,5 @@ const StyledDiv = styled.div`
 			border-bottom: 1px solid #eeeeee;
 			margin-bottom: 2rem;
 		}
-
-		button {
-			cursor: pointer;
-			padding: 0.75rem 2rem;
-			border: none;
-			outline: none;
-			text-transform: uppercase;
-			letter-spacing: 1px;
-			border-radius: 4px;
-			font-weight: 400;
-			transition: 0.3s ease-in-out;
-			color: #ffffff;
-			box-shadow: 0px 12px 30px 0px rgba(19, 159, 242, 0.5);
-			background-color: #139ff2;
-			max-width: 125px;
-			max-height: 50px;
-		}
 	}
 `;

@@ -1,8 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import ButtonV2 from '../../common/ButtonV2';
+import { withRouter } from 'react-router-dom';
 
-const AccountBillingPlan = ({ name, price }) => {
+const buttons = [
+	{
+		text: 'cancel',
+		flat: true
+	},
+	{
+		text: 'change'
+	}
+];
+
+const AccountBillingPlan = ({ name, price, history }) => {
+	const onClicks = [ null, () => history.push('/plans') ];
+
+	const renderButtons = () => {
+		return buttons.map((button, i) => {
+			return <ButtonV2 key={i} {...button} onClick={onClicks[i]} />;
+		});
+	};
+
 	return (
 		<StyledCont>
 			<StyledDiv>
@@ -12,7 +32,7 @@ const AccountBillingPlan = ({ name, price }) => {
 					<p>${price}/mo</p>
 				</div>
 			</StyledDiv>
-			<button>cancel</button>
+			<StyledDiv>{renderButtons()}</StyledDiv>
 		</StyledCont>
 	);
 };
@@ -25,13 +45,21 @@ const mapStateToProps = ({ subscription, plans }) => {
 	return { name, price };
 };
 
-export default connect(mapStateToProps, null)(AccountBillingPlan);
+export default connect(mapStateToProps, null)(withRouter(AccountBillingPlan));
 
 const StyledCont = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+
+	button {
+		margin-left: auto;
+	}
+
+	button:last-child {
+		margin-left: 2rem;
+	}
 `;
 
 const StyledDiv = styled.div`
