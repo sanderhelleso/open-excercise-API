@@ -14,10 +14,12 @@ const buttons = [
 	}
 ];
 
-const AccountBillingPlan = ({ name, price, history }) => {
+const AccountBillingPlan = ({ name, price, hasSub, history }) => {
 	const onClicks = [ null, () => history.push('/plans') ];
 
 	const renderButtons = () => {
+		if (!hasSub) buttons.shift();
+
 		return buttons.map((button, i) => {
 			return <ButtonV2 key={i} {...button} onClick={onClicks[i]} />;
 		});
@@ -29,10 +31,10 @@ const AccountBillingPlan = ({ name, price, history }) => {
 				<img src={`${process.env.PUBLIC_URL}/img/${name.split(' ').join('_')}_plan.svg`} />
 				<div>
 					<h5>{name}</h5>
-					<p>${price}/mo</p>
+					<p>{!hasSub ? 'FREE' : `$${price}/mo`}</p>
 				</div>
 			</StyledDiv>
-			<StyledDiv>{renderButtons()}</StyledDiv>
+			<StyledDiv class="btns">{renderButtons()}</StyledDiv>
 		</StyledCont>
 	);
 };
@@ -42,7 +44,7 @@ const mapStateToProps = ({ subscription, plans }) => {
 	const { optionsData } = plans;
 	const { name, price } = optionsData.find(({ id }) => id === planID);
 
-	return { name, price };
+	return { name, price, hasSub: planID !== 'individual' };
 };
 
 export default connect(mapStateToProps, null)(withRouter(AccountBillingPlan));
@@ -53,11 +55,11 @@ const StyledCont = styled.div`
 	align-items: center;
 	justify-content: space-between;
 
-	button {
+	button:first-child {
 		margin-left: auto;
 	}
 
-	button:last-child {
+	button {
 		margin-left: 2rem;
 	}
 `;
@@ -66,6 +68,7 @@ const StyledDiv = styled.div`
 	display: flex;
 	flex-direction: row;
 	min-width: 400px;
+	margin-right: auto;
 
 	div {
 		margin-left: 0.5rem;
