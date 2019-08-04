@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const InputV2 = ({ value, onChange, disabled, label: { text, htmlFor } }) => {
+const InputV2 = ({ value, placeholder, name, onChange, disabled, label: { text, htmlFor } }) => {
 	return (
 		<StyledDiv className="form-section">
 			<StyledLabel htmlFor={htmlFor}>{text}</StyledLabel>
-			<StyledInput {...{ value, onChange, disabled }} />
+			<StyledInput {...{ value, placeholder, name, onChange, disabled }} />
 		</StyledDiv>
 	);
 };

@@ -44,6 +44,12 @@ const StyledDiv = styled.div`
 			padding-top: 2rem;
 			border-top: 1px solid #eeeeee;
 			margin-top: 2rem;
+			display: flex;
+			flex-direction: row;
+
+			.form-section {
+				margin-right: 4rem;
+			}
 		}
 
 		.account-section-header {

@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import InputV2 from '../../common/InputV2';
 
@@ -22,7 +21,7 @@ const AccountInfo = ({ fields, initState }) => {
 				<h2>Info</h2>
 				<button>update</button>
 			</div>
-			<StyledForm>{renderFields()}</StyledForm>
+			<form>{renderFields()}</form>
 		</section>
 	);
 };
@@ -54,12 +53,3 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps, null)(AccountInfo);
-
-const StyledForm = styled.form`
-	display: flex;
-	flex-direction: row;
-
-	.form-section {
-		margin-right: 4rem;
-	}
-`;
