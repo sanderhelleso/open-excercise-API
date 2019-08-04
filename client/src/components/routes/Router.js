@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Register from '../register/Register';
 import SideMenu from '../sidemenu/SideMenu';
-import SocketTest from '../socket-test/SocketTest';
 import Login from '../login/Login';
 import { connect } from 'react-redux';
 import Dashboard from '../dashboard/Dashboard';
@@ -20,9 +19,8 @@ const Router = ({ isAuthenticated, proccesingPayment }) => {
 			<Fragment>
 				<Route path="/*" component={SideMenu} />
 				<Switch>
-					<Route exact path="/" component={isAuthenticated ? Dashboard : Login} />
+					<Route exact path="/" component={isAuthenticated ? Dashboard : <Redirect to="/login" />} />
 					<Route exact path="/login" component={isAuthenticated ? () => <Redirect to="/" /> : Login} />
-					<Route exact path="/socket-test" component={SocketTest} />
 					<Route exact path="/register" component={isAuthenticated ? () => <Redirect to="/" /> : Register} />
 					<Route exact path="/documentation" component={Docs} />
 					<Route exact path="/plans" component={Payment} />
@@ -38,6 +36,10 @@ const mapStateToProps = ({ auth, proccessPayment }) => {
 	const { isAuthenticated } = auth;
 	const { proccesingPayment } = proccessPayment;
 	return { isAuthenticated, proccesingPayment };
+
 };
 
-export default connect(mapStateToProps, null)(Router);
+export default connect(
+    mapStateToProps,
+    null
+)(Router);
