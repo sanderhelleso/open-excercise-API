@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { fadeInPure } from '../../lib/keyframes';
 
 const Dashboard = ({ children }) => (
 	<StyledContent id="main-container">
@@ -12,6 +13,7 @@ const Dashboard = ({ children }) => (
 export default Dashboard;
 
 const StyledContent = styled.main`
+	animation: ${fadeInPure} 0.4s ease forwards;
 	flex-grow: 1;
 	overflow-y: auto;
 	max-height: 100vh;
