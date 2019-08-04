@@ -16,27 +16,19 @@ const options = [
 		path: '/documentation'
 	},
 	{
-		name: 'Accout',
-		path: '/account'
+		name: 'Plans',
+		path: '/plans'
 	},
 	{
-		name: 'Contact',
-		path: '/contact'
+		name: 'Accout',
+		path: '/account'
 	}
 ];
 
+const SideMenu = ({ logoutAction, match, history, isAuthenticated, name, email }) => {
+	const activePath = match.url;
 
-const SideMenu = ({
-    logoutAction,
-    match,
-    history,
-    isAuthenticated,
-    name,
-    email
-}) => {
-    const activePath = match.url;
-
-    const renderOptions = () => {
+	const renderOptions = () => {
 		return options.map((option, i) => {
 			return (
 				<StyledLi
@@ -51,7 +43,6 @@ const SideMenu = ({
 			);
 		});
 	};
-
 
 	return (
 		<Fragment>
