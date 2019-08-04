@@ -18,7 +18,10 @@ const AccountInfo = ({ fields, initState }) => {
 
 	return (
 		<section>
-			<h2>Info</h2>
+			<div className="account-section-header">
+				<h2>Info</h2>
+				<button>update</button>
+			</div>
 			<StyledForm>{renderFields()}</StyledForm>
 		</section>
 	);
