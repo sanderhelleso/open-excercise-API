@@ -8,62 +8,71 @@ import { LogOut } from "react-feather";
 import Navbar from "./Navbar";
 
 const options = [
-	{
-		name: 'Dashboard',
-		path: '/'
-	},
-	{
-		name: 'Documentation',
-		path: '/documentation'
-	},
-	{
-		name: 'Plans',
-		path: '/plans'
-	},
-	{
-		name: 'Account',
-		path: '/account'
-	}
+    {
+        name: "Dashboard",
+        path: "/"
+    },
+    {
+        name: "Documentation",
+        path: "/documentation"
+    },
+    {
+        name: "Plans",
+        path: "/plans"
+    },
+    {
+        name: "Account",
+        path: "/account"
+    }
 ];
 
-const SideMenu = ({ logoutAction, match, history, isAuthenticated, name, email }) => {
-	const activePath = match.url;
+const SideMenu = ({
+    logoutAction,
+    match,
+    history,
+    isAuthenticated,
+    name,
+    email
+}) => {
+    const activePath = match.url;
 
-	const renderOptions = () => {
-		return options.map((option, i) => {
-			return (
-				<StyledLi
-					key={`sidemenu-option-${i}`}
-					className={option.path === activePath ? 'active' : null}
-					onClick={() => {
-						history.push(`${option.path}`);
-					}}
-				>
-					{option.name}
-				</StyledLi>
-			);
-		});
-	};
+    const renderOptions = () => {
+        return options.map((option, i) => {
+            return (
+                <StyledLi
+                    key={`sidemenu-option-${i}`}
+                    className={option.path === activePath ? "active" : null}
+                    onClick={() => {
+                        history.push(`${option.path}`);
+                    }}
+                >
+                    {option.name}
+                </StyledLi>
+            );
+        });
+    };
 
-	return (
-		<Fragment>
-			{isAuthenticated ? (
-				<StyledWrapper className="column">
-					<StyledContent>
-						<StyledTextContainer>
-							<StyledName>Welcome {name}</StyledName>
-							<StyledEmail>{email}</StyledEmail>
-						</StyledTextContainer>
-						<StyledUl>{renderOptions()}</StyledUl>
-					</StyledContent>
-					<StyledButton onClick={logoutAction}>
-						Logout
-						<LogOut size="12" />
-					</StyledButton>
-				</StyledWrapper>
-			) : null}
-		</Fragment>
-	);
+    return (
+        <Fragment>
+            {isAuthenticated ? (
+                <StyledWrapper className="column">
+                    <StyledContent>
+                        <StyledTextContainer>
+                            <StyledName>Welcome {name}</StyledName>
+                            <StyledEmail>{email}</StyledEmail>
+                        </StyledTextContainer>
+                        <StyledUl>{renderOptions()}</StyledUl>
+                    </StyledContent>
+                    <StyledButton onClick={logoutAction}>
+                        Logout
+                        <LogOut size="12" />
+                    </StyledButton>
+                </StyledWrapper>
+            ) : (
+                <Navbar />
+            )}
+        </Fragment>
+    );
 };
 
 const mapStateToProps = ({

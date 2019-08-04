@@ -52,7 +52,7 @@ const StyledNav = styled.nav`
     display: flex;
     justify-content: space-between;
     width: 100%;
-
+    z-index: 1;
     @media screen and (max-width: 568px) {
         flex-direction: column;
         text-align: center;
