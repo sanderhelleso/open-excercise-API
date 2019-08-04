@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-{ BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Register from '../register/Register';
 import SideMenu from '../sidemenu/SideMenu';
 import SocketTest from '../socket-test/SocketTest';
@@ -12,10 +12,10 @@ import Account from '../account/Account';
 import ProcessPayment from '../proccessPayment/ProcessPayment';
 
 const Router = ({ isAuthenticated, proccesingPayment }) => {
-    const renderRoutes = () => {
-        if (proccesingPayment) {
-            return <Route path="/*" component={ProcessPayment} />;
-        }
+	const renderRoutes = () => {
+		if (proccesingPayment) {
+			return <Route path="/*" component={ProcessPayment} />;
+		}
 
 		return (
 			<Fragment>
@@ -33,16 +33,13 @@ const Router = ({ isAuthenticated, proccesingPayment }) => {
 		);
 	};
 
-    return <BrowserRouter>{renderRoutes()}</BrowserRouter>;
+	return <BrowserRouter>{renderRoutes()}</BrowserRouter>;
 };
 
 const mapStateToProps = ({ auth, proccessPayment }) => {
-    const { isAuthenticated } = auth;
-    const { proccesingPayment } = proccessPayment;
-    return { isAuthenticated, proccesingPayment };
+	const { isAuthenticated } = auth;
+	const { proccesingPayment } = proccessPayment;
+	return { isAuthenticated, proccesingPayment };
 };
 
-export default connect(
-    mapStateToProps,
-    null
-)(Router);
+export default connect(mapStateToProps, null)(Router);
