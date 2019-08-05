@@ -5,6 +5,7 @@ import conn from './database/conn';
 import seed from './database/seeder';
 import { ValidationPipe } from './pipes/validation.pipe';
 import * as helmet from 'helmet';
+import { runJobs } from './jobs/cron';
 
 async function bootstrap() {
 	await conn();
@@ -15,6 +16,8 @@ async function bootstrap() {
 	app.enableCors();
 	app.use(helmet());
 	app.useGlobalPipes(new ValidationPipe());
+
+	runJobs();
 
 	await app.listen(process.env.PORT || 3000);
 }
