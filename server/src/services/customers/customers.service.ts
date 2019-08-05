@@ -4,8 +4,10 @@ import { stripe } from '../../stripe/stripe';
 import { CreateCustomerDto } from '../../controllers/customers/dto/customer.dto';
 import planMap from '../../utils/planMap';
 import Customer from '../../database/models/customer.model';
-import { ICustomer } from '../../interfaces/customer.interface';
+import Quota from '../../database/models/quota.model';
 import { FAILED_ADD_PLAN } from '../../errors/error-messages';
+import planLimitsMap from '../../utils/planLimitsMap';
+import { IQuotaDataAfterSub } from '../../interfaces/quota.interface';
 
 @Injectable()
 export class CustomersService {
@@ -21,9 +23,11 @@ export class CustomersService {
 		return await customer;
 	}
 
-	async createCustomer(customerInfo: CreateCustomerDto, userID: string): Promise<boolean> {
+	async createCustomer(customerInfo: CreateCustomerDto, userID: string): Promise<IQuotaDataAfterSub> {
 		try {
-			customerInfo.plan = planMap[customerInfo.plan];
+			const planID = customerInfo.plan;
+
+			customerInfo.plan = planMap[planID];
 			const { ccLast4 } = customerInfo;
 			delete customerInfo.ccLast4;
 
@@ -44,16 +48,23 @@ export class CustomersService {
 				await this.updateCustomer(stripeID, customerInfo);
 			}
 
+			// update customer
 			customer.stripeID = stripeID;
 			customer.ccLast4 = ccLast4;
 			customer.plan = customerInfo.plan;
-
 			await customer.save();
+
+			// update quota to accomondate for plan changes
+			const quota = await Quota.findOne({ userID });
+			const used = quota.requests_limit - quota.requests_remaining;
+			quota.requests_limit = planLimitsMap[planID];
+			quota.requests_remaining = quota.requests_limit - used;
+			await quota.save();
+
+			return { requests_remaining: quota.requests_remaining, requests_limit: quota.requests_limit };
 		} catch (error) {
 			throw error;
 		}
-
-		return true;
 	}
 
 	async updateCustomer(

@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import setSelectedPlanAction from '../../actions/setSelectedPlanAction';
+import { getAvailavblePlanOptions } from '../../lib/planOptions';
 
-const PlansSelect = ({ options, selectedOptionIndex, setSelectedPlanAction }) => {
+const PlansSelect = ({ selectedOptionIndex, options, setSelectedPlanAction }) => {
 	const handleChange = ({ value }) => {
 		setSelectedPlanAction(value);
 		const ele = document.querySelector('#payment-form');
@@ -13,11 +14,19 @@ const PlansSelect = ({ options, selectedOptionIndex, setSelectedPlanAction }) =>
 		ele.scrollIntoView();
 	};
 
-	return <StyledSelect defaultValue={options[selectedOptionIndex]} options={options} onChange={handleChange} />;
+	return (
+		<StyledSelect
+			defaultValue={options.find(({ disabled }) => !disabled)}
+			options={options}
+			isOptionDisabled={({ disabled }) => disabled}
+			onChange={handleChange}
+		/>
+	);
 };
 
-const mapStateToProps = ({ plans: { options, selectedOptionIndex } }) => {
-	return { options, selectedOptionIndex };
+const mapStateToProps = ({ plans: { selectedOptionIndex }, subscription: { planID } }) => {
+	const options = getAvailavblePlanOptions(planID || 'individual');
+	return { selectedOptionIndex, options };
 };
 
 const actions = {

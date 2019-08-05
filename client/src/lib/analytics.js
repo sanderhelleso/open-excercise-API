@@ -28,7 +28,7 @@ export const nextMonthStr = (date) => {
 	const nextRefillDate = new Date(refilledDate.getFullYear(), refilledDate.getMonth() + 1, refilledDate.getDate());
 
 	const [ _, month, day ] = nextRefillDate.toString().split(' ');
-	return `${addZero(day)}. ${month}`;
+	return `${day}. ${month}`;
 };
 
 export const addThousandSep = (n) => {

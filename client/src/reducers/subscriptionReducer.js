@@ -1,8 +1,8 @@
 import { SET_SUB_DATA } from '../actions/types';
 
 const initialState = {
-	hasSub: null,
-	planID: null,
+	hasSub: false,
+	planID: 'individual',
 	ccLast4: null,
 	nextPayment: null,
 	records: []

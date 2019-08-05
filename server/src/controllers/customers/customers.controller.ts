@@ -1,3 +1,4 @@
+import { IQuotaDataAfterSub } from './../../interfaces/quota.interface';
 import { Controller, Get, Param, Body, Post, Patch, Delete, UseGuards, Req } from '@nestjs/common';
 import { CustomersService } from '../../services/customers/customers.service';
 import { CreateCustomerDto } from './dto/customer.dto';
@@ -25,7 +26,7 @@ export class CustomersController {
 	public async createCustomer(
 		@User() { id }: IReqUser,
 		@Body() createCustomerDTO: CreateCustomerDto
-	): Promise<boolean> {
+	): Promise<IQuotaDataAfterSub> {
 		return await this.customersService.createCustomer(createCustomerDTO, id);
 	}
 

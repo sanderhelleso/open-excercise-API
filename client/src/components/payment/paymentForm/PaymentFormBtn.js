@@ -75,7 +75,7 @@ const StyledButton = styled.button`
 
 	svg {
 		position: absolute;
-		top: 1rem;
+		top: 1.2rem;
 		right: 1rem;
 		height: 1.2rem;
 		width: 1.2rem;

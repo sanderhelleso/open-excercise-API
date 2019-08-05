@@ -7,13 +7,18 @@ import openSocket from 'socket.io-client';
 import { connect } from 'react-redux';
 import addChartPeriodAction from '../../../actions/addChartPeriodAction';
 import addChartPeriodDataAction from '../../../actions/addChartPeriodDataAction';
-import { nextMonthStr, addThousandSep, HALF_HOUR } from '../../../lib/analytics';
-
-const MAX_REQUESTS = 10000;
+import { nextMonthStr, HALF_HOUR } from '../../../lib/analytics';
 
 const socket = openSocket('http://localhost:4001');
 
-const Analytics = ({ requests_remaining, api_key, refilled_at, addChartPeriodAction, addChartPeriodDataAction }) => {
+const Analytics = ({
+	requests_remaining,
+	requests_limit,
+	api_key,
+	refilled_at,
+	addChartPeriodAction,
+	addChartPeriodDataAction
+}) => {
 	const [ inited, setInited ] = useState(false);
 	const [ periodInterval, setPeriodInterval ] = useState();
 	const [ _requests_remaining, setRequestsRemaining ] = useState(requests_remaining);
@@ -47,18 +52,18 @@ const Analytics = ({ requests_remaining, api_key, refilled_at, addChartPeriodAct
 
 	const cards = [
 		{
-			data: addThousandSep(_requests_remaining),
+			data: _requests_remaining,
 			desc: 'Total remaining',
 			icon: <Activity />
 		},
 		{
-			data: addThousandSep(MAX_REQUESTS - _requests_remaining),
+			data: requests_limit - _requests_remaining,
 			desc: 'Total used',
 			icon: <BarChart />
 		},
 		{
 			data: nextMonthStr(refilled_at),
-			desc: 'Refilles at',
+			desc: 'Refills at',
 			icon: <Calendar />
 		}
 	];
