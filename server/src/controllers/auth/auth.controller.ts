@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, UseGuards, Req, Patch, Delete } from '@nestjs/common';
 import { UsersService } from '../../services/users/users.service';
-import { LoginUserDto, RegisterUserDto, UserDto } from './dto/user.dto';
+import { LoginUserDto, RegisterUserDto, UserDto, UserDataDto } from './dto/user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../../services/auth/auth.service';
 import { QuotasService } from '../../services/quotas/quotas.service';
@@ -40,6 +40,12 @@ export class AuthController {
 		const payload = { email, name, quota };
 
 		return this.authService.sendUser(payload);
+	}
+
+	@Patch('/update-data')
+	@UseGuards(AuthGuard('jwt'))
+	async updateData(@Body() body: UserDataDto, @User() { id }: IReqUser): Promise<boolean> {
+		return await this.usersService.updateUserData(id, body);
 	}
 
 	@Patch('/update-password')
