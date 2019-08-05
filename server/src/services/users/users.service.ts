@@ -3,6 +3,7 @@ import User from '../../database/models/user.model';
 import { IUser, IRegisterUser, ILoginUser } from '../../interfaces/user.interface';
 import * as bcrypt from 'bcrypt';
 import { QuotasService } from '../quotas/quotas.service';
+import { CustomersService } from '../customers/customers.service';
 import { UserDataDto } from '../../controllers/auth/dto/user.dto';
 import {
 	INTERNAL_SERVER_ERR,
@@ -16,7 +17,7 @@ const DUPLICATE_ENTITY_CODE = 11000;
 
 @Injectable()
 export class UsersService {
-	constructor(private readonly quotasService: QuotasService) {}
+	constructor(private readonly quotasService: QuotasService, private readonly customersService: CustomersService) {}
 
 	async register(user: IRegisterUser): Promise<IUser> {
 		const { password } = user;
@@ -82,8 +83,11 @@ export class UsersService {
 		try {
 			await User.deleteOne({ _id: userID });
 			await this.quotasService.delete(userID);
+			await this.customersService.deleteCustomer(userID);
+
 			return true;
 		} catch (error) {
+			console.log(error);
 			throw INTERNAL_SERVER_ERR;
 		}
 	}
