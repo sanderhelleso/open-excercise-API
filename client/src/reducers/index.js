@@ -18,7 +18,6 @@ const appReducer = combineReducers({
 export default (state, action) => {
 	// on logout, reset state
 	if (action.type === 'LOGOUT') {
-		navigator.credentials.preventSilentAccess();
 		state = undefined;
 	}
 

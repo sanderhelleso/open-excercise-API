@@ -56,7 +56,7 @@ export class AuthController {
 
 	@Delete('/delete')
 	@UseGuards(AuthGuard('jwt'))
-	async delete(@Req() { user }: any): Promise<boolean> {
-		return await this.usersService.delete(user.id);
+	async delete(@User() { id }: IReqUser): Promise<boolean> {
+		return await this.usersService.delete(id);
 	}
 }
