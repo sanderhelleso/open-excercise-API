@@ -36,7 +36,7 @@ export class CustomersController {
 	}
 
 	@Delete('/:id')
-	public async deleteCustomer(@Param('id') id: string): Promise<Stripe.IDeleteConfirmation> {
+	public async deleteCustomer(@Param('id') id: string): Promise<Stripe.IDeleteConfirmation | boolean> {
 		return await this.customersService.deleteCustomer(id);
 	}
 }

@@ -75,8 +75,19 @@ export class CustomersService {
 		return customer;
 	}
 
-	async deleteCustomer(id: string): Promise<Stripe.IDeleteConfirmation> {
-		const deletetionConfirmation = await this.stripe.customers.del(id);
-		return deletetionConfirmation;
+	async deleteCustomer(userID: string): Promise<Stripe.IDeleteConfirmation | boolean> {
+		try {
+			const customer = await Customer.findOne({ userID });
+
+			if (customer) {
+				await Customer.deleteOne({ userID });
+				const deletetionConfirmation = await this.stripe.customers.del(customer.stripeID);
+				return deletetionConfirmation;
+			}
+
+			return true;
+		} catch (error) {
+			throw error;
+		}
 	}
 }
