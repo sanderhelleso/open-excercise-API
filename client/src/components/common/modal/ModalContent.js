@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import ReactDOM from "react-dom";
 import Button from "../Button";
@@ -10,11 +10,17 @@ const ModalContent = ({
     modalContentItems,
     onClick,
     buttonText,
-    headerText
+    headerText,
+    onKeyDown
 }) => {
     return ReactDOM.createPortal(
-        <StyledModalCover role={role} aria-modal="true" tabIndex="-1">
-            <StyledModal>
+        <StyledModalCover
+            role={role}
+            aria-modal="true"
+            tabIndex="-1"
+            onClick={onClick}
+        >
+            <StyledModal onClick={e => e.stopPropagation()}>
                 <X className="close" onClick={onClick} />
                 <StyledHeader>
                     <StyledH1>{headerText}</StyledH1>
@@ -30,14 +36,16 @@ const ModalContent = ({
 export default ModalContent;
 
 const StyledModalCover = styled.aside`
+    transform: translateY(-100vh);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 10;
+    transition: all 0.8s;
     transform: translateZ(0);
-    background-color: rgba(#000, 0.15);
+    background-color: #0000004d;
 `;
 const StyledModal = styled.div`
     position: fixed;
