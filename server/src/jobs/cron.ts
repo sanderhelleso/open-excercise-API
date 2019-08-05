@@ -1,13 +1,15 @@
 import * as cron from 'node-cron';
 
-// * * * * * *
-// | | | | | |
-// | | | | | day of week
-// | | | | month
-// | | | day of month
-// | | hour
-// | minute
-// second ( optional )
+/*	# ┌────────────── second (optional)
+	# │ ┌──────────── minute
+	# │ │ ┌────────── hour
+	# │ │ │ ┌──────── day of month
+	# │ │ │ │ ┌────── month
+	# │ │ │ │ │ ┌──── day of week
+	# │ │ │ │ │ │
+	# │ │ │ │ │ │
+	# * * * * * *
+*/
 
 export const runJobs = () => {
 	cron.schedule('* * * * *', () => {
