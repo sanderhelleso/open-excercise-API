@@ -1,10 +1,12 @@
 import React, { useReducer } from 'react';
 import InputV2 from '../../common/InputV2';
 import ButtonV2 from '../../common/ButtonV2';
+import { isPassword } from '../../../lib/validators';
 
 const fields = [
 	{
 		name: 'newPassword',
+		type: 'password',
 		placeholder: 'Secret password',
 		label: {
 			text: 'New Password',
@@ -13,6 +15,7 @@ const fields = [
 	},
 	{
 		name: 'confirmNewPassword',
+		type: 'password',
 		placeholder: 'Secret password',
 		label: {
 			text: 'Confirm New Password',
@@ -27,6 +30,8 @@ const AccountPassword = () => {
 		confirmNewPassword: ''
 	});
 
+	const { newPassword, confirmNewPassword } = state;
+
 	const handleChange = ({ target: { name, value } }) => {
 		updateState({ [name]: value });
 	};
@@ -37,11 +42,15 @@ const AccountPassword = () => {
 		});
 	};
 
+	const compare = () => {
+		return isPassword(newPassword) && newPassword === confirmNewPassword;
+	};
+
 	return (
 		<section>
 			<div className="account-section-header">
 				<h2>Password</h2>
-				<ButtonV2 text="update" />
+				<ButtonV2 text="update" disabled={!compare()} />
 			</div>
 			<form>{renderFields()}</form>
 		</section>
