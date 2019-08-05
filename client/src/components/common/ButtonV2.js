@@ -37,6 +37,7 @@ const disabledStyles = `
 	color: #9e9e9e;
 	box-shadow: none;
 	background-color: #eeeeee;
+	cursor: not-allowed;
 `;
 
 const flatStyles = `

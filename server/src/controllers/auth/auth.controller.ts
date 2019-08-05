@@ -6,6 +6,8 @@ import { AuthService } from '../../services/auth/auth.service';
 import { QuotasService } from '../../services/quotas/quotas.service';
 import { IQuotaData } from '../../interfaces/quota.interface';
 import { PasswordDto } from './dto/password.dto';
+import { User } from '../../decorators/user.decorator';
+import { IReqUser } from '../../interfaces/user.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -42,8 +44,8 @@ export class AuthController {
 
 	@Patch('/update-password')
 	@UseGuards(AuthGuard('jwt'))
-	async updatePassword(@Body() { password }: PasswordDto, @Req() { user }: any): Promise<boolean> {
-		return await this.usersService.updatePassword(password, user.id);
+	async updatePassword(@Body() { password }: PasswordDto, @User() { id }: IReqUser): Promise<boolean> {
+		return await this.usersService.updatePassword(id, password);
 	}
 
 	@Delete('/delete')

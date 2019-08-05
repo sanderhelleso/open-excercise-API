@@ -55,6 +55,7 @@ export class UsersService {
 
 	async updatePassword(userID: string, password: string): Promise<boolean> {
 		const user = await User.findOne({ _id: userID });
+
 		if (user) {
 			const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 			user.passwordHash = passwordHash;
