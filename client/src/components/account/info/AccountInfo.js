@@ -4,8 +4,9 @@ import InputV2 from '../../common/InputV2';
 import ButtonV2 from '../../common/ButtonV2';
 import { isEmptyObj, isName, shallowEqual } from '../../../lib/validators';
 import _fetch from '../../../lib/_fetch';
+import updateUserDataAction from '../../../actions/updateUserDataAction';
 
-const AccountInfo = ({ fields, initState }) => {
+const AccountInfo = ({ fields, initState, updateUserDataAction }) => {
 	const [ loading, setLoading ] = useState(false);
 	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), initState);
 
@@ -24,6 +25,7 @@ const AccountInfo = ({ fields, initState }) => {
 
 		try {
 			await _fetch('http://localhost:4000/auth/update-data', 'PATCH', null, state);
+			updateUserDataAction(state);
 		} catch (error) {
 			alert(error);
 		}
@@ -75,4 +77,8 @@ const mapStateToProps = ({ auth }) => {
 	return { fields, initState };
 };
 
-export default connect(mapStateToProps, null)(AccountInfo);
+const actions = {
+	updateUserDataAction
+};
+
+export default connect(mapStateToProps, actions)(AccountInfo);
