@@ -1,8 +1,10 @@
-import { LOGIN } from '../actions/types';
+import { LOGIN, UPDATE_USER_DATA } from '../actions/types';
 
 const initialState = {
-	isAuthenticated: null,
-	token: null
+	name: null,
+	email: null,
+	token: null,
+	isAuthenticated: null
 };
 
 export default (state = initialState, aciton) => {
@@ -12,6 +14,12 @@ export default (state = initialState, aciton) => {
 				...state,
 				...aciton.payload,
 				isAuthenticated: true
+			};
+
+		case UPDATE_USER_DATA:
+			return {
+				...state,
+				...aciton.payload
 			};
 
 		default:

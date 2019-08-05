@@ -3,6 +3,7 @@ import User from '../../database/models/user.model';
 import { IUser, IRegisterUser, ILoginUser } from '../../interfaces/user.interface';
 import * as bcrypt from 'bcrypt';
 import { QuotasService } from '../quotas/quotas.service';
+import { UserDataDto } from '../../controllers/auth/dto/user.dto';
 import {
 	INTERNAL_SERVER_ERR,
 	FAILED_LOGIN_ERROR,
@@ -59,6 +60,18 @@ export class UsersService {
 		if (user) {
 			const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 			user.passwordHash = passwordHash;
+			return true;
+		}
+
+		throw INTERNAL_SERVER_ERR;
+	}
+
+	async updateUserData(userID: string, data: UserDataDto): Promise<boolean> {
+		const user = await User.findOne({ _id: userID });
+
+		if (user) {
+			for (let k in data) user[k] = data[k];
+			user.save();
 			return true;
 		}
 
