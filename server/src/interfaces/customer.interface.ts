@@ -5,5 +5,6 @@ export interface ICustomer extends mongoose.Document {
 	stripeID: string;
 	ccLast4: string;
 	plan: string;
-	renewsAt: number;
+	current_period_end: number;
+	current_period_start: number;
 }

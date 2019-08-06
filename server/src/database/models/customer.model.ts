@@ -8,7 +8,8 @@ const CustomerSchema = new Schema({
 	stripeID: { type: String, required: true, unique: true },
 	ccLast4: { type: String, required: true },
 	plan: { type: String, required: true },
-	renewsAt: { type: Number, required: true }
+	current_period_end: { type: Number, required: true },
+	current_period_start: { type: Number, required: true }
 });
 
 export default model<ICustomer>('Customer', CustomerSchema);
