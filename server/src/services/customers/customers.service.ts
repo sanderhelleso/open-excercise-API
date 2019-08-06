@@ -42,8 +42,9 @@ export class CustomersService {
 			let stripeID: string = customer.stripeID;
 
 			if (!stripeID) {
-				const { id } = await this.stripe.customers.create(customerInfo);
-				stripeID = id;
+				const cust = await this.stripe.customers.create(customerInfo);
+				console.log(cust);
+				stripeID = cust.id;
 			} else {
 				await this.updateCustomer(stripeID, customerInfo);
 			}
