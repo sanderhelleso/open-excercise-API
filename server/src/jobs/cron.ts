@@ -13,8 +13,11 @@ import Customer from '../database/models/customer.model';
 */
 
 export const runJobs = () => {
-	cron.schedule('* * * * *', () => {
-		const customers = Customer.find();
+	cron.schedule('* * * * *', async () => {
+		const now = new Date().getTime();
+		const customers = await Customer.find({ current_period_end: { $lt: now } });
 		console.log('Running CRON job');
+
+		console.log(customers);
 	});
 };
