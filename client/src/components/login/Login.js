@@ -5,9 +5,9 @@ import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Background from "../../img/Background.jpg";
 import { User, Mail, Lock } from "react-feather";
-import Button from "../common/Button"
-import Input from "../common/Input"
-import Modal from "../common/modal/Modal"
+import Button from "../common/Button";
+import Input from "../common/Input";
+import Modal from "../common/modal/Modal";
 
 const inputs = [
     {
@@ -27,7 +27,7 @@ const Login = ({ history }) => {
         (state, newState) => ({ ...state, ...newState }),
         {
             email: "",
-            password: "",
+            password: ""
         }
     );
 
@@ -38,9 +38,8 @@ const Login = ({ history }) => {
                 icon={input.icon}
                 type={input.type}
                 value={state[input.type]}
-                onChange={e => updateState({[input.type]: e.target.value})}
+                onChange={e => updateState({ [input.type]: e.target.value })}
                 placeholder={input.placeholder}
-
             />
         ));
     };
@@ -51,10 +50,10 @@ const Login = ({ history }) => {
         login(false, state);
     };
 
-    const handleReset =  e => {
+    const handleReset = e => {
         e.preventDefault();
-        console.log("Hello")
-    }
+        console.log("Hello");
+    };
 
     const modalProps = {
         role: "dialog",
@@ -62,16 +61,21 @@ const Login = ({ history }) => {
         buttonText: "Proceed",
         buttonClick: handleReset,
         triggerText: "Forgot Password?",
-        modalContentItems: 
-        <Fragment>
-            <p style={{marginBottom: "1rem"}}>Please enter your email below to reset your password. When you enter your email and click 'Proceed', you will recieve an email with further instructions.</p>
-            <Input 
-            icon={<Mail color="#139ff2" />}
-            placeholder="Enter your email"
-            ></Input>
-        </Fragment>    
-    }
-
+        children: (
+            <Fragment>
+                <h1>Forgot Password</h1>
+                <p style={{ marginBottom: "1rem" }}>
+                    Please enter your email below to reset your password. When
+                    you enter your email and click 'Proceed', you will recieve
+                    an email with further instructions.
+                </p>
+                <Input
+                    icon={<Mail color="#139ff2" />}
+                    placeholder="Enter your email"
+                />
+            </Fragment>
+        )
+    };
 
     return (
         <StyledBg>
@@ -80,7 +84,10 @@ const Login = ({ history }) => {
                 {renderInputs()}
                 <Button text="Login" onClick={handleSubmit} primary />
                 <Modal {...modalProps} />
-                <StyledSpan tabIndex="0" onClick={() => history.push("/register")}>
+                <StyledSpan
+                    tabIndex="0"
+                    onClick={() => history.push("/register")}
+                >
                     Register now!
                 </StyledSpan>
             </StyledForm>
@@ -121,7 +128,6 @@ const StyledHeader = styled.h1`
     margin: 0.5rem 0;
     display: inline-block;
 `;
-
 
 const StyledSpan = styled.span`
     display: flex;
