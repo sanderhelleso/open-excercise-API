@@ -41,6 +41,6 @@ const updateInvoices = () => {
 	});
 };
 
-const runJobMsg = (name) => {
+const runJobMsg = (name: string) => {
 	console.log(`${new Date().toLocaleDateString()} - Running job ${name}`);
 };

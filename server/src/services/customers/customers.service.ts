@@ -52,7 +52,7 @@ export class CustomersService {
 
 			const { subscriptions: { data } } = stripeCust;
 			const { current_period_end, current_period_start } = data[0];
-			const { email } = await User.findOne({ userID });
+			const { email } = await User.findOne({ _id: userID });
 
 			// update customer
 			customer.stripeID = stripeID;
