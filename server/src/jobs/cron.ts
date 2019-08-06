@@ -1,6 +1,6 @@
 import * as cron from 'node-cron';
 import Customer from '../database/models/customer.model';
-import { ICustomer } from '../../dist/interfaces/customer.interface';
+import { ICustomer } from '../interfaces/customer.interface';
 
 const ONE_MONTH: number = 2592000000;
 
@@ -16,13 +16,13 @@ const ONE_MONTH: number = 2592000000;
 */
 
 export const runJobs = () => {
-	updateInvoices();
+	updateInvoices(); // every 12 hour
 };
 
 const updateInvoices = () => {
 	const JOB_NAME: string = 'UPDATE INVOICES';
 
-	cron.schedule('* * * * *', async () => {
+	cron.schedule('0 0 */12 * *', async () => {
 		runJobMsg(JOB_NAME);
 
 		const now: number = new Date().getTime();
@@ -42,5 +42,5 @@ const updateInvoices = () => {
 };
 
 const runJobMsg = (name: string) => {
-	console.log(`${new Date().toLocaleDateString()} - Running job ${name}`);
+	console.log(`${new Date().toISOString()} - Running job ${name}`);
 };
