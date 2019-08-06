@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { QuotasService } from '../quotas/quotas.service';
 import { CustomersService } from '../customers/customers.service';
 import { UserDataDto } from '../../controllers/auth/dto/user.dto';
+import { MailerService } from '../mailer/mailer.service';
 import {
 	INTERNAL_SERVER_ERR,
 	FAILED_LOGIN_ERROR,
@@ -17,7 +18,11 @@ const DUPLICATE_ENTITY_CODE = 11000;
 
 @Injectable()
 export class UsersService {
-	constructor(private readonly quotasService: QuotasService, private readonly customersService: CustomersService) {}
+	constructor(
+		private readonly quotasService: QuotasService,
+		private readonly customersService: CustomersService,
+		private readonly mailerService: MailerService
+	) {}
 
 	async register(user: IRegisterUser): Promise<IUser> {
 		const { password } = user;
@@ -26,7 +31,17 @@ export class UsersService {
 		try {
 			const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 			const newUser = { ...user, passwordHash };
-			return await new User(newUser).save();
+			const createdUser = await new User(newUser).save();
+
+			this.mailerService.sendMail(
+				null,
+				user.email,
+				'Welcome',
+				'Thanks for registering',
+				'<strong>Thanks for registering</strong>'
+			);
+
+			return createdUser;
 		} catch ({ code }) {
 			if (code === DUPLICATE_ENTITY_CODE) {
 				throw DUPLICATE_REGISTER_ERROR;

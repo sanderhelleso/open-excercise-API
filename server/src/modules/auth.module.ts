@@ -5,9 +5,10 @@ import { AuthController } from '../controllers/auth/auth.controller';
 import { UsersService } from '../services/users/users.service';
 import { QuotasService } from '../services/quotas/quotas.service';
 import { CustomersService } from '../services/customers/customers.service';
+import { MailerService } from '../services/mailer/mailer.service';
 
 @Module({
 	controllers: [ AuthController ],
-	providers: [ AuthService, JwtStrategy, UsersService, QuotasService, CustomersService ]
+	providers: [ AuthService, JwtStrategy, UsersService, QuotasService, CustomersService, MailerService ]
 })
 export class AuthModule {}
