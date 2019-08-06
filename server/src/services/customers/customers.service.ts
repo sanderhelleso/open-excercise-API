@@ -4,6 +4,7 @@ import { stripe } from '../../stripe/stripe';
 import { CreateCustomerDto } from '../../controllers/customers/dto/customer.dto';
 import planMap from '../../utils/planMap';
 import Customer from '../../database/models/customer.model';
+import User from '../../database/models/user.model';
 import Quota from '../../database/models/quota.model';
 import { FAILED_ADD_PLAN } from '../../errors/error-messages';
 import planLimitsMap from '../../utils/planLimitsMap';
@@ -51,11 +52,13 @@ export class CustomersService {
 
 			const { subscriptions: { data } } = stripeCust;
 			const { current_period_end, current_period_start } = data[0];
+			const { email } = await User.findOne({ userID });
 
 			// update customer
 			customer.stripeID = stripeID;
 			customer.ccLast4 = ccLast4;
 			customer.plan = customerInfo.plan;
+			customer.invoice_mail = email;
 			customer.current_period_start = current_period_start;
 			customer.current_period_end = current_period_end;
 			await customer.save();
