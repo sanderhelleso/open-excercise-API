@@ -10,6 +10,6 @@ import { MailerService } from './services/mailer/mailer.service';
 @Module({
 	imports: [ AuthModule, QuotasModule, ApiModule, CustomersModule ],
 	controllers: [ AppController ],
-	providers: [ AppService, MailerService ]
+	providers: [ AppService ]
 })
 export class AppModule {}
