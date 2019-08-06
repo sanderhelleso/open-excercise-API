@@ -1,8 +1,10 @@
 import * as cron from 'node-cron';
 import Customer from '../database/models/customer.model';
 import { ICustomer } from '../interfaces/customer.interface';
+import { MailerService } from '../services/mailer/mailer.service';
 
 const ONE_MONTH: number = 2592000000;
+const mailer = new MailerService();
 
 /*	# ┌────────────── second (optional)
 	# │ ┌──────────── minute
@@ -23,24 +25,37 @@ const updateInvoices = () => {
 	const JOB_NAME: string = 'UPDATE INVOICES';
 
 	cron.schedule('0 0 */12 * *', async () => {
-		runJobMsg(JOB_NAME);
+		const now: Date = new Date();
+		runJobMsg(now, JOB_NAME);
 
-		const now: number = new Date().getTime();
-		const customers: ICustomer[] = await Customer.find({ current_period_end: { $lt: now } });
+		try {
+			const where: any = { current_period_end: { $lt: now.getTime() } };
+			const customers: ICustomer[] = await Customer.find(where);
 
-		customers.forEach(async (customer: ICustomer) => {
-			const { invoice_mail, current_period_end } = customer;
+			customers.forEach(async (customer: ICustomer) => {
+				const { invoice_mail, current_period_end } = customer;
 
-			// send email here
-			console.log(`Sending new invoice email to ${invoice_mail}`);
+				customer.current_period_start = current_period_end;
+				customer.current_period_end = current_period_end + ONE_MONTH;
+				customer.save();
 
-			customer.current_period_start = current_period_end;
-			customer.current_period_end = current_period_end + ONE_MONTH;
-			customer.save();
-		});
+				mailer.sendMail(
+					null,
+					invoice_mail,
+					'Your quota has been renewed',
+					'This is your reciept',
+					'<strong>This is your reciept</storng>'
+				);
+			});
+		} catch (error) {
+			// todo: add some logging cause it is super
+			// important that it does NOT fail on this one,
+			// and if it does we need to get error reason asap
+			console.log(error);
+		}
 	});
 };
 
-const runJobMsg = (name: string) => {
-	console.log(`${new Date().toISOString()} - Running job ${name}`);
+const runJobMsg = (date: Date, name: string) => {
+	console.log(`${date.toISOString()} - Running job ${name}`);
 };
