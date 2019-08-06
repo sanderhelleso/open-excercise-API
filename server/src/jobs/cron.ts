@@ -1,4 +1,5 @@
 import * as cron from 'node-cron';
+import Customer from '../database/models/customer.model';
 
 /*	# ┌────────────── second (optional)
 	# │ ┌──────────── minute
@@ -12,7 +13,11 @@ import * as cron from 'node-cron';
 */
 
 export const runJobs = () => {
-	cron.schedule('* * * * *', () => {
+	cron.schedule('* * * * *', async () => {
+		const now = new Date().getTime();
+		const customers = await Customer.find({ current_period_end: { $lt: now } });
 		console.log('Running CRON job');
+
+		console.log(customers);
 	});
 };

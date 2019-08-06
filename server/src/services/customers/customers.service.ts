@@ -40,18 +40,24 @@ export class CustomersService {
 			}
 
 			let stripeID: string = customer.stripeID;
+			let stripeCust: Stripe.customers.ICustomer = null;
 
 			if (!stripeID) {
-				const { id } = await this.stripe.customers.create(customerInfo);
-				stripeID = id;
+				stripeCust = await this.stripe.customers.create(customerInfo);
+				stripeID = stripeCust.id;
 			} else {
-				await this.updateCustomer(stripeID, customerInfo);
+				stripeCust = await this.updateCustomer(stripeID, customerInfo);
 			}
+
+			const { subscriptions: { data } } = stripeCust;
+			const { current_period_end, current_period_start } = data[0];
 
 			// update customer
 			customer.stripeID = stripeID;
 			customer.ccLast4 = ccLast4;
 			customer.plan = customerInfo.plan;
+			customer.current_period_start = current_period_start;
+			customer.current_period_end = current_period_end;
 			await customer.save();
 
 			// update quota to accomondate for plan changes
