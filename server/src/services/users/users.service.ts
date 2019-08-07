@@ -12,6 +12,7 @@ import {
 	FAILED_REGISTER_ERROR,
 	DUPLICATE_REGISTER_ERROR
 } from '../../errors/error-messages';
+import { welcomeEmail } from '../../utils/mailTemplates';
 
 const SALT_ROUNDS = 10;
 const DUPLICATE_ENTITY_CODE = 11000;
@@ -33,13 +34,7 @@ export class UsersService {
 			const newUser = { ...user, passwordHash };
 			const createdUser = await new User(newUser).save();
 
-			this.mailerService.sendMail(
-				null,
-				user.email,
-				'Welcome',
-				'Thanks for registering',
-				'<strong>Thanks for registering</strong>'
-			);
+			this.mailerService.sendMail(null, user.email, 'Welcome', welcomeEmail(user.name));
 
 			return createdUser;
 		} catch ({ code }) {
