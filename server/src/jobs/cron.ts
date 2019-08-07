@@ -2,7 +2,8 @@ import * as cron from 'node-cron';
 import Customer from '../database/models/customer.model';
 import { ICustomer } from '../interfaces/customer.interface';
 import { MailerService } from '../services/mailer/mailer.service';
-import { confirmSubscriptionEmail } from '../utils/mailTemplates';
+import { subscriptionReceiptEmail } from '../utils/mailTemplates';
+import { planInfo } from '../utils/planMap';
 
 const ONE_MONTH: number = 2592000000;
 const mailer = new MailerService();
@@ -34,13 +35,18 @@ const updateInvoices = () => {
 			const customers: ICustomer[] = await Customer.find(where);
 
 			customers.forEach(async (customer: ICustomer) => {
-				const { invoice_mail, current_period_end } = customer;
+				const { invoice_mail, current_period_end, plan } = customer;
 
 				customer.current_period_start = current_period_end;
 				customer.current_period_end = current_period_end + ONE_MONTH;
 				customer.save();
 
-				mailer.sendMail(null, invoice_mail, 'Your quota has been renewed', confirmSubscriptionEmail());
+				mailer.sendMail(
+					null,
+					invoice_mail,
+					'Your quota has been renewed',
+					subscriptionReceiptEmail(planInfo[plan])
+				);
 			});
 		} catch (error) {
 			// todo: add some logging cause it is super

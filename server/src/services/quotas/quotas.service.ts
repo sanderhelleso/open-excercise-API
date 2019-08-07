@@ -3,7 +3,7 @@ import Quota from '../../database/models/quota.model';
 import { ICreateQuota, IQuotaData } from '../../interfaces/quota.interface';
 import * as crypto from 'crypto';
 import { INTERNAL_SERVER_ERR } from '../../errors/error-messages';
-import planLimitsMap from '../../utils/planLimitsMap';
+import { planQuotaLimits } from '../../utils/planMap';
 
 const N_BYTES = 256;
 const HASH_ALG = 'sha256';
@@ -21,7 +21,7 @@ export class QuotasService {
 
 	async createQuota(userID: string): Promise<IQuotaData | null> {
 		const api_key: string = this.generateApiKey();
-		const requests_limit: number = planLimitsMap.individual;
+		const requests_limit: number = planQuotaLimits.individual;
 		const refilled_at: number = new Date().getTime();
 
 		const quota: ICreateQuota = {

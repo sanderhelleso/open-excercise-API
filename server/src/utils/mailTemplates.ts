@@ -1,5 +1,6 @@
 import * as Mailgen from 'mailgen';
 import { IMailTemplate } from '../interfaces/mail-template.interface';
+import { IPlanInfo } from '../interfaces/plan-info.interface';
 
 const mailGenerator: Mailgen = new Mailgen({
 	theme: 'salted',
@@ -39,13 +40,20 @@ export const welcomeEmail = (name: string): IMailTemplate => {
 	return makeTemplate(email);
 };
 
-export const confirmSubscriptionEmail = (): IMailTemplate => {
+export const subscriptionReceiptEmail = (planInfo: IPlanInfo): IMailTemplate => {
 	const email: any = {
 		body: {
-			intro: 'Your monthly Open Excercise API subscription has been Your order has been renewed successfully.',
+			intro: 'Your monthly subscription has been processed successfully.',
+			table: {
+				data: [
+					{
+						item: planInfo.name,
+						price: planInfo.price
+					}
+				]
+			},
 			action: {
-				instructions:
-					'Your quota has been renewed. You can check the status of your quota and more in your dashboard:',
+				instructions: 'You can check the status of your quota and more in your dashboard:',
 				button: {
 					color: '#139ff2',
 					text: 'Go to Dashboard',

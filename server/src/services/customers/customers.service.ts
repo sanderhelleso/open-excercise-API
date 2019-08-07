@@ -7,7 +7,7 @@ import Customer from '../../database/models/customer.model';
 import User from '../../database/models/user.model';
 import Quota from '../../database/models/quota.model';
 import { FAILED_ADD_PLAN } from '../../errors/error-messages';
-import planLimitsMap from '../../utils/planLimitsMap';
+import { planQuotaLimits } from '../../utils/planMap';
 import { IQuotaDataAfterSub } from '../../interfaces/quota.interface';
 
 @Injectable()
@@ -66,7 +66,7 @@ export class CustomersService {
 			// update quota to accomondate for plan changes
 			const quota = await Quota.findOne({ userID });
 			const used = quota.requests_limit - quota.requests_remaining;
-			quota.requests_limit = planLimitsMap[planID];
+			quota.requests_limit = planQuotaLimits[planID];
 			quota.requests_remaining = quota.requests_limit - used;
 			await quota.save();
 
