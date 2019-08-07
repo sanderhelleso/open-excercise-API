@@ -9,7 +9,7 @@ const DEFAULT_FROM: string = 'noreply@openexapi.com';
 
 @Injectable()
 export class MailerService {
-	sendMail(from: string | null, to: string, subject: string, template: IMailTemplate) {
+	async sendMail(from: string | null, to: string, subject: string, template: IMailTemplate) {
 		const msg: MailData = {
 			from: from || DEFAULT_FROM,
 			to,
@@ -18,7 +18,7 @@ export class MailerService {
 		};
 
 		try {
-			sgMail.send(msg);
+			await sgMail.send(msg);
 		} catch (error) {
 			throw INTERNAL_SERVER_ERR;
 		}

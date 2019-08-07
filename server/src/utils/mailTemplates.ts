@@ -2,15 +2,22 @@ import * as Mailgen from 'mailgen';
 import { IMailTemplate } from '../interfaces/mail-template.interface';
 
 const mailGenerator: Mailgen = new Mailgen({
-	theme: 'default',
+	theme: 'salted',
 	product: {
-		// appears in header & footer of e-mails
 		name: 'Open Excercise API',
 		link: 'https://github.com/sanderhelleso/open-excercise-API'
-		// optional product logo
-		// logo: ''
+		//logo: 'https://raw.githubusercontent.com/sanderhelleso/open-excercise-API/master/client/src/img/logo.png'
 	}
 });
+
+const makeTemplate = (email: any): IMailTemplate => {
+	const template: IMailTemplate = {
+		text: mailGenerator.generatePlaintext(email),
+		html: mailGenerator.generate(email)
+	};
+
+	return template;
+};
 
 export const welcomeEmail = (name: string): IMailTemplate => {
 	const email: any = {
@@ -29,10 +36,25 @@ export const welcomeEmail = (name: string): IMailTemplate => {
 		}
 	};
 
-	const template: IMailTemplate = {
-		text: mailGenerator.generatePlaintext(email),
-		html: mailGenerator.generate(email)
+	return makeTemplate(email);
+};
+
+export const confirmSubscriptionEmail = (): IMailTemplate => {
+	const email: any = {
+		body: {
+			intro: 'Your monthly Open Excercise API subscription has been Your order has been renewed successfully.',
+			action: {
+				instructions:
+					'Your quota has been renewed. You can check the status of your quota and more in your dashboard:',
+				button: {
+					color: '#139ff2',
+					text: 'Go to Dashboard',
+					link: 'https://github.com/sanderhelleso/open-excercise-API'
+				}
+			},
+			outro: 'We thank you for your purchase.'
+		}
 	};
 
-	return template;
+	return makeTemplate(email);
 };

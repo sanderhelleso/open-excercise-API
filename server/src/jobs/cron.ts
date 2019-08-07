@@ -2,6 +2,7 @@ import * as cron from 'node-cron';
 import Customer from '../database/models/customer.model';
 import { ICustomer } from '../interfaces/customer.interface';
 import { MailerService } from '../services/mailer/mailer.service';
+import { confirmSubscriptionEmail } from '../utils/mailTemplates';
 
 const ONE_MONTH: number = 2592000000;
 const mailer = new MailerService();
@@ -39,10 +40,7 @@ const updateInvoices = () => {
 				customer.current_period_end = current_period_end + ONE_MONTH;
 				customer.save();
 
-				mailer.sendMail(null, invoice_mail, 'Your quota has been renewed', {
-					text: 'This is your reciept',
-					html: '<strong>This is your reciept</storng>'
-				});
+				mailer.sendMail(null, invoice_mail, 'Your quota has been renewed', confirmSubscriptionEmail());
 			});
 		} catch (error) {
 			// todo: add some logging cause it is super
