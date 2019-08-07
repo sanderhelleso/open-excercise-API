@@ -44,7 +44,7 @@ const updateInvoices = () => {
 				mailer.sendMail(
 					null,
 					invoice_mail,
-					'Your quota has been renewed',
+					'Subscription confirmation',
 					subscriptionReceiptEmail(planInfo[plan])
 				);
 			});

@@ -2,16 +2,19 @@ import { Injectable } from '@nestjs/common';
 import * as Stripe from 'stripe';
 import { stripe } from '../../stripe/stripe';
 import { CreateCustomerDto } from '../../controllers/customers/dto/customer.dto';
-import planMap from '../../utils/planMap';
+import planMap, { planInfo, planQuotaLimits } from '../../utils/planMap';
 import Customer from '../../database/models/customer.model';
 import User from '../../database/models/user.model';
 import Quota from '../../database/models/quota.model';
 import { FAILED_ADD_PLAN } from '../../errors/error-messages';
-import { planQuotaLimits } from '../../utils/planMap';
 import { IQuotaDataAfterSub } from '../../interfaces/quota.interface';
+import { MailerService } from '../mailer/mailer.service';
+import { subscriptionReceiptEmail } from '../../utils/mailTemplates';
 
 @Injectable()
 export class CustomersService {
+	constructor(private readonly mailerService: MailerService) {}
+
 	private readonly stripe: Stripe = stripe;
 
 	async findAllCustomers(): Promise<Stripe.IList<Stripe.customers.ICustomer>> {
@@ -69,6 +72,13 @@ export class CustomersService {
 			quota.requests_limit = planQuotaLimits[planID];
 			quota.requests_remaining = quota.requests_limit - used;
 			await quota.save();
+
+			this.mailerService.sendMail(
+				null,
+				email,
+				'Subscription confirmation',
+				subscriptionReceiptEmail(planInfo[planID])
+			);
 
 			return { requests_remaining: quota.requests_remaining, requests_limit: quota.requests_limit };
 		} catch (error) {
