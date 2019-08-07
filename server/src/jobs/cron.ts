@@ -39,13 +39,10 @@ const updateInvoices = () => {
 				customer.current_period_end = current_period_end + ONE_MONTH;
 				customer.save();
 
-				mailer.sendMail(
-					null,
-					invoice_mail,
-					'Your quota has been renewed',
-					'This is your reciept',
-					'<strong>This is your reciept</storng>'
-				);
+				mailer.sendMail(null, invoice_mail, 'Your quota has been renewed', {
+					text: 'This is your reciept',
+					html: '<strong>This is your reciept</storng>'
+				});
 			});
 		} catch (error) {
 			// todo: add some logging cause it is super
