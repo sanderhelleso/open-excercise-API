@@ -21,3 +21,13 @@ export const planInfo = {
 		price: '$150'
 	}
 };
+
+export const planIDtoKey = (id: string) => {
+	if (id === process.env.STRIPE_SMALL_BUSINESS_PLAN) {
+		return 'small_business';
+	}
+
+	if (id === process.env.STRIPE_ENTERPRISE_PLAN) {
+		return 'enterprise';
+	}
+};
