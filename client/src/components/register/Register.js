@@ -1,12 +1,11 @@
 import React, { useReducer } from "react";
-import _fetch from "../../lib/_fetch";
 import login from "../../lib/login";
 import Background from "../../img/Background.jpg";
 import { Target, User, Mail, Lock, Unlock } from "react-feather";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
-import Button from "../common/Button"
-import Input from "../common/Input"
+import Button from "../common/Button";
+import Input from "../common/Input";
 
 const inputs = [
     {
@@ -16,7 +15,6 @@ const inputs = [
         icon: <User color="#139ff2" />
     },
     {
-
         type: "email",
         name: "email",
         placeholder: "Enter your email",
@@ -56,12 +54,11 @@ const Register = ({ history }) => {
                 icon={input.icon}
                 type={input.type}
                 value={state[input.name]}
-                onChange={e => updateState({[input.name]: e.target.value})}
+                onChange={e => updateState({ [input.name]: e.target.value })}
                 placeholder={input.placeholder}
-
             />
-        ))
-    }
+        ));
+    };
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -131,13 +128,6 @@ const StyledHeader = styled.h1`
     font-size: 1.5rem;
     margin: 1.5rem 0;
     display: inline-block;
-`;
-
-const InputContainer = styled.div`
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    justify-items: center;
 `;
 
 const RegisterContainer = styled.div`

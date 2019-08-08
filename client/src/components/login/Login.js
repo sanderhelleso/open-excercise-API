@@ -1,5 +1,4 @@
 import React, { useReducer, Fragment } from "react";
-import _fetch from "../../lib/_fetch";
 import login from "../../lib/login";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
