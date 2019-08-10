@@ -15,6 +15,7 @@ import {
 } from '../../errors/error-messages';
 import { welcomeEmail } from '../../utils/mailTemplates';
 import { genVerifyCode } from '../../utils/genCodes';
+import { NOT_VERIFIED_ERROR } from '../../errors/error-messages';
 
 const SALT_ROUNDS = 10;
 const DUPLICATE_ENTITY_CODE = 11000;
@@ -56,6 +57,10 @@ export class UsersService {
 		try {
 			const user = await User.findOne({ email });
 
+			if (!user.verified) {
+				throw NOT_VERIFIED_ERROR;
+			}
+
 			if (user) {
 				const { passwordHash } = user;
 				const match = await bcrypt.compare(password, passwordHash);
@@ -63,9 +68,9 @@ export class UsersService {
 				if (match) return user;
 			}
 
-			throw new Error();
-		} catch (error) {
 			throw FAILED_LOGIN_ERROR;
+		} catch (error) {
+			throw error;
 		}
 	}
 
