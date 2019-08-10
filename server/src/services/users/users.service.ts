@@ -15,7 +15,7 @@ import {
 } from '../../errors/error-messages';
 import { welcomeEmail } from '../../utils/mailTemplates';
 import { genVerifyCode } from '../../utils/genCodes';
-import { NOT_VERIFIED_ERROR } from '../../errors/error-messages';
+import { NOT_VERIFIED_ERROR, INVALID_VERIFY_CODE } from '../../errors/error-messages';
 
 const SALT_ROUNDS = 10;
 const DUPLICATE_ENTITY_CODE = 11000;
@@ -72,6 +72,19 @@ export class UsersService {
 		} catch (error) {
 			throw error;
 		}
+	}
+
+	async updateVerifyStatus(code: string): Promise<boolean> {
+		const verifyRec = await Verify.findOne({ code });
+
+		if (!verifyRec) {
+			throw INVALID_VERIFY_CODE;
+		}
+
+		await User.updateOne({ _id: verifyRec.userID }, { verified: true });
+		await Verify.deleteOne(verifyRec);
+
+		return true;
 	}
 
 	async updatePassword(userID: string, password: string): Promise<boolean> {

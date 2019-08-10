@@ -25,6 +25,11 @@ export const NOT_VERIFIED_ERROR = new HttpException(
 	HttpStatus.FORBIDDEN
 );
 
+export const INVALID_VERIFY_CODE = new HttpException(
+	'Invalid verification code. Please follow the instructions sent to the registered email',
+	HttpStatus.UNAUTHORIZED
+);
+
 export const FAILED_ADD_PLAN = new HttpException(
 	'You already have an active subscription to this plan',
 	HttpStatus.CONFLICT

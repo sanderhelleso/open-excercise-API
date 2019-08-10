@@ -8,6 +8,7 @@ import { IQuotaData } from '../../interfaces/quota.interface';
 import { PasswordDto } from './dto/password.dto';
 import { User } from '../../decorators/user.decorator';
 import { IReqUser } from '../../interfaces/user.interface';
+import { VerifyAccDto } from './dto/verify.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -37,6 +38,12 @@ export class AuthController {
 		const payload = { email, name, quota };
 
 		return this.authService.sendUser(payload);
+	}
+
+	@Post('/verify')
+	async verify(@Body() { code }: VerifyAccDto): Promise<boolean> {
+		await this.usersService.updateVerifyStatus(code);
+		return true;
 	}
 
 	@Patch('/update-data')
