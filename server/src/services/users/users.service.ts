@@ -38,7 +38,7 @@ export class UsersService {
 
 			const code: string = genVerifyCode();
 			Verify.create({ userID: _id, code });
-			this.mailerService.sendMail(null, user.email, 'Welcome', welcomeEmail(user.name));
+			this.mailerService.sendMail(null, user.email, 'Welcome', welcomeEmail(user.name, code));
 
 			return true;
 		} catch ({ code }) {

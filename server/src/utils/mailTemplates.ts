@@ -20,7 +20,7 @@ const makeTemplate = (email: any): IMailTemplate => {
 	return template;
 };
 
-export const welcomeEmail = (name: string): IMailTemplate => {
+export const welcomeEmail = (name: string, verifyCode: string): IMailTemplate => {
 	const email: any = {
 		body: {
 			name,
@@ -30,7 +30,7 @@ export const welcomeEmail = (name: string): IMailTemplate => {
 				button: {
 					color: '#139ff2',
 					text: 'Confirm your account',
-					link: 'https://github.com/sanderhelleso/open-excercise-API'
+					link: `http://localhost:3000/verify-account?code=${verifyCode}`
 				}
 			},
 			outro: "Need help, or have questions? Just reply to this email, we'd love to help."
