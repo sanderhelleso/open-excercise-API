@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import User from '../../database/models/user.model';
+import Verify from '../../database/models/verify.model';
 import { IUser, IRegisterUser, ILoginUser } from '../../interfaces/user.interface';
 import * as bcrypt from 'bcrypt';
 import { QuotasService } from '../quotas/quotas.service';
@@ -13,6 +14,8 @@ import {
 	DUPLICATE_REGISTER_ERROR
 } from '../../errors/error-messages';
 import { welcomeEmail } from '../../utils/mailTemplates';
+import { genVerifyCode } from '../../utils/genCodes';
+import { NOT_VERIFIED_ERROR, INVALID_VERIFY_CODE } from '../../errors/error-messages';
 
 const SALT_ROUNDS = 10;
 const DUPLICATE_ENTITY_CODE = 11000;
@@ -25,18 +28,22 @@ export class UsersService {
 		private readonly mailerService: MailerService
 	) {}
 
-	async register(user: IRegisterUser): Promise<IUser> {
+	async register(user: IRegisterUser): Promise<boolean> {
 		const { password } = user;
 		delete user.password;
 
 		try {
 			const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 			const newUser = { ...user, passwordHash };
-			const createdUser = await new User(newUser).save();
+			const { _id } = await new User(newUser).save();
 
-			this.mailerService.sendMail(null, user.email, 'Welcome', welcomeEmail(user.name));
+			const code: string = genVerifyCode();
+			Verify.create({ userID: _id, code });
+			this.mailerService.sendMail(null, user.email, 'Welcome', welcomeEmail(user.name, code));
 
-			return createdUser;
+			console.log(code);
+
+			return true;
 		} catch ({ code }) {
 			if (code === DUPLICATE_ENTITY_CODE) {
 				throw DUPLICATE_REGISTER_ERROR;
@@ -53,16 +60,34 @@ export class UsersService {
 			const user = await User.findOne({ email });
 
 			if (user) {
-				const { passwordHash } = user;
-				const match = await bcrypt.compare(password, passwordHash);
+				const { passwordHash, verified } = user;
 
+				if (!verified) {
+					throw NOT_VERIFIED_ERROR;
+				}
+
+				const match = await bcrypt.compare(password, passwordHash);
 				if (match) return user;
 			}
 
-			throw new Error();
-		} catch (error) {
 			throw FAILED_LOGIN_ERROR;
+		} catch (error) {
+			throw error;
 		}
+	}
+
+	async updateVerifyStatus(code: string): Promise<string> {
+		const verifyRec = await Verify.findOne({ code });
+
+		if (!verifyRec) {
+			throw INVALID_VERIFY_CODE;
+		}
+
+		const { userID } = verifyRec;
+		await User.updateOne({ _id: userID }, { verified: true });
+		await Verify.deleteOne(verifyRec);
+
+		return userID;
 	}
 
 	async updatePassword(userID: string, password: string): Promise<boolean> {

@@ -20,6 +20,16 @@ export const FAILED_LOGIN_ERROR = new HttpException(
 	HttpStatus.UNAUTHORIZED
 );
 
+export const NOT_VERIFIED_ERROR = new HttpException(
+	'This account is waiting to be verified. Please follow the instructions sent to the registered email',
+	HttpStatus.FORBIDDEN
+);
+
+export const INVALID_VERIFY_CODE = new HttpException(
+	'Invalid verification code. Please follow the instructions sent to the registered email',
+	HttpStatus.UNAUTHORIZED
+);
+
 export const FAILED_ADD_PLAN = new HttpException(
 	'You already have an active subscription to this plan',
 	HttpStatus.CONFLICT

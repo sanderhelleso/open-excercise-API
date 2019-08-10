@@ -8,6 +8,7 @@ import { IQuotaData } from '../../interfaces/quota.interface';
 import { PasswordDto } from './dto/password.dto';
 import { User } from '../../decorators/user.decorator';
 import { IReqUser } from '../../interfaces/user.interface';
+import { VerifyAccDto } from './dto/verify.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -24,12 +25,9 @@ export class AuthController {
 	}
 
 	@Post('/register')
-	async register(@Body() registerUserDto: RegisterUserDto): Promise<UserDto> {
-		const { _id, email, name } = await this.usersService.register(registerUserDto);
-		const quota: IQuotaData = await this.quoatasService.createQuota(_id);
-		const payload = { quota, email, name, _id };
-
-		return this.authService.sendUser(payload);
+	async register(@Body() registerUserDto: RegisterUserDto): Promise<boolean> {
+		await this.usersService.register(registerUserDto);
+		return true;
 	}
 
 	@Post('/login')
@@ -38,8 +36,17 @@ export class AuthController {
 		const quota: IQuotaData = await this.quoatasService.findByBelongsTo(_id);
 
 		const payload = { email, name, quota };
+		console.log(payload);
 
 		return this.authService.sendUser(payload);
+	}
+
+	@Patch('/verify')
+	async verify(@Body() { code }: VerifyAccDto): Promise<boolean> {
+		const userID = await this.usersService.updateVerifyStatus(code);
+		await this.quoatasService.createQuota(userID);
+
+		return true;
 	}
 
 	@Patch('/update-data')
