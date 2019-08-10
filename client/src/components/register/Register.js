@@ -41,20 +41,15 @@ const Register = ({ history }) => {
 		name: '',
 		email: '',
 		password: '',
-		purpose: ''
+		purpose: purposes[0]
 	});
 
+	const handleChange = ({ target: { name, value } }) => {
+		updateState({ [name]: value });
+	};
+
 	const renderInputs = () => {
-		return inputs.map((input) => (
-			<Input
-				key={input.name}
-				icon={input.icon}
-				type={input.type}
-				value={state[input.name]}
-				onChange={(e) => updateState({ [input.name]: e.target.value })}
-				placeholder={input.placeholder}
-			/>
-		));
+		return inputs.map((input, i) => <Input key={i} {...input} onChange={handleChange} />);
 	};
 
 	const handleSubmit = async (e) => {
@@ -62,9 +57,29 @@ const Register = ({ history }) => {
 
 		try {
 			await _fetch(`http://localhost:4000/auth/register`, 'POST', null, state);
+			alert('Check your email for verification code');
 		} catch (error) {
 			alert(error);
 		}
+	};
+
+	const renderOptions = () => {
+		return purposes.map((purpose) => (
+			<option key={purpose} value={purpose}>
+				{purpose}
+			</option>
+		));
+	};
+
+	const renderSelect = () => {
+		return (
+			<SelectBox>
+				<Target color="#139ff2" />
+				<StyledSelect name="purpose" onChange={handleChange}>
+					{renderOptions()}
+				</StyledSelect>
+			</SelectBox>
+		);
 	};
 
 	return (
@@ -73,18 +88,8 @@ const Register = ({ history }) => {
 				<StyledHeader>Register</StyledHeader>
 				<RegisterContainer>
 					{renderInputs()}
-					<SelectBox>
-						<Target color="#139ff2" />
-						<StyledSelect onChange={({ target: { value } }) => updateState({ purpose: value })} required>
-							{purposes.map((purpose) => (
-								<option key={purpose} value={purpose}>
-									{purpose}
-								</option>
-							))}
-						</StyledSelect>
-					</SelectBox>
+					{renderSelect()}
 					<Button onClick={handleSubmit} text="Register" primary />
-
 					<StyledSpan onClick={() => history.push('/')}>Click here to login instead!</StyledSpan>
 				</RegisterContainer>
 			</Wrapper>
@@ -123,13 +128,6 @@ const StyledHeader = styled.h1`
 	font-size: 1.5rem;
 	margin: 1.5rem 0;
 	display: inline-block;
-`;
-
-const InputContainer = styled.div`
-	margin-bottom: 2rem;
-	display: flex;
-	align-items: center;
-	justify-items: center;
 `;
 
 const RegisterContainer = styled.div`
