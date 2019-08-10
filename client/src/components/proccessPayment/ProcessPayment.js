@@ -1,8 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Container from '../common/Container';
-import Loader from '../common/Loader';
-import { fadeIn, fadeOut } from '../../lib/keyframes';
+import Loader, { LoaderCont } from '../common/Loader';
 import _fetch from '../../lib/_fetch';
 import { connect } from 'react-redux';
 import { Check } from 'react-feather';
@@ -12,6 +11,7 @@ import setSubDataAction from '../../actions/setSubDataAction';
 import setQuotaAction from '../../actions/setQuotaAction';
 import setSelectedPlanAction from '../../actions/setSelectedPlanAction';
 import { optionsData } from '../../lib/planOptions';
+import { fadeIn } from '../../lib/keyframes';
 
 const ProcessPayment = ({
 	body,
@@ -76,7 +76,7 @@ const ProcessPayment = ({
 
 	return (
 		<Container>
-			<StyledDiv loading={loading}>{renderContent()}</StyledDiv>
+			<LoaderCont loading={loading}>{renderContent()}</LoaderCont>
 		</Container>
 	);
 };
@@ -103,18 +103,6 @@ const actions = {
 };
 
 export default connect(mapStateToProps, actions)(withRouter(ProcessPayment));
-
-const StyledDiv = styled.main`
-	animation: ${({ loading }) => (loading ? css`${fadeIn} 0.3s;` : css`${fadeOut} 0.5s;`)} ease forwards;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-
-	span {
-		margin-bottom: 3rem;
-	}
-`;
 
 const StyledCheck = styled.div`
 	animation: ${fadeIn} 0.3s ease forwards;

@@ -3,6 +3,7 @@ import Muscle from './models/muscle.model';
 import User from './models/user.model';
 import Quota from './models/quota.model';
 import Customer from './models/customer.model';
+import Verify from './models/verify.model';
 import makeDataset from '../utils/makeDataset';
 
 async function seed(): Promise<boolean> {
@@ -14,6 +15,7 @@ async function seed(): Promise<boolean> {
 	await User.deleteMany({});
 	await Quota.deleteMany({});
 	await Customer.deleteMany({});
+	await Verify.deleteMany({});
 
 	const { excercises, muscles } = await makeDataset();
 
@@ -25,13 +27,6 @@ async function seed(): Promise<boolean> {
 		for (const key in muscles) {
 			await new Muscle(muscles[key]).save();
 		}
-
-		await new User({
-			name: 'john doe',
-			email: 'johndoe@gmail.com',
-			purpose: 'Fitness App',
-			passwordHash: '$2b$10$X3Y2rBqHIQ5vDz87RCvOPO4IVHJvv0tuYzU6jVLa5/hy5/odM55x6'
-		}).save();
 	} catch (error) {
 		console.log(error);
 	}

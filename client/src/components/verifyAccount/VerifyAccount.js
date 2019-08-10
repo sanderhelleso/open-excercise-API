@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Container from '../common/Container';
+import Loader, { LoaderCont } from '../common/Loader';
 
 const VerifyAccount = () => {
 	const [ loading, setLoading ] = useState(true);
@@ -21,12 +23,23 @@ const VerifyAccount = () => {
 		console.log(verifyCode);
 	};
 
-	return (
-		<div>
-			<h1>Verifying...</h1>
-			{error && <p>{error}</p>}
-		</div>
-	);
+	const render = () => {
+		if (error) {
+			return <p>{error}</p>;
+		}
+
+		return (
+			<LoaderCont loading={loading}>
+				<span>
+					<Loader size={60} color="#139ff2" />
+				</span>
+				<h1>Verifying Account</h1>
+				<p>Hang thight while we verify your account</p>
+			</LoaderCont>
+		);
+	};
+
+	return <Container>{render()}</Container>;
 };
 
 export default VerifyAccount;
