@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import User from '../../database/models/user.model';
+import Verify from '../../database/models/verify.model';
 import { IUser, IRegisterUser, ILoginUser } from '../../interfaces/user.interface';
 import * as bcrypt from 'bcrypt';
 import { QuotasService } from '../quotas/quotas.service';
@@ -13,6 +14,7 @@ import {
 	DUPLICATE_REGISTER_ERROR
 } from '../../errors/error-messages';
 import { welcomeEmail } from '../../utils/mailTemplates';
+import { genVerifyCode } from '../../utils/genCodes';
 
 const SALT_ROUNDS = 10;
 const DUPLICATE_ENTITY_CODE = 11000;
@@ -25,18 +27,20 @@ export class UsersService {
 		private readonly mailerService: MailerService
 	) {}
 
-	async register(user: IRegisterUser): Promise<IUser> {
+	async register(user: IRegisterUser): Promise<boolean> {
 		const { password } = user;
 		delete user.password;
 
 		try {
 			const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 			const newUser = { ...user, passwordHash };
-			const createdUser = await new User(newUser).save();
+			const { _id } = await new User(newUser).save();
 
+			const code: string = genVerifyCode();
+			Verify.create({ userID: _id, code });
 			this.mailerService.sendMail(null, user.email, 'Welcome', welcomeEmail(user.name));
 
-			return createdUser;
+			return true;
 		} catch ({ code }) {
 			if (code === DUPLICATE_ENTITY_CODE) {
 				throw DUPLICATE_REGISTER_ERROR;

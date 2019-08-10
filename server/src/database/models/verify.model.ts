@@ -4,7 +4,7 @@ import { IVerify } from '../../interfaces/verify.interface';
 const { Schema, model } = mongoose;
 
 const VerifySchema = new Schema({
-	userID: { type: String, required: true },
+	userID: { type: String, required: true, unique: true },
 	code: { type: String, required: true }
 });
 

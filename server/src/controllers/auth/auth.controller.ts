@@ -24,12 +24,9 @@ export class AuthController {
 	}
 
 	@Post('/register')
-	async register(@Body() registerUserDto: RegisterUserDto): Promise<UserDto> {
-		const { _id, email, name } = await this.usersService.register(registerUserDto);
-		const quota: IQuotaData = await this.quoatasService.createQuota(_id);
-		const payload = { quota, email, name, _id };
-
-		return this.authService.sendUser(payload);
+	async register(@Body() registerUserDto: RegisterUserDto): Promise<boolean> {
+		await this.usersService.register(registerUserDto);
+		return true;
 	}
 
 	@Post('/login')
