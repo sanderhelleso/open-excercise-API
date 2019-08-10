@@ -32,6 +32,7 @@ const inputs = [
 		placeholder: 'Confirm Password',
 		icon: <Lock color="#139ff2" />
 	}
+];
 
 const purposes = [ 'Web Design', 'Personal Use', 'Mobile App' ];
 
@@ -124,9 +125,9 @@ const Wrapper = styled.form`
 `;
 
 const StyledHeader = styled.h1`
-    font-size: 1.5rem;
-    margin: 1.5rem 0;
-    display: inline-block;
+	font-size: 1.5rem;
+	margin: 1.5rem 0;
+	display: inline-block;
 `;
 
 const RegisterContainer = styled.div`
