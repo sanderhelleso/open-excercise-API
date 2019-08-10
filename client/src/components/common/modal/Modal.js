@@ -3,7 +3,6 @@ import { createPortal } from "react-dom";
 import styled from "styled-components";
 import { X } from "react-feather";
 import ModalTrigger from "./ModalTrigger";
-import ModalContent from "./ModalContent";
 
 const Portal = ({ children }) => {
     const modalRoot = document.getElementById("portal");
