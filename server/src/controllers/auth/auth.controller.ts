@@ -36,13 +36,16 @@ export class AuthController {
 		const quota: IQuotaData = await this.quoatasService.findByBelongsTo(_id);
 
 		const payload = { email, name, quota };
+		console.log(payload);
 
 		return this.authService.sendUser(payload);
 	}
 
-	@Post('/verify')
+	@Patch('/verify')
 	async verify(@Body() { code }: VerifyAccDto): Promise<boolean> {
-		await this.usersService.updateVerifyStatus(code);
+		const userID = await this.usersService.updateVerifyStatus(code);
+		await this.quoatasService.createQuota(userID);
+
 		return true;
 	}
 

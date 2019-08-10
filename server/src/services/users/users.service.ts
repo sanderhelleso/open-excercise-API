@@ -41,6 +41,8 @@ export class UsersService {
 			Verify.create({ userID: _id, code });
 			this.mailerService.sendMail(null, user.email, 'Welcome', welcomeEmail(user.name, code));
 
+			console.log(code);
+
 			return true;
 		} catch ({ code }) {
 			if (code === DUPLICATE_ENTITY_CODE) {
@@ -57,14 +59,14 @@ export class UsersService {
 		try {
 			const user = await User.findOne({ email });
 
-			if (!user.verified) {
-				throw NOT_VERIFIED_ERROR;
-			}
-
 			if (user) {
-				const { passwordHash } = user;
-				const match = await bcrypt.compare(password, passwordHash);
+				const { passwordHash, verified } = user;
 
+				if (!verified) {
+					throw NOT_VERIFIED_ERROR;
+				}
+
+				const match = await bcrypt.compare(password, passwordHash);
 				if (match) return user;
 			}
 
@@ -74,17 +76,18 @@ export class UsersService {
 		}
 	}
 
-	async updateVerifyStatus(code: string): Promise<boolean> {
+	async updateVerifyStatus(code: string): Promise<string> {
 		const verifyRec = await Verify.findOne({ code });
 
 		if (!verifyRec) {
 			throw INVALID_VERIFY_CODE;
 		}
 
-		await User.updateOne({ _id: verifyRec.userID }, { verified: true });
+		const { userID } = verifyRec;
+		await User.updateOne({ _id: userID }, { verified: true });
 		await Verify.deleteOne(verifyRec);
 
-		return true;
+		return userID;
 	}
 
 	async updatePassword(userID: string, password: string): Promise<boolean> {

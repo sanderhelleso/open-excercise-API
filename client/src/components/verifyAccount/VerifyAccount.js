@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Container from '../common/Container';
 import Loader, { LoaderCont } from '../common/Loader';
+import _fetch from '../../lib/_fetch';
+import { withRouter } from 'react-router-dom';
 
-const VerifyAccount = () => {
+const VerifyAccount = ({ history }) => {
 	const [ loading, setLoading ] = useState(true);
 	const [ error, setError ] = useState('');
 
@@ -12,15 +14,20 @@ const VerifyAccount = () => {
 
 	const verify = async () => {
 		const urlParams = new URLSearchParams(window.location.search);
-		const verifyCode = urlParams.get('code');
+		const code = urlParams.get('code');
 
-		if (!verifyCode) {
+		if (!code) {
 			setLoading(false);
 			setError('Verification code is missing. Please follow the instructions sent to your registered email.');
 			return;
 		}
 
-		console.log(verifyCode);
+		try {
+			await _fetch(`http://localhost:4000/auth/verify`, 'PATCH', null, { code });
+			history.replace('/login');
+		} catch (error) {
+			alert(error);
+		}
 	};
 
 	const render = () => {
@@ -42,4 +49,4 @@ const VerifyAccount = () => {
 	return <Container>{render()}</Container>;
 };
 
-export default VerifyAccount;
+export default withRouter(VerifyAccount);
