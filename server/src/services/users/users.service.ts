@@ -14,7 +14,7 @@ import {
 	FAILED_REGISTER_ERROR,
 	DUPLICATE_REGISTER_ERROR
 } from '../../errors/error-messages';
-import { welcomeEmail } from '../../utils/mailTemplates';
+import { welcomeEmail, resetPwEmail } from '../../utils/mailTemplates';
 import { genRandCode } from '../../utils/genCodes';
 import { NOT_VERIFIED_ERROR, INVALID_VERIFY_CODE } from '../../errors/error-messages';
 
