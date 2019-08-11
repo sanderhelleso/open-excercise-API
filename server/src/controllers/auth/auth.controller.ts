@@ -34,9 +34,7 @@ export class AuthController {
 	async login(@Body() loginUserDto: LoginUserDto): Promise<UserDto> {
 		const { _id, email, name } = await this.usersService.findByLogin(loginUserDto);
 		const quota: IQuotaData = await this.quoatasService.findByBelongsTo(_id);
-
 		const payload = { email, name, quota };
-		console.log(payload);
 
 		return this.authService.sendUser(payload);
 	}
@@ -45,7 +43,12 @@ export class AuthController {
 	async verify(@Body() { code }: VerifyAccDto): Promise<boolean> {
 		const userID = await this.usersService.updateVerifyStatus(code);
 		await this.quoatasService.createQuota(userID);
+		return true;
+	}
 
+	@Post('/reset-password')
+	async resetPW(@Body() { email }): Promise<boolean> {
+		this.usersService.createResetPwCode(email);
 		return true;
 	}
 

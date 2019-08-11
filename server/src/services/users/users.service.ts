@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import User from '../../database/models/user.model';
 import Verify from '../../database/models/verify.model';
+import ResetPW from '../../database/models/reset-pw.model';
 import { IUser, IRegisterUser, ILoginUser } from '../../interfaces/user.interface';
 import * as bcrypt from 'bcrypt';
 import { QuotasService } from '../quotas/quotas.service';
@@ -13,8 +14,8 @@ import {
 	FAILED_REGISTER_ERROR,
 	DUPLICATE_REGISTER_ERROR
 } from '../../errors/error-messages';
-import { welcomeEmail } from '../../utils/mailTemplates';
-import { genVerifyCode } from '../../utils/genCodes';
+import { welcomeEmail, resetPwEmail } from '../../utils/mailTemplates';
+import { genRandCode } from '../../utils/genCodes';
 import { NOT_VERIFIED_ERROR, INVALID_VERIFY_CODE } from '../../errors/error-messages';
 
 const SALT_ROUNDS = 10;
@@ -37,11 +38,9 @@ export class UsersService {
 			const newUser = { ...user, passwordHash };
 			const { _id } = await new User(newUser).save();
 
-			const code: string = genVerifyCode();
+			const code: string = genRandCode();
 			Verify.create({ userID: _id, code });
 			this.mailerService.sendMail(null, user.email, 'Welcome', welcomeEmail(user.name, code));
-
-			console.log(code);
 
 			return true;
 		} catch ({ code }) {
@@ -90,6 +89,17 @@ export class UsersService {
 		return userID;
 	}
 
+	async createResetPwCode(email: string): Promise<boolean> {
+		const user = await User.findOne({ email });
+		if (user) {
+			const code: string = genRandCode();
+			ResetPW.create({ email, code });
+			this.mailerService.sendMail(null, user.email, 'Reset Password', resetPwEmail(code));
+		}
+
+		return true;
+	}
+
 	async updatePassword(userID: string, password: string): Promise<boolean> {
 		const user = await User.findOne({ _id: userID });
 
@@ -122,7 +132,6 @@ export class UsersService {
 
 			return true;
 		} catch (error) {
-			console.log(error);
 			throw INTERNAL_SERVER_ERR;
 		}
 	}

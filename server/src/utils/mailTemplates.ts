@@ -40,6 +40,27 @@ export const welcomeEmail = (name: string, verifyCode: string): IMailTemplate =>
 	return makeTemplate(email);
 };
 
+export const resetPwEmail = (resetCode: string) => {
+	const email: any = {
+		body: {
+			name,
+			intro: 'You told us you forgot your password',
+			action: {
+				instructions: 'If you really did, click here to choose a new one:',
+				button: {
+					color: '#139ff2',
+					text: 'Choose a new password',
+					link: `http://localhost:3000/reset-password?code=${resetCode}`
+				}
+			},
+			outro:
+				"If you didn't mean to reset your password, then you can just ignore this email; your password will not change."
+		}
+	};
+
+	return makeTemplate(email);
+};
+
 export const subscriptionReceiptEmail = (planInfo: IPlanInfo): IMailTemplate => {
 	const email: any = {
 		body: {

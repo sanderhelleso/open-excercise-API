@@ -1,4 +1,5 @@
 /dataset
+.env
 
 # compiled output
 /dist
