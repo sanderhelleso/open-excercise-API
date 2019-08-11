@@ -42,8 +42,6 @@ export class UsersService {
 			Verify.create({ userID: _id, code });
 			this.mailerService.sendMail(null, user.email, 'Welcome', welcomeEmail(user.name, code));
 
-			console.log(code);
-
 			return true;
 		} catch ({ code }) {
 			if (code === DUPLICATE_ENTITY_CODE) {
@@ -95,8 +93,7 @@ export class UsersService {
 		const user = await User.findOne({ email });
 		if (user) {
 			ResetPW.create({ email, code: genRandCode() });
-
-			// send email with reset code
+			this.mailerService.sendMail(null, user.email, 'Reset Password', resetPwEmail(code));
 		}
 
 		return true;
@@ -134,7 +131,6 @@ export class UsersService {
 
 			return true;
 		} catch (error) {
-			console.log(error);
 			throw INTERNAL_SERVER_ERR;
 		}
 	}
