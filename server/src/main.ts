@@ -7,7 +7,7 @@ import { ValidationPipe } from './pipes/validation.pipe';
 import * as helmet from 'helmet';
 import { runJobs } from './jobs/cron';
 
-async function bootstrap() {
+(async () => {
 	await conn();
 	await seed();
 
@@ -20,5 +20,4 @@ async function bootstrap() {
 	runJobs();
 
 	await app.listen(process.env.PORT || 3000);
-}
-bootstrap();
+})();
