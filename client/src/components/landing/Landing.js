@@ -1,11 +1,13 @@
 import React from 'react';
 import LandingHeader from './LandingHeader';
 import styled from 'styled-components';
+import LandingPlans from './LandingPlans';
 
 const Landing = () => {
 	return (
 		<StyledMain>
 			<LandingHeader />
+			<LandingPlans />
 		</StyledMain>
 	);
 };

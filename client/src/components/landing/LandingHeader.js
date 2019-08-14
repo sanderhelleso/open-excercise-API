@@ -33,7 +33,7 @@ const StyledSection = styled.section`
 	position: relative;
 	display: flex;
 	align-content: center;
-	min-height: 100vh;
+	min-height: 750px;
 	margin: 0 auto;
 
 	img {

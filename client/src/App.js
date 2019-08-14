@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         margin: 0;
         padding: 0;
-        overflow: hidden;
+        overflow-x: hidden;
         font-family: 'Oswald', sans-serif;
     }
 
