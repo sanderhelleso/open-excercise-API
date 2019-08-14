@@ -69,7 +69,5 @@ const StyledBtnCont = styled.div`
 
 	button {
 		margin-right: 2rem;
-		min-width: 200px;
-		min-height: 60px;
 	}
 `;

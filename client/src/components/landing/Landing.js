@@ -17,4 +17,9 @@ export default Landing;
 const StyledMain = styled.main`
 	min-width: 100%;
 	min-height: 100vh;
+
+	button {
+		min-width: 200px;
+		min-height: 60px;
+	}
 `;
