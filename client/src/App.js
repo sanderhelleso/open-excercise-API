@@ -21,9 +21,12 @@ const GlobalStyle = createGlobalStyle`
     body {
         margin: 0;
         padding: 0;
-        overflow: hidden;
+        overflow-x: hidden;
         font-family: 'Oswald', sans-serif;
+    }
 
+    main {
+        padding: 40px 0;
     }
 
     h1, h2, h3, h4, h5, a {

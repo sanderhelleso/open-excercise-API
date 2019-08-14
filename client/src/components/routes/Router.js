@@ -11,6 +11,7 @@ import Payment from '../payment/Payment';
 import Account from '../account/Account';
 import ProcessPayment from '../proccessPayment/ProcessPayment';
 import VerifyAccount from '../verifyAccount/VerifyAccount';
+import Landing from '../landing/Landing';
 
 const Router = ({ isAuthenticated, proccesingPayment }) => {
 	const renderRoutes = () => {
@@ -22,7 +23,7 @@ const Router = ({ isAuthenticated, proccesingPayment }) => {
 			<Fragment>
 				<Route path="/*" component={SideMenu} />
 				<Switch>
-					<Route exact path="/" component={!isAuthenticated ? () => <Redirect to="/login" /> : Dashboard} />
+					<Route exact path="/" component={!isAuthenticated ? Landing : Dashboard} />
 					<Route exact path="/login" component={isAuthenticated ? () => <Redirect to="/" /> : Login} />
 					<Route exact path="/register" component={isAuthenticated ? () => <Redirect to="/" /> : Register} />
 					<Route exact path="/verify-account" component={VerifyAccount} />
