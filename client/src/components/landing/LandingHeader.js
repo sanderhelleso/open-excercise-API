@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ButtonV2 from '../common/ButtonV2';
 
 const LandingHeader = () => {
 	return (
@@ -7,6 +8,10 @@ const LandingHeader = () => {
 			<div>
 				<StyledInner>
 					<h1>Open Excercise API</h1>
+					<StyledBtnCont>
+						<ButtonV2 text="Get Started" />
+						<ButtonV2 text="Documentation" flat={true} />
+					</StyledBtnCont>
 				</StyledInner>
 			</div>
 			<div>
@@ -39,13 +44,24 @@ const StyledSection = styled.section`
 
 const StyledInner = styled.div`
 	display: flex;
-	justify-content: right;
-	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 	margin-left: 3rem;
 
 	h1 {
 		font-size: 3rem;
 		font-weight: 800;
 		text-transform: uppercase;
+	}
+`;
+
+const StyledBtnCont = styled.div`
+	display: flex;
+	margin-top: 2rem;
+
+	button {
+		margin-right: 2rem;
+		min-width: 200px;
+		min-height: 60px;
 	}
 `;
