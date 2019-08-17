@@ -1,11 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ArrowLeft } from 'react-feather';
+import { withRouter } from 'react-router';
 
-const Cover = () => {
-	return <StyledCover />;
+const Cover = ({ history }) => {
+	return (
+		<StyledCover>
+			<ArrowLeft onClick={() => history.push('/')} />
+		</StyledCover>
+	);
 };
 
-export default Cover;
+export default withRouter(Cover);
 
 const StyledCover = styled.aside`
 	min-width: 50%;
@@ -16,6 +22,14 @@ const StyledCover = styled.aside`
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
+
+	svg {
+		stroke: #ffffff;
+		height: 4rem;
+		width: 4rem;
+		margin: 3rem;
+		cursor: pointer;
+	}
 
 	@media screen and (min-width: 2200px) {
 		min-width: 70%;

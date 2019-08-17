@@ -52,6 +52,7 @@ export default withRouter(Navbar);
 
 const StyledNav = styled.nav`
 	position: fixed;
+	top: 0;
 	width: 100vw;
 	z-index: 100;
 	background-color: #ffffff;
