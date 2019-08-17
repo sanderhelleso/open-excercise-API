@@ -22,7 +22,7 @@ const Router = ({ isAuthenticated, proccesingPayment }) => {
 
 		return (
 			<Fragment>
-				<Route path="/*" component={Navbar} />
+				<Route exact path={[ '/', '/documentation' ]} component={Navbar} />
 				<Switch>
 					<Route exact path="/" component={!isAuthenticated ? Landing : Dashboard} />
 					<Route exact path="/login" component={isAuthenticated ? () => <Redirect to="/" /> : Login} />
