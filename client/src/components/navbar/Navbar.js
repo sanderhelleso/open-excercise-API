@@ -25,14 +25,15 @@ const Navbar = ({ history, match }) => {
 	const activePath = match.url;
 
 	const renderOptions = () => {
-		return options.map((option, i) => {
+		return options.map(({ name, path }, i) => {
 			return (
 				<StyledLi
 					key={`navbar-option-${i}`}
-					className={option.path === activePath ? 'active' : null}
-					onClick={() => history.push(`${option.path}`)}
+					id={name === 'Register' ? 'register-btn' : null}
+					className={path === activePath ? 'active' : null}
+					onClick={() => history.push(path)}
 				>
-					{option.name}
+					{name}
 				</StyledLi>
 			);
 		});
@@ -40,7 +41,7 @@ const Navbar = ({ history, match }) => {
 	return (
 		<StyledNav>
 			<StyledContainer>
-				<p>Open Excercise API</p>
+				<p onClick={() => history.push('/')}>Open Excercise API</p>
 				<StyledUl>{renderOptions()}</StyledUl>
 			</StyledContainer>
 		</StyledNav>
@@ -54,8 +55,8 @@ const StyledNav = styled.nav`
 	width: 100vw;
 	z-index: 100;
 	background-color: #ffffff;
-	box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
-	padding: 10px 0;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+	padding: 15px 0;
 `;
 
 const StyledContainer = styled.div`
@@ -81,6 +82,21 @@ const StyledLi = styled.li`
 	cursor: pointer;
 	font-weight: 400;
 	transition: 0.3s ease-in-out;
+	letter-spacing: 1px;
+
+	&#register-btn {
+		background: #56ccf2; /* fallback for old browsers */
+		background: -webkit-linear-gradient(to left, #2f80ed, #56ccf2); /* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(
+			to left,
+			#2f80ed,
+			#56ccf2
+		); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+		color: #ffffff;
+		border-radius: 30px;
+		text-transform: uppercase;
+	}
 
 	&.active {
 		color: #139ff2;
