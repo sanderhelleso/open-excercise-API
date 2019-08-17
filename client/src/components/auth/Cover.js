@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ArrowLeft } from 'react-feather';
 import { withRouter } from 'react-router';
 
-const Cover = ({ history }) => {
+const Cover = ({ history, match }) => {
 	return (
 		<StyledCover>
 			<ArrowLeft onClick={() => history.push('/')} />

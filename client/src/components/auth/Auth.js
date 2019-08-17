@@ -5,6 +5,7 @@ import Cover from '../auth/Cover';
 import { withRouter } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
+import NegateStage from './NegateStage';
 
 const Auth = ({ match }) => {
 	const renderAuth = () => {
@@ -25,6 +26,7 @@ const Auth = ({ match }) => {
 
 	return (
 		<StyledMain>
+			<NegateStage stage={match.url.split('').slice(1).join('')} />
 			<Cover />
 			<StyledCont>
 				<div className="inner">{renderAuth()}</div>
@@ -39,6 +41,7 @@ const StyledMain = styled.main`
 	min-width: 100%;
 	min-height: 100vh;
 	display: flex;
+	position: relative;
 `;
 
 const StyledCont = styled.div`
