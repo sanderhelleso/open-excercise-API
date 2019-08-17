@@ -30,7 +30,7 @@ const StyledSection = styled.section`
 	position: relative;
 	background-color: #fafafa;
 	margin-top: -10rem;
-	border-radius: 0% 100% 0% 100% / 86% 33% 67% 14%;
+	border-radius: 0% 100% 0% 100% / 100% 24% 76% 0%;
 	text-align: center;
 
 	@media screen and (max-width: 1300px) {

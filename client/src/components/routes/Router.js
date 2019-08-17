@@ -12,6 +12,7 @@ import Account from '../account/Account';
 import ProcessPayment from '../proccessPayment/ProcessPayment';
 import VerifyAccount from '../verifyAccount/VerifyAccount';
 import Landing from '../landing/Landing';
+import Navbar from '../navbar/Navbar';
 
 const Router = ({ isAuthenticated, proccesingPayment }) => {
 	const renderRoutes = () => {
@@ -21,7 +22,7 @@ const Router = ({ isAuthenticated, proccesingPayment }) => {
 
 		return (
 			<Fragment>
-				<Route path="/*" component={SideMenu} />
+				<Route path="/*" component={Navbar} />
 				<Switch>
 					<Route exact path="/" component={!isAuthenticated ? Landing : Dashboard} />
 					<Route exact path="/login" component={isAuthenticated ? () => <Redirect to="/" /> : Login} />
