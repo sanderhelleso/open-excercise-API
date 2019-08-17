@@ -34,8 +34,9 @@ const StyledSection = styled.section`
 	display: flex;
 	align-content: center;
 	justify-content: center;
-	min-height: 750px;
+	min-height: 90vh;
 	margin: 0 auto;
+	margin-top: 3rem;
 
 	img {
 		width: 800px;
