@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import InputV2 from '../common/InputV2';
 import ButtonV2 from '../common/ButtonV2';
 import { ArrowRight } from 'react-feather';
+import { fadeInPure } from '../../lib/keyframes';
 
 const inputs = [
 	{
@@ -78,11 +79,13 @@ const Register = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<StyledForm onSubmit={handleSubmit}>
 			{renderInputs()}
 			<ButtonV2 text="Continue" icon={<ArrowRight />} />
-		</form>
+		</StyledForm>
 	);
 };
 
 export default withRouter(Register);
+
+const StyledForm = styled.form`animation: ${fadeInPure} 0.9s ease forwards;`;

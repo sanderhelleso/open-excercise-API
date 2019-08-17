@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import NegateStage from './NegateStage';
+import { fadeInPure } from '../../lib/keyframes';
 
 const Auth = ({ match }) => {
 	const renderAuth = () => {
