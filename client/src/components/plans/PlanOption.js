@@ -50,6 +50,10 @@ const StyledDiv = styled.div`
 		width: 70px;
 		margin-bottom: 1.5rem;
 	}
+
+	@media screen and (max-width: 950px) {
+		margin: 1rem;
+	}
 `;
 
 const StyledFeatures = styled.div`margin-top: 1rem;`;

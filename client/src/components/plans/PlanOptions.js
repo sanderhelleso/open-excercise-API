@@ -22,4 +22,8 @@ const StyledCont = styled.div`
 	flex-direction: row;
 	justify-content: center;
 	margin-top: 3.5rem;
+
+	@media screen and (max-width: 950px) {
+		display: block;
+	}
 `;

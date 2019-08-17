@@ -26,20 +26,36 @@ const StyledSection = styled.section`
 	display: flex;
 	align-content: center;
 	justify-content: center;
-	min-height: 100vh;
 	padding: 8rem 0;
 	position: relative;
 	background-color: #fafafa;
 	margin-top: -10rem;
 	border-radius: 0% 100% 0% 100% / 86% 33% 67% 14%;
 	text-align: center;
+
+	@media screen and (max-width: 1300px) {
+		margin-top: 0;
+		border-radius: 0;
+		padding: 4rem 0;
+	}
 `;
 
 const StyledInner = styled.div`
-	margin-top: 6rem;
+	margin-top: 5rem;
+
+	@media screen and (max-width: 1300px) {
+		margin-top: 0;
+		border-radius: 0;
+		padding: 4rem 0;
+		margin: 0 auto;
+	}
 
 	button {
 		margin-top: 5rem;
+
+		@media screen and (max-width: 950px) {
+			margin-top: 0;
+		}
 	}
 `;
 
@@ -49,6 +65,10 @@ const StyledHeadingCont = styled.div`
 	margin: 0 auto;
 	margin-bottom: 5rem;
 
+	@media screen and (max-width: 450px) {
+		max-width: 320px;
+	}
+
 	h2 {
 		text-transform: uppercase;
 		font-weight: 800;
@@ -56,6 +76,10 @@ const StyledHeadingCont = styled.div`
 		z-index: 2;
 		line-height: 1.4;
 		position: relative;
+
+		@media screen and (max-width: 950px) {
+			font-size: 2rem;
+		}
 	}
 
 	.sep {
