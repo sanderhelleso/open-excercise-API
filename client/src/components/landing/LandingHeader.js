@@ -33,6 +33,7 @@ const StyledSection = styled.section`
 	position: relative;
 	display: flex;
 	align-content: center;
+	justify-content: center;
 	min-height: 750px;
 	margin: 0 auto;
 
@@ -40,6 +41,18 @@ const StyledSection = styled.section`
 		width: 800px;
 		height: auto;
 		margin-top: 8rem;
+	}
+
+	@media screen and (max-width: 1300px) {
+		max-width: 90%;
+		flex-direction: column-reverse;
+		align-items: center;
+
+		img {
+			width: 400px;
+			height: auto;
+			margin-top: 4rem;
+		}
 	}
 `;
 
@@ -50,24 +63,59 @@ const StyledInner = styled.div`
 	margin-bottom: 10rem;
 	position: relative;
 	min-width: 500px;
+	margin-left: 200px;
 	animation: ${fadeInPure} 0.7s ease forwards;
+	text-align: center;
 
 	h1 {
 		font-size: 3.5rem;
 		font-weight: 800;
 		text-transform: uppercase;
+		text-align: center;
 	}
 
 	span {
 		font-weight: 800;
+	}
+
+	@media screen and (max-width: 1300px) {
+		margin-left: 0;
+	}
+
+	@media screen and (max-width: 900px) {
+		h1 {
+			font-size: 2.5rem;
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		h1 {
+			font-size: 2rem;
+		}
+
+		p {
+			max-width: 60%;
+			font-size: 12px;
+			margin: 0 auto;
+		}
 	}
 `;
 
 const StyledBtnCont = styled.div`
 	display: flex;
 	margin-top: 2rem;
+	justify-content: center;
+	align-items: center;
 
 	button {
-		margin-right: 2rem;
+		margin: auto 1rem;
+	}
+
+	@media screen and (max-width: 600px) {
+		flex-direction: column-reverse;
+
+		button {
+			margin: 0.75rem 0;
+		}
 	}
 `;
