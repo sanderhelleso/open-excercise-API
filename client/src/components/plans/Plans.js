@@ -18,6 +18,7 @@ export default Plans;
 const StyledDiv = styled.div`
 	text-align: center;
 	margin: 3rem 0;
+	padding-top: 4rem;
 
 	h1 {
 		font-size: 2rem;

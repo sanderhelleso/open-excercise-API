@@ -8,6 +8,10 @@ const options = [
 		path: '/'
 	},
 	{
+		name: 'Plans',
+		path: '/plans'
+	},
+	{
 		name: 'Documentation',
 		path: '/documentation'
 	},
