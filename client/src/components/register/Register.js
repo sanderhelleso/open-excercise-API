@@ -83,7 +83,7 @@ const Register = ({ history }) => {
 			<StyledCont>
 				<div className="inner">
 					<h2>Register</h2>
-					<form>
+					<form onSubmit={handleSubmit}>
 						{renderInputs()}
 						<ButtonV2 text="Continue" icon={<ArrowRight />} />
 					</form>
@@ -105,7 +105,16 @@ const StyledAside = styled.aside`
 	min-width: 50%;
 	max-width: 50%;
 	min-height: 100vh;
-	background-color: blue;
+	background: linear-gradient(rgba(19, 159, 242, 0.5), rgba(196, 68, 255, 0.7)),
+		url(${process.env.PUBLIC_URL}${'/img/cover.jpg'});
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+
+	@media screen and (min-width: 2200px) {
+		min-width: 70%;
+		max-width: 70%;
+	}
 `;
 
 const StyledCont = styled.div`
@@ -119,7 +128,7 @@ const StyledCont = styled.div`
 		font-size: 2rem;
 		text-transform: uppercase;
 		font-weight: 800;
-		margin-bottom: 4rem;
+		margin-bottom: 2.5rem;
 	}
 
 	.inner {
@@ -144,6 +153,11 @@ const StyledCont = styled.div`
 	button {
 		min-width: 100%;
 		min-height: 60px;
-		margin-top: 2rem;
+		margin-top: 2.5rem;
+	}
+
+	@media screen and (min-width: 2200px) {
+		min-width: 30%;
+		max-width: 30%;
 	}
 `;
