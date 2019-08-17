@@ -25,10 +25,6 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Oswald', sans-serif;
     }
 
-    main {
-        padding: 40px 0;
-    }
-
     h1, h2, h3, h4, h5, a {
         margin: 0;
         padding: 0;
@@ -54,11 +50,6 @@ const GlobalStyle = createGlobalStyle`
 
     a {
         text-decoration: none;
-    }
-    
-    #root {
-        height: 100%;
-        display: flex;
     }
 
     .column {

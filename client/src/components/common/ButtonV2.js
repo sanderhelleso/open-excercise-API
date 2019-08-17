@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ButtonV2 = ({ text, disabled, flat, danger, onClick }) => {
+const ButtonV2 = ({ text, disabled, flat, danger, icon, onClick }) => {
 	return (
 		<StyledButton flat={flat} danger={danger} disabled={disabled} onClick={onClick}>
 			{text}
+			{icon ? icon : null}
 		</StyledButton>
 	);
 };
@@ -23,6 +24,7 @@ const StyledButton = styled.button`
 	transition: 0.3s ease-in-out;
 	max-width: 125px;
 	max-height: 55px;
+	position: relative;
 
 	${({ disabled, flat, danger }) => {
 		if (disabled) return disabledStyles;
@@ -31,6 +33,15 @@ const StyledButton = styled.button`
 
 		return normalStyles;
 	}};
+
+	svg {
+		position: absolute;
+		right: 20px;
+		top: 20px;
+		opacity: 0.5;
+		height: 1.25rem;
+		width: 1.25rem;
+	}
 `;
 
 const disabledStyles = `
