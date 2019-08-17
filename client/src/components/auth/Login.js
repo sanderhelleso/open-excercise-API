@@ -4,29 +4,37 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Background from '../../img/Background.jpg';
 import { User, Mail, Lock } from 'react-feather';
-import Button from '../common/Button';
 import Input from '../common/Input';
 import Modal from '../common/modal/Modal';
 import setQuotaAction from '../../actions/setQuotaAction';
 import loginAction from '../../actions/loginAction';
 import { connect } from 'react-redux';
+import ButtonV2 from '../common/ButtonV2';
+import { ArrowRight } from 'react-feather';
+import InputV2 from '../common/InputV2';
 
 const inputs = [
 	{
 		placeholder: 'Enter your email',
 		type: 'email',
 		name: 'email',
-		icon: <User color="#139ff2" />
+		label: {
+			text: 'Email',
+			htmlForm: 'email'
+		}
 	},
 	{
 		placeholder: 'Enter your password',
 		type: 'password',
 		name: 'password',
-		icon: <Lock color="#139ff2" />
+		label: {
+			text: 'Password',
+			htmlForm: 'password'
+		}
 	}
 ];
 
-const Login = ({ history, setQuotaAction, loginAction }) => {
+const Login = ({ setQuotaAction, loginAction }) => {
 	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
 		email: '',
 		password: ''
@@ -38,7 +46,11 @@ const Login = ({ history, setQuotaAction, loginAction }) => {
 
 	const renderInputs = () => {
 		return inputs.map((input, i) => {
-			return <Input key={i} {...input} value={state[input.name]} onChange={handleChange} />;
+			return (
+				<div className="input-cont">
+					<InputV2 key={i} {...input} value={state[input.name]} onChange={handleChange} />
+				</div>
+			);
 		});
 	};
 
@@ -83,17 +95,10 @@ const Login = ({ history, setQuotaAction, loginAction }) => {
 	};
 
 	return (
-		<StyledBg>
-			<StyledForm noValidate>
-				<StyledHeader>Login</StyledHeader>
-				{renderInputs()}
-				<Button text="Login" onClick={handleSubmit} primary />
-				<Modal {...modalProps} />
-				<StyledSpan tabIndex="0" onClick={() => history.push('/register')}>
-					Register now!
-				</StyledSpan>
-			</StyledForm>
-		</StyledBg>
+		<form onSubmit={handleSubmit}>
+			{renderInputs()}
+			<ButtonV2 text="Continue" icon={<ArrowRight />} />
+		</form>
 	);
 };
 
@@ -102,7 +107,7 @@ const actions = {
 	loginAction
 };
 
-export default connect(null, actions)(withRouter(Login));
+export default connect(null, actions)(Login);
 
 const StyledBg = styled.div`
 	min-width: 100%;

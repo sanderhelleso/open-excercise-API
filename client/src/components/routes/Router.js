@@ -1,9 +1,6 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import Register from '../register/Register';
-import SideMenu from '../sidemenu/SideMenu';
 import SocketTest from '../socket-test/SocketTest';
-import Login from '../login/Login';
 import { connect } from 'react-redux';
 import Dashboard from '../dashboard/Dashboard';
 import Docs from '../docs/Docs';
@@ -13,6 +10,7 @@ import ProcessPayment from '../proccessPayment/ProcessPayment';
 import VerifyAccount from '../verifyAccount/VerifyAccount';
 import Landing from '../landing/Landing';
 import Navbar from '../navbar/Navbar';
+import Auth from '../auth/Auth';
 
 const Router = ({ isAuthenticated, proccesingPayment }) => {
 	const renderRoutes = () => {
@@ -23,10 +21,13 @@ const Router = ({ isAuthenticated, proccesingPayment }) => {
 		return (
 			<Fragment>
 				<Route exact path={[ '/', '/documentation' ]} component={Navbar} />
+				<Route
+					exact
+					path={[ '/login', '/register' ]}
+					component={isAuthenticated ? () => <Redirect to="/" /> : Auth}
+				/>
 				<Switch>
 					<Route exact path="/" component={!isAuthenticated ? Landing : Dashboard} />
-					<Route exact path="/login" component={isAuthenticated ? () => <Redirect to="/" /> : Login} />
-					<Route exact path="/register" component={isAuthenticated ? () => <Redirect to="/" /> : Register} />
 					<Route exact path="/verify-account" component={VerifyAccount} />
 
 					<Route exact path="/socket-test" component={SocketTest} />
