@@ -59,6 +59,7 @@ const StyledCont = styled.div`
 		min-width: 70%;
 		max-width: 70%;
 		margin: 4rem auto;
+		min-height: 700px;
 
 		@media screen and (min-width: 1300px) {
 			min-width: 550px;

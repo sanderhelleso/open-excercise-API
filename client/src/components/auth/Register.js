@@ -1,5 +1,7 @@
 import React, { useReducer } from 'react';
 import _fetch from '../../lib/_fetch';
+import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 import InputV2 from '../common/InputV2';
 import ButtonV2 from '../common/ButtonV2';
 import { ArrowRight } from 'react-feather';
@@ -83,4 +85,4 @@ const Register = () => {
 	);
 };
 
-export default Register;
+export default withRouter(Register);
