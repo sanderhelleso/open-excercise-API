@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { ArrowLeft } from 'react-feather';
 import { withRouter } from 'react-router';
 
-const Cover = ({ history, match }) => {
+const Cover = ({ history }) => {
 	return (
 		<StyledCover>
 			<ArrowLeft onClick={() => history.push('/')} />
+			<h1>Open Excercise API</h1>
 		</StyledCover>
 	);
 };
@@ -22,6 +23,15 @@ const StyledCover = styled.aside`
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	h1 {
+		font-size: 3.5rem;
+		color: #ffffff;
+		max-width: 600px;
+	}
 
 	svg {
 		stroke: #ffffff;
@@ -29,10 +39,17 @@ const StyledCover = styled.aside`
 		width: 4rem;
 		margin: 3rem;
 		cursor: pointer;
+		position: absolute;
+		top: 0;
+		left: 0;
 	}
 
 	@media screen and (min-width: 2200px) {
 		min-width: 70%;
 		max-width: 70%;
+	}
+
+	@media screen and (max-width: 1000px) {
+		display: none;
 	}
 `;

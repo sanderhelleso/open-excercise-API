@@ -89,4 +89,15 @@ const StyledCont = styled.div`
 		min-width: 30%;
 		max-width: 30%;
 	}
+
+	@media screen and (max-width: 1000px) {
+		min-width: 100%;
+		max-width: 100%;
+	}
+
+	@media screen and (max-width: 600px) {
+		h2 {
+			margin-top: 3rem;
+		}
+	}
 `;
