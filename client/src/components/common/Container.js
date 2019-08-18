@@ -15,8 +15,7 @@ export default Dashboard;
 const StyledContent = styled.main`
 	animation: ${fadeInPure} 0.4s ease forwards;
 	flex-grow: 1;
-	overflow-y: auto;
-	max-height: 100vh;
+	margin-top: 60px;
 `;
 
 const StyledMain = styled.div`
