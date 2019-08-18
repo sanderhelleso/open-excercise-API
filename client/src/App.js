@@ -6,7 +6,7 @@ import { ToastProvider } from 'react-toast-notifications';
 const App = () => (
 	<Fragment>
 		<GlobalStyle />
-		<ToastProvider placement="top-right">
+		<ToastProvider placement="top-right" autoDismissTimeout={8000}>
 			<Router />
 		</ToastProvider>
 	</Fragment>

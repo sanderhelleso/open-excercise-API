@@ -48,7 +48,7 @@ const inputs = [
 	}
 ];
 
-const Register = ({ toastManager }) => {
+const Register = ({ toastManager, history }) => {
 	const [ loading, setLoading ] = useState(false);
 	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
 		name: '',
@@ -79,7 +79,12 @@ const Register = ({ toastManager }) => {
 
 		try {
 			await _fetch(`http://localhost:4000/auth/register`, 'POST', null, state);
-			toast(toastManager, false, 'Check your email for verification code');
+			toast(
+				toastManager,
+				false,
+				'To make sure it is you, we sent an email containing a verification code to the registered email!'
+			);
+			history.replace('/login');
 		} catch (error) {
 			toast(toastManager, true, error);
 			setLoading(false);
