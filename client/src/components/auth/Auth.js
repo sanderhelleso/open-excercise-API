@@ -6,16 +6,18 @@ import { withRouter } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import NegateStage from './NegateStage';
-import { fadeInPure } from '../../lib/keyframes';
+import { withToastManager } from 'react-toast-notifications';
 
-const Auth = ({ match }) => {
+const Auth = ({ toastManager, match }) => {
 	const renderAuth = () => {
-		let comp = <Login />;
+		let comp = <Login toastManager={toastManager} />;
 		let heading = 'Login';
 		if (match.url === '/register') {
-			comp = <Register />;
+			comp = <Register toastManager={toastManager} />;
 			heading = 'Register';
 		}
+
+		console.log(toastManager);
 
 		return (
 			<Fragment>
@@ -36,7 +38,7 @@ const Auth = ({ match }) => {
 	);
 };
 
-export default withRouter(Auth);
+export default withToastManager(withRouter(Auth));
 
 const StyledMain = styled.main`
 	min-width: 100%;

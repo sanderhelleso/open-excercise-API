@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react';
 import Router from './components/routes/Router';
 import { createGlobalStyle } from 'styled-components';
+import { ToastProvider } from 'react-toast-notifications';
 
 const App = () => (
 	<Fragment>
 		<GlobalStyle />
-		<Router />
+		<ToastProvider placement="top-right">
+			<Router />
+		</ToastProvider>
 	</Fragment>
 );
 

@@ -14,6 +14,7 @@
         "react-select": "^3.0.4",
         "react-spinners": "^0.5.13",
         "react-stripe-elements": "^4.0.0",
+        "react-toast-notifications": "^2.2.4",
         "recharts": "^1.6.2",
         "redux": "^4.0.4",
         "socket.io-client": "^2.2.0",
