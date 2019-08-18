@@ -91,10 +91,15 @@ export class UsersService {
 
 	async createResetPwCode(email: string): Promise<boolean> {
 		const user = await User.findOne({ email });
+
 		if (user) {
-			const code: string = genRandCode();
-			ResetPW.create({ email, code });
-			this.mailerService.sendMail(null, user.email, 'Reset Password', resetPwEmail(code));
+			const resetPw = await ResetPW.findOne({ email });
+
+			if (!resetPw) {
+				const code: string = genRandCode();
+				ResetPW.create({ email, code });
+				this.mailerService.sendMail(null, user.email, 'Reset Password', resetPwEmail(code));
+			}
 		}
 
 		return true;

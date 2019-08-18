@@ -43,7 +43,6 @@ export const welcomeEmail = (name: string, verifyCode: string): IMailTemplate =>
 export const resetPwEmail = (resetCode: string) => {
 	const email: any = {
 		body: {
-			name,
 			intro: 'You told us you forgot your password',
 			action: {
 				instructions: 'If you really did, click here to choose a new one:',

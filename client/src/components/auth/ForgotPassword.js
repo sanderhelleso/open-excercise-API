@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { isEmail } from '../../lib/validators';
 import toast from '../../lib/toast';
+import _fetch from '../../lib/_fetch';
 
 const ForgotPassword = ({ toastManager, email }) => {
 	const sendResetEmail = () => {
@@ -10,6 +11,7 @@ const ForgotPassword = ({ toastManager, email }) => {
 			return document.querySelector('input[type=email]').focus();
 		}
 
+		_fetch(`http://localhost:4000/auth/reset-password`, 'POST', null, { email });
 		toast(toastManager, false, `Instructions on how to reset your password has been sent to ${email}`);
 	};
 
