@@ -6,9 +6,10 @@ import { withRouter } from 'react-router-dom';
 import verifyUrlCode from '../../lib/verifyUrlCode';
 import toast from '../../lib/toast';
 import { withToastManager } from 'react-toast-notifications';
+import ResetPasswordForm from './ResetPasswordForm';
 
 const ResetPassword = ({ toastManager, history }) => {
-	const [ loading, setLoading ] = useState(true);
+	const [ validCode, setValidCode ] = useState();
 
 	useEffect(() => {
 		verify();
@@ -18,11 +19,12 @@ const ResetPassword = ({ toastManager, history }) => {
 		const code = verifyUrlCode();
 
 		if (!code) {
-			history.replace('/login');
+			return history.replace('/login');
 		}
 
 		try {
 			await _fetch(`http://localhost:4000/auth/verify-reset-password`, 'POST', null, { code });
+			setValidCode(true);
 		} catch (error) {
 			toast(toastManager, true, error);
 			history.replace('/login');
@@ -30,8 +32,12 @@ const ResetPassword = ({ toastManager, history }) => {
 	};
 
 	const render = () => {
+		if (validCode) {
+			return <ResetPasswordForm history={history} toastManager={toastManager} />;
+		}
+
 		return (
-			<LoaderCont loading={loading}>
+			<LoaderCont loading={true}>
 				<span>
 					<Loader size={60} color="#139ff2" />
 				</span>
