@@ -3,6 +3,11 @@ const PW_MAX = 255;
 const HAS_SPECIAL = new RegExp(/[^a-zA-Z\d]/);
 const HAS_DIGIT = new RegExp(/\d/);
 const NAME_MIN = 2;
+const IS_EMAIl = new RegExp(
+	/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+);
+
+export const isEmail = (s) => IS_EMAIl.test(s);
 
 export const isPassword = (s) => {
 	if (!s) return false;

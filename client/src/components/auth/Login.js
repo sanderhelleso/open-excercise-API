@@ -1,11 +1,6 @@
-import React, { useReducer, Fragment } from 'react';
+import React, { useReducer } from 'react';
 import _fetch from '../../lib/_fetch';
-import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import Background from '../../img/Background.jpg';
-import { User, Mail, Lock } from 'react-feather';
-import Input from '../common/Input';
-import Modal from '../common/modal/Modal';
 import setQuotaAction from '../../actions/setQuotaAction';
 import loginAction from '../../actions/loginAction';
 import { connect } from 'react-redux';
@@ -13,6 +8,7 @@ import ButtonV2 from '../common/ButtonV2';
 import { ArrowRight } from 'react-feather';
 import InputV2 from '../common/InputV2';
 import { fadeInPure } from '../../lib/keyframes';
+import { isEmail, isPassword } from '../../lib/validators';
 
 const inputs = [
 	{
@@ -40,6 +36,8 @@ const Login = ({ setQuotaAction, loginAction }) => {
 		email: '',
 		password: ''
 	});
+
+	const { email, password } = state;
 
 	const handleChange = ({ target: { name, value } }) => {
 		updateState({ [name]: value });
@@ -73,32 +71,10 @@ const Login = ({ setQuotaAction, loginAction }) => {
 		}
 	};
 
-	const handleReset = (e) => {
-		e.preventDefault();
-	};
-
-	const modalProps = {
-		role: 'dialog',
-		headerText: 'Reset Password',
-		buttonText: 'Proceed',
-		buttonClick: handleReset,
-		triggerText: 'Forgot Password?',
-		children: (
-			<Fragment>
-				<h1>Forgot Password</h1>
-				<p style={{ marginBottom: '1rem' }}>
-					Please enter your email below to reset your password. When you enter your email and click 'Proceed',
-					you will recieve an email with further instructions.
-				</p>
-				<Input icon={<Mail color="#139ff2" />} placeholder="Enter your email" />
-			</Fragment>
-		)
-	};
-
 	return (
 		<StyledForm onSubmit={handleSubmit}>
 			{renderInputs()}
-			<ButtonV2 text="Continue" icon={<ArrowRight />} />
+			<ButtonV2 text="Continue" icon={<ArrowRight />} disabled={!isEmail(email) || !isPassword(password)} />
 		</StyledForm>
 	);
 };
