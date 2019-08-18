@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useRef } from 'react';
 import _fetch from '../../lib/_fetch';
 import styled from 'styled-components';
 import setQuotaAction from '../../actions/setQuotaAction';
@@ -10,6 +10,7 @@ import InputV2 from '../common/InputV2';
 import { fadeInPure } from '../../lib/keyframes';
 import { isEmail, isPassword } from '../../lib/validators';
 import toast from '../../lib/toast';
+import ForgotPassword from './ForgotPassword';
 
 const inputs = [
 	{
@@ -89,7 +90,7 @@ const Login = ({ toastManager, setQuotaAction, loginAction }) => {
 		<StyledForm onSubmit={handleSubmit}>
 			{renderInputs()}
 			<ButtonV2 text={setText()} icon={<ArrowRight />} disabled={isDisabled()} />
-			<h5>Forgot password?</h5>
+			<ForgotPassword toastManager={toastManager} email={email} />
 		</StyledForm>
 	);
 };
@@ -101,16 +102,4 @@ const actions = {
 
 export default connect(null, actions)(Login);
 
-const StyledForm = styled.form`
-	animation: ${fadeInPure} 0.9s ease forwards;
-
-	h5 {
-		color: #9e9e9e;
-		margin-top: 4rem;
-		cursor: pointer;
-		text-align: center;
-		font-weight: 100;
-		font-size: 0.8rem;
-		font-family: 'Open Sans', sans-serif;
-	}
-`;
+const StyledForm = styled.form`animation: ${fadeInPure} 0.9s ease forwards;`;
