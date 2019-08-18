@@ -87,7 +87,9 @@ const Register = ({ toastManager, history }) => {
 			history.replace('/login');
 		} catch (error) {
 			toast(toastManager, true, error);
-			setLoading(false);
+			setTimeout(() => {
+				setLoading(false);
+			}, 500);
 		}
 	};
 

@@ -71,7 +71,9 @@ const Login = ({ toastManager, setQuotaAction, loginAction }) => {
 			loginAction(data);
 		} catch (error) {
 			toast(toastManager, true, error);
-			setLoading(false);
+			setTimeout(() => {
+				setLoading(false);
+			}, 500);
 		}
 	};
 
