@@ -70,7 +70,7 @@ const Login = ({ toastManager, setQuotaAction, loginAction }) => {
 			setQuotaAction(quota);
 			loginAction(data);
 		} catch (error) {
-			toast(toastManager, true, error.message);
+			toast(toastManager, true, error);
 			setLoading(false);
 		}
 	};

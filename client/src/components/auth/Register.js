@@ -81,7 +81,7 @@ const Register = ({ toastManager }) => {
 			await _fetch(`http://localhost:4000/auth/register`, 'POST', null, state);
 			toast(toastManager, false, 'Check your email for verification code');
 		} catch (error) {
-			toast(toastManager, true, error.message);
+			toast(toastManager, true, error);
 			setLoading(false);
 		}
 	};
