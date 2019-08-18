@@ -48,8 +48,12 @@ export class AuthController {
 
 	@Post('/reset-password')
 	async resetPW(@Body() { email }): Promise<boolean> {
-		this.usersService.createResetPwCode(email);
-		return true;
+		return this.usersService.createResetPwCode(email);
+	}
+
+	@Post('/verify-reset-password')
+	async verifyResetPW(@Body() { code }): Promise<boolean> {
+		return await this.usersService.verifyResetPwCode(code);
 	}
 
 	@Patch('/update-data')

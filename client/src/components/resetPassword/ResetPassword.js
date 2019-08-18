@@ -4,10 +4,12 @@ import Loader, { LoaderCont } from '../common/Loader';
 import _fetch from '../../lib/_fetch';
 import { withRouter } from 'react-router-dom';
 import verifyUrlCode from '../../lib/verifyUrlCode';
-import { withToastManager } from 'react-toast-notifications';
 import toast from '../../lib/toast';
+import { withToastManager } from 'react-toast-notifications';
 
-const VerifyAccount = ({ toastManager, history }) => {
+const ResetPassword = ({ toastManager, history }) => {
+	const [ loading, setLoading ] = useState(true);
+
 	useEffect(() => {
 		verify();
 	}, []);
@@ -16,27 +18,25 @@ const VerifyAccount = ({ toastManager, history }) => {
 		const code = verifyUrlCode();
 
 		if (!code) {
-			return history.replace('/login');
+			history.replace('/login');
 		}
 
 		try {
-			await _fetch(`http://localhost:4000/auth/verify`, 'PATCH', null, { code });
-			toast(toastManager, false, 'Account has been succesfully verified! You can now login to your account');
+			await _fetch(`http://localhost:4000/auth/verify-reset-password`, 'POST', null, { code });
 		} catch (error) {
 			toast(toastManager, true, error);
+			history.replace('/login');
 		}
-
-		history.replace('/login');
 	};
 
 	const render = () => {
 		return (
-			<LoaderCont loading={true}>
+			<LoaderCont loading={loading}>
 				<span>
 					<Loader size={60} color="#139ff2" />
 				</span>
-				<h1>Verifying Account</h1>
-				<p>Hang thight while we verify your account</p>
+				<h1>Verifying Reset Code</h1>
+				<p>Hang thight while we verify the provided code</p>
 			</LoaderCont>
 		);
 	};
@@ -44,4 +44,4 @@ const VerifyAccount = ({ toastManager, history }) => {
 	return <Container>{render()}</Container>;
 };
 
-export default withRouter(withToastManager(VerifyAccount));
+export default withRouter(withToastManager(ResetPassword));
