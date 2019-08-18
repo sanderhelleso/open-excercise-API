@@ -89,6 +89,7 @@ const Login = ({ toastManager, setQuotaAction, loginAction }) => {
 		<StyledForm onSubmit={handleSubmit}>
 			{renderInputs()}
 			<ButtonV2 text={setText()} icon={<ArrowRight />} disabled={isDisabled()} />
+			<h5>Forgot password?</h5>
 		</StyledForm>
 	);
 };
@@ -100,4 +101,16 @@ const actions = {
 
 export default connect(null, actions)(Login);
 
-const StyledForm = styled.form`animation: ${fadeInPure} 0.9s ease forwards;`;
+const StyledForm = styled.form`
+	animation: ${fadeInPure} 0.9s ease forwards;
+
+	h5 {
+		color: #9e9e9e;
+		margin-top: 4rem;
+		cursor: pointer;
+		text-align: center;
+		font-weight: 100;
+		font-size: 0.8rem;
+		font-family: 'Open Sans', sans-serif;
+	}
+`;
