@@ -7,6 +7,7 @@ import ButtonV2 from '../common/ButtonV2';
 import { ArrowRight } from 'react-feather';
 import { fadeInPure } from '../../lib/keyframes';
 import { isEmptyObj, isPassword, isEmail, isName } from '../../lib/validators';
+import toast from '../../lib/toast';
 
 const inputs = [
 	{
@@ -47,7 +48,7 @@ const inputs = [
 	}
 ];
 
-const Register = () => {
+const Register = ({ toastManager }) => {
 	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
 		name: '',
 		email: '',
@@ -76,9 +77,9 @@ const Register = () => {
 
 		try {
 			await _fetch(`http://localhost:4000/auth/register`, 'POST', null, state);
-			alert('Check your email for verification code');
+			toast(toastManager, false, 'Check your email for verification code');
 		} catch (error) {
-			alert(error);
+			toast(toastManager, true, error.message);
 		}
 	};
 

@@ -9,6 +9,7 @@ import { ArrowRight } from 'react-feather';
 import InputV2 from '../common/InputV2';
 import { fadeInPure } from '../../lib/keyframes';
 import { isEmail, isPassword } from '../../lib/validators';
+import toast from '../../lib/toast';
 
 const inputs = [
 	{
@@ -31,7 +32,7 @@ const inputs = [
 	}
 ];
 
-const Login = ({ setQuotaAction, loginAction }) => {
+const Login = ({ toastManager, setQuotaAction, loginAction }) => {
 	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
 		email: '',
 		password: ''
@@ -67,7 +68,7 @@ const Login = ({ setQuotaAction, loginAction }) => {
 			setQuotaAction(quota);
 			loginAction(data);
 		} catch (error) {
-			alert(error);
+			toast(toastManager, true, error.message);
 		}
 	};
 
