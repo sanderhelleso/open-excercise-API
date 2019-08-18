@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import _fetch from '../../lib/_fetch';
 import styled from 'styled-components';
 import setQuotaAction from '../../actions/setQuotaAction';
@@ -33,6 +33,7 @@ const inputs = [
 ];
 
 const Login = ({ toastManager, setQuotaAction, loginAction }) => {
+	const [ loading, setLoading ] = useState(false);
 	const [ state, updateState ] = useReducer((state, newState) => ({ ...state, ...newState }), {
 		email: '',
 		password: ''
@@ -56,6 +57,7 @@ const Login = ({ toastManager, setQuotaAction, loginAction }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true);
 
 		try {
 			const response = await _fetch(`http://localhost:4000/auth/login`, 'POST', null, state);
@@ -69,13 +71,22 @@ const Login = ({ toastManager, setQuotaAction, loginAction }) => {
 			loginAction(data);
 		} catch (error) {
 			toast(toastManager, true, error.message);
+			setLoading(false);
 		}
+	};
+
+	const isDisabled = () => {
+		return loading || !isEmail(email) || !isPassword(password);
+	};
+
+	const setText = () => {
+		return loading ? 'Authenticating...' : 'Continue';
 	};
 
 	return (
 		<StyledForm onSubmit={handleSubmit}>
 			{renderInputs()}
-			<ButtonV2 text="Continue" icon={<ArrowRight />} disabled={!isEmail(email) || !isPassword(password)} />
+			<ButtonV2 text={setText()} icon={<ArrowRight />} disabled={isDisabled()} />
 		</StyledForm>
 	);
 };
