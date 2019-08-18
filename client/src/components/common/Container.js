@@ -15,8 +15,7 @@ export default Dashboard;
 const StyledContent = styled.main`
 	animation: ${fadeInPure} 0.4s ease forwards;
 	flex-grow: 1;
-	overflow-y: auto;
-	max-height: 100vh;
+	margin-top: 60px;
 `;
 
 const StyledMain = styled.div`
@@ -33,4 +32,8 @@ const StyledCont = styled.div`
 	display: grid;
 	grid-row-gap: 3rem;
 	padding: 3rem 0;
+
+	h1 {
+		font-size: 2.65rem;
+	}
 `;

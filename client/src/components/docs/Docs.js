@@ -46,7 +46,7 @@ const StyledDocs = styled.div`
 
 	section {
 		margin-bottom: 4rem;
-		padding-top: 6rem;
+		padding-top: 60px;
 
 		h2 {
 			font-size: 1.75rem;

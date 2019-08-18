@@ -1,12 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
-const options = [
-	{
-		name: 'Home',
-		path: '/'
-	},
+const defoptions = [
 	{
 		name: 'Plans',
 		path: '/plans'
@@ -14,7 +11,10 @@ const options = [
 	{
 		name: 'Documentation',
 		path: '/documentation'
-	},
+	}
+];
+
+const nonAuthedOptions = [
 	{
 		name: 'Login',
 		path: '/login'
@@ -25,16 +25,33 @@ const options = [
 	}
 ];
 
-const Navbar = ({ history, match }) => {
-	const activePath = match.url;
+const authedOptions = [
+	{
+		name: 'Account',
+		path: '/account'
+	}
+];
+
+const Navbar = ({ isAuthenticated, history, match }) => {
+	const makeOptions = () => {
+		const authOptions = isAuthenticated ? authedOptions : nonAuthedOptions;
+		return [
+			{
+				name: isAuthenticated ? 'Dashboard' : 'Home',
+				path: '/'
+			},
+			...defoptions,
+			...authOptions
+		];
+	};
 
 	const renderOptions = () => {
-		return options.map(({ name, path }, i) => {
+		return makeOptions().map(({ name, path }, i) => {
 			return (
 				<StyledLi
 					key={`navbar-option-${i}`}
 					id={name === 'Register' ? 'register-btn' : null}
-					className={path === activePath ? 'active' : null}
+					className={path === match.url ? 'active' : null}
 					onClick={() => history.push(path)}
 				>
 					{name}
@@ -42,6 +59,7 @@ const Navbar = ({ history, match }) => {
 			);
 		});
 	};
+
 	return (
 		<StyledNav>
 			<StyledContainer>
@@ -52,7 +70,11 @@ const Navbar = ({ history, match }) => {
 	);
 };
 
-export default withRouter(Navbar);
+const mapStateToProps = ({ auth: { isAuthenticated } }) => {
+	return { isAuthenticated };
+};
+
+export default connect(mapStateToProps, null)(withRouter(Navbar));
 
 const StyledNav = styled.nav`
 	position: fixed;

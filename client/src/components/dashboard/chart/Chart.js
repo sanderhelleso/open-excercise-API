@@ -12,7 +12,7 @@ const Chart = ({ data, setInitialChartDataAction }) => {
 
 	return (
 		<StyledChartCont>
-			<ResponsiveContainer width="100%">
+			<ResponsiveContainer minHeight="350px" minWidth="350px">
 				<AreaChart data={data}>
 					<defs>
 						<linearGradient id="colorRequests" x1="0" y1="0" x2="0" y2="1">
@@ -57,6 +57,7 @@ export default connect(mapStateToProps, actions)(Chart);
 
 const StyledChartCont = styled.div`
 	max-height: 350px;
+	min-height: 350px;
 	margin-top: 1rem;
 	font-weight: 400;
 	font-size: 0.9rem;

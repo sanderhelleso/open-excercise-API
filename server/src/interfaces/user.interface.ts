@@ -5,7 +5,6 @@ export interface IUser extends mongoose.Document {
 	name: string;
 	email: string;
 	passwordHash: string;
-	purpose: string;
 	verified: boolean;
 }
 
@@ -13,7 +12,6 @@ export interface IRegisterUser {
 	name: string;
 	email: string;
 	password: string;
-	purpose: string;
 }
 
 export interface ILoginUser {

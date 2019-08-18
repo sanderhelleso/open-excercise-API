@@ -10,6 +10,7 @@ const Account = () => {
 	return (
 		<Container>
 			<StyledDiv>
+				<h1>Account & Settings</h1>
 				<AccountInfo />
 				<AccountPassword />
 				<AccountBilling />
@@ -22,6 +23,13 @@ const Account = () => {
 export default Account;
 
 const StyledDiv = styled.div`
+	padding-top: 60px;
+
+	h1 {
+		font-size: 2.65rem;
+		margin-bottom: 4rem;
+	}
+
 	section {
 		background-color: #fefefe;
 		border: 1.25px solid #eeeeee;
