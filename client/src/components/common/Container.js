@@ -32,4 +32,8 @@ const StyledCont = styled.div`
 	display: grid;
 	grid-row-gap: 3rem;
 	padding: 3rem 0;
+
+	h1 {
+		font-size: 2.65rem;
+	}
 `;

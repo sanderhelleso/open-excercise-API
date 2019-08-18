@@ -22,7 +22,7 @@ const StyledSection = styled.section`
 	margin-bottom: 3rem !important;
 
 	h1 {
-		font-size: 2.25rem;
+		font-size: 2.6rem;
 	}
 
 	div {

@@ -20,7 +20,7 @@ const Router = ({ isAuthenticated, proccesingPayment }) => {
 
 		return (
 			<Fragment>
-				<Route exact path={[ '/', '/documentation', '/plans' ]} component={Navbar} />
+				<Route exact path={[ '/', '/documentation', '/plans', '/account' ]} component={Navbar} />
 				<Route
 					exact
 					path={[ '/login', '/register' ]}

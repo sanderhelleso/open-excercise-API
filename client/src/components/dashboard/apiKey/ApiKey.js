@@ -37,6 +37,7 @@ const StyledHeader = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	padding-top: 60px;
 
 	h3 {
 		font-size: 1.25rem;
