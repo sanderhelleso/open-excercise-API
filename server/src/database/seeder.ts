@@ -4,6 +4,7 @@ import User from './models/user.model';
 import Quota from './models/quota.model';
 import Customer from './models/customer.model';
 import Verify from './models/verify.model';
+import ResetPW from './models/reset-pw.model';
 import makeDataset from '../utils/makeDataset';
 
 async function seed(): Promise<boolean> {
@@ -16,6 +17,7 @@ async function seed(): Promise<boolean> {
 	await Quota.deleteMany({});
 	await Customer.deleteMany({});
 	await Verify.deleteMany({});
+	await ResetPW.deleteMany({});
 
 	const { excercises, muscles } = await makeDataset();
 
