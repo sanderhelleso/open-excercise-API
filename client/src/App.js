@@ -15,7 +15,7 @@ const App = () => (
 export default App;
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald:300,400,700&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald:300,400,700&display=swap');
 
     body, main {
         scroll-behavior: smooth;
@@ -61,4 +61,14 @@ const GlobalStyle = createGlobalStyle`
         display: flex;
         flex-direction: column;
     }
+
+    .no-select {
+        -webkit-touch-callout: none; /* iOS Safari */
+          -webkit-user-select: none; /* Safari */
+           -khtml-user-select: none; /* Konqueror HTML */
+             -moz-user-select: none; /* Firefox */
+              -ms-user-select: none; /* Internet Explorer/Edge */
+                  user-select: none; /* Non-prefixed version, currently
+                                        supported by Chrome and Opera */
+      }
 `;

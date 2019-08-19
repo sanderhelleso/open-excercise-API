@@ -52,8 +52,8 @@ const disabledStyles = `
 `;
 
 const flatStyles = `
-	color: #9e9e9e;
-	border: 1px solid #e0e0e0;
+	color: #139ff2;
+	border: 1px solid rgba(19, 159, 242, 0.7);
 	background-color: transparent;
 `;
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ArrowLeft } from 'react-feather';
-import { withRouter } from 'react-router';
 
 const Cover = ({ history }) => {
 	return (
@@ -12,7 +11,7 @@ const Cover = ({ history }) => {
 	);
 };
 
-export default withRouter(Cover);
+export default Cover;
 
 const StyledCover = styled.aside`
 	min-width: 50%;
