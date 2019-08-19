@@ -30,7 +30,7 @@ const StyledNavigator = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin-left: 1100px;
-	margin-top: 2.5rem;
+	margin-top: 3.5rem;
 
 	@media screen and (max-width: 1850px) {
 		margin-left: 1075px;

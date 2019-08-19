@@ -25,7 +25,7 @@ const Docs = () => {
 export default Docs;
 
 const StyledDocs = styled.div`
-	padding-bottom: 50px;
+	padding: 50px 0;
 	position: relative;
 
 	@media screen and (max-width: 1720px) {
