@@ -51,8 +51,15 @@ const Navbar = ({ isAuthenticated, history, match }) => {
 	const makeAuthOptions = () => {
 		const authOptions = isAuthenticated ? authedOptions : nonAuthedOptions;
 
-		return authOptions.map(({ name, path }) => {
-			return <ButtonV2 text={name} onClick={() => history.push(path)} flat={name === 'Login'} />;
+		return authOptions.map(({ name, path }, i) => {
+			return (
+				<ButtonV2
+					text={name}
+					onClick={() => history.push(path)}
+					flat={name === 'Login'}
+					key={`navbar-option-btn-${i}`}
+				/>
+			);
 		});
 	};
 
