@@ -84,6 +84,15 @@ const StyledNav = styled.nav`
 	background-color: #ffffff;
 	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 	padding: 15px 0;
+
+	@media screen and (max-width: 1000px) {
+		min-height: 100vh;
+		background-color: rgba(255, 255, 255, 0.975);
+
+		p {
+			display: none;
+		}
+	}
 `;
 
 const StyledContainer = styled.div`
@@ -101,6 +110,17 @@ const StyledUl = styled.ul`
 	list-style: none;
 	display: flex;
 	margin: 0;
+	z-index: 10;
+
+	@media screen and (max-width: 1000px) {
+		flex-direction: column;
+		align-items: center;
+		position: absolute;
+		top: 27.5%;
+		left: 50%;
+		transform: translate(-50%);
+		padding: 0;
+	}
 `;
 
 const StyledLi = styled.li`
@@ -110,6 +130,7 @@ const StyledLi = styled.li`
 	font-weight: 400;
 	transition: 0.3s ease-in-out;
 	letter-spacing: 1px;
+	color: #444444;
 
 	&#register-btn {
 		background: #56ccf2; /* fallback for old browsers */
@@ -127,5 +148,21 @@ const StyledLi = styled.li`
 
 	&.active {
 		color: #139ff2;
+	}
+
+	@media screen and (max-width: 1000px) {
+		font-size: 1.5rem;
+		margin-bottom: 2rem;
+		text-transform: uppercase;
+		font-weight: 100;
+
+		&#register-btn {
+			padding: 1rem 4rem;
+			margin-top: 4rem;
+		}
+	}
+
+	@media screen and (max-width: 500px) {
+		font-size: 1.2rem;
 	}
 `;

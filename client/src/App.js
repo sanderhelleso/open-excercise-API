@@ -15,7 +15,7 @@ const App = () => (
 export default App;
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald:300,400,700&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald:300,400,700&display=swap');
 
     body, main {
         scroll-behavior: smooth;
