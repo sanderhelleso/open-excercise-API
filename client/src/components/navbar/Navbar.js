@@ -1,7 +1,9 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { Menu, X } from 'react-feather';
+import { fadeInPure } from '../../lib/keyframes';
 
 const defoptions = [
 	{
@@ -33,6 +35,8 @@ const authedOptions = [
 ];
 
 const Navbar = ({ isAuthenticated, history, match }) => {
+	const [ active, setActive ] = useState(false);
+
 	const makeOptions = () => {
 		const authOptions = isAuthenticated ? authedOptions : nonAuthedOptions;
 		return [
@@ -45,6 +49,11 @@ const Navbar = ({ isAuthenticated, history, match }) => {
 		];
 	};
 
+	const goTo = (path) => {
+		history.push(path);
+		setActive(false);
+	};
+
 	const renderOptions = () => {
 		return makeOptions().map(({ name, path }, i) => {
 			return (
@@ -52,7 +61,7 @@ const Navbar = ({ isAuthenticated, history, match }) => {
 					key={`navbar-option-${i}`}
 					id={name === 'Register' ? 'register-btn' : null}
 					className={path === match.url ? 'active' : null}
-					onClick={() => history.push(path)}
+					onClick={() => goTo(path)}
 				>
 					{name}
 				</StyledLi>
@@ -60,15 +69,25 @@ const Navbar = ({ isAuthenticated, history, match }) => {
 		});
 	};
 
+	const renderMenu = () => {
+		if (!active) return null;
+
+		return (
+			<StyledWrapper active={active}>
+				<StyledBG onClick={() => setActive(false)} />
+				<StyledNav>
+					<StyledUl>{renderOptions()}</StyledUl>
+				</StyledNav>
+			</StyledWrapper>
+		);
+	};
+
 	return (
 		<Fragment>
-			<StyledBG active={true} />
-			<StyledNav>
-				<StyledContainer>
-					<p onClick={() => history.push('/')}>Open Excercise API</p>
-					<StyledUl>{renderOptions()}</StyledUl>
-				</StyledContainer>
-			</StyledNav>
+			<StyledTrigger onClick={() => setActive(!active)} tabIndex="0" active={active}>
+				{active ? <X /> : <Menu />}
+			</StyledTrigger>
+			{renderMenu()}
 		</Fragment>
 	);
 };
@@ -87,54 +106,39 @@ const StyledNav = styled.nav`
 	background-color: #ffffff;
 	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 	padding: 15px 0;
-
-	@media screen and (max-width: 1000px) {
-		min-height: 100vh;
-		max-width: 300px;
-		background-color: rgba(255, 255, 255, 0.95);
-
-		p {
-			display: none;
-		}
-	}
+	transition: 0.3s ease;
+	min-height: 100vh;
+	max-width: 335px;
+	background-color: rgba(255, 255, 255, 0.95);
+	animation: ${fadeInPure} 0.4s ease forwards;
 `;
 
-const StyledContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 85%;
-	margin: 0 auto;
-	max-width: 1200px;
-`;
+const StyledWrapper = styled.div`display: ${({ active }) => (active ? 'block' : 'none')};`;
 
 const StyledUl = styled.ul`
 	font-family: "Open Sans", "sans-serif";
-	font-size: 0.8rem;
 	list-style: none;
 	display: flex;
-	margin: 0;
-	z-index: 10;
-
-	@media screen and (max-width: 1000px) {
-		flex-direction: column;
-		align-items: center;
-		position: absolute;
-		top: 27.5%;
-		left: 50%;
-		transform: translate(-50%);
-		padding: 0;
-	}
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	top: 27.5%;
+	left: 50%;
+	transform: translate(-50%);
+	padding: 0;
 `;
 
 const StyledLi = styled.li`
 	margin: 0;
 	padding: 0.5rem 2rem;
 	cursor: pointer;
-	font-weight: 400;
 	transition: 0.3s ease-in-out;
 	letter-spacing: 1px;
 	color: #444444;
+	font-size: 1.1rem;
+	margin-bottom: 2rem;
+	text-transform: uppercase;
+	font-weight: 100;
 
 	&#register-btn {
 		background: #56ccf2; /* fallback for old browsers */
@@ -148,22 +152,12 @@ const StyledLi = styled.li`
 		color: #ffffff;
 		border-radius: 30px;
 		text-transform: uppercase;
+		padding: 1rem 3rem;
+		margin-top: 4rem;
 	}
 
 	&.active {
 		color: #139ff2;
-	}
-
-	@media screen and (max-width: 1000px) {
-		font-size: 1.1rem;
-		margin-bottom: 2rem;
-		text-transform: uppercase;
-		font-weight: 100;
-
-		&#register-btn {
-			padding: 1rem 3rem;
-			margin-top: 4rem;
-		}
 	}
 
 	@media screen and (max-width: 500px) {
@@ -172,19 +166,35 @@ const StyledLi = styled.li`
 `;
 
 const StyledBG = styled.div`
-	display: none;
+	min-width: 100vw;
+	min-height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(20, 20, 20, 0.8);
+	z-index: 99;
+	animation: ${fadeInPure} 0.4s ease forwards;
+`;
 
-	@media screen and (max-width: 1000px) {
-		min-width: 100vw;
-		min-height: 100vh;
+const StyledTrigger = styled.button`
+	position: ${({ active }) => (active ? 'fixed' : 'absolute')};
+	top: 3rem;
+	left: 3rem;
+	cursor: pointer;
+	z-index: 101;
+	outline: none;
+	background-color: transparent;
+	border: none;
+
+	@media screen and (min-width: 1550px) {
 		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-color: rgba(20, 20, 20, 0.7);
-		z-index: 99;
-		transition: 0.3s ease-in-out;
-		display: ${({ active }) => (active ? 'block' : 'none')};
+	}
+
+	svg {
+		width: 3rem;
+		height: 3rem;
+		stroke: #444444;
 	}
 `;

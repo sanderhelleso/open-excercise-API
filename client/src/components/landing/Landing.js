@@ -19,7 +19,6 @@ export default Landing;
 const StyledMain = styled.main`
 	min-width: 100%;
 	min-height: 100vh;
-	padding-top: 50px;
 
 	button {
 		min-width: 200px;
