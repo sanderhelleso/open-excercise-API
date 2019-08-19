@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Menu, X } from 'react-feather';
 import { fadeInPure } from '../../lib/keyframes';
+import ButtonV2 from '../common/ButtonV2';
 
 const defoptions = [
 	{
@@ -38,15 +39,21 @@ const Navbar = ({ isAuthenticated, history, match }) => {
 	const [ active, setActive ] = useState(false);
 
 	const makeOptions = () => {
-		const authOptions = isAuthenticated ? authedOptions : nonAuthedOptions;
 		return [
 			{
 				name: isAuthenticated ? 'Dashboard' : 'Home',
 				path: '/'
 			},
-			...defoptions,
-			...authOptions
+			...defoptions
 		];
+	};
+
+	const makeAuthOptions = () => {
+		const authOptions = isAuthenticated ? authedOptions : nonAuthedOptions;
+
+		return authOptions.map(({ name, path }) => {
+			return <ButtonV2 text={name} onClick={() => history.push(path)} flat={name === 'Login'} />;
+		});
 	};
 
 	const goTo = (path) => {
@@ -55,18 +62,21 @@ const Navbar = ({ isAuthenticated, history, match }) => {
 	};
 
 	const renderOptions = () => {
-		return makeOptions().map(({ name, path }, i) => {
-			return (
-				<StyledLi
-					key={`navbar-option-${i}`}
-					id={name === 'Register' ? 'register-btn' : null}
-					className={path === match.url ? 'active' : null}
-					onClick={() => goTo(path)}
-				>
-					{name}
-				</StyledLi>
-			);
-		});
+		return [
+			...makeOptions().map(({ name, path }, i) => {
+				return (
+					<StyledLi
+						key={`navbar-option-${i}`}
+						className={path === match.url ? 'active' : null}
+						onClick={() => goTo(path)}
+					>
+						{name}
+					</StyledLi>
+				);
+			}),
+			<StyledSep />,
+			...makeAuthOptions()
+		];
 	};
 
 	const renderMenu = () => {
@@ -101,16 +111,19 @@ export default connect(mapStateToProps, null)(withRouter(Navbar));
 const StyledNav = styled.nav`
 	position: fixed;
 	top: 0;
-	width: 100vw;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	z-index: 100;
 	background-color: #ffffff;
 	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 	padding: 15px 0;
 	transition: 0.3s ease;
 	min-height: 100vh;
-	max-width: 335px;
+	max-width: 350px;
 	background-color: rgba(255, 255, 255, 0.95);
 	animation: ${fadeInPure} 0.4s ease forwards;
+	overflow-y: auto;
 `;
 
 const StyledWrapper = styled.div`display: ${({ active }) => (active ? 'block' : 'none')};`;
@@ -120,17 +133,21 @@ const StyledUl = styled.ul`
 	list-style: none;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 	position: absolute;
-	top: 27.5%;
+	top: 25%;
 	left: 50%;
 	transform: translate(-50%);
 	padding: 0;
+
+	button {
+		min-width: 230px;
+		min-height: 55px;
+		margin-bottom: 2rem;
+	}
 `;
 
 const StyledLi = styled.li`
-	margin: 0;
-	padding: 0.5rem 2rem;
+	margin: 0.8rem 0;
 	cursor: pointer;
 	transition: 0.3s ease-in-out;
 	letter-spacing: 1px;
@@ -197,4 +214,12 @@ const StyledTrigger = styled.button`
 		height: 3rem;
 		stroke: #444444;
 	}
+`;
+
+const StyledSep = styled.span`
+	min-width: 100%;
+	min-height: 1px;
+	background-color: #e0e0e0;
+	margin-bottom: 4rem;
+	margin-top: 2rem;
 `;
