@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -61,12 +61,15 @@ const Navbar = ({ isAuthenticated, history, match }) => {
 	};
 
 	return (
-		<StyledNav>
-			<StyledContainer>
-				<p onClick={() => history.push('/')}>Open Excercise API</p>
-				<StyledUl>{renderOptions()}</StyledUl>
-			</StyledContainer>
-		</StyledNav>
+		<Fragment>
+			<StyledBG active={true} />
+			<StyledNav>
+				<StyledContainer>
+					<p onClick={() => history.push('/')}>Open Excercise API</p>
+					<StyledUl>{renderOptions()}</StyledUl>
+				</StyledContainer>
+			</StyledNav>
+		</Fragment>
 	);
 };
 
@@ -87,7 +90,8 @@ const StyledNav = styled.nav`
 
 	@media screen and (max-width: 1000px) {
 		min-height: 100vh;
-		background-color: rgba(255, 255, 255, 0.975);
+		max-width: 300px;
+		background-color: rgba(255, 255, 255, 0.95);
 
 		p {
 			display: none;
@@ -151,18 +155,36 @@ const StyledLi = styled.li`
 	}
 
 	@media screen and (max-width: 1000px) {
-		font-size: 1.5rem;
+		font-size: 1.1rem;
 		margin-bottom: 2rem;
 		text-transform: uppercase;
 		font-weight: 100;
 
 		&#register-btn {
-			padding: 1rem 4rem;
+			padding: 1rem 3rem;
 			margin-top: 4rem;
 		}
 	}
 
 	@media screen and (max-width: 500px) {
 		font-size: 1.2rem;
+	}
+`;
+
+const StyledBG = styled.div`
+	display: none;
+
+	@media screen and (max-width: 1000px) {
+		min-width: 100vw;
+		min-height: 100vh;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(20, 20, 20, 0.7);
+		z-index: 99;
+		transition: 0.3s ease-in-out;
+		display: ${({ active }) => (active ? 'block' : 'none')};
 	}
 `;
