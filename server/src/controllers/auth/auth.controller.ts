@@ -5,7 +5,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../../services/auth/auth.service';
 import { QuotasService } from '../../services/quotas/quotas.service';
 import { IQuotaData } from '../../interfaces/quota.interface';
-import { PasswordDto } from './dto/password.dto';
+import { PasswordDto, ResetPasswordDto } from './dto/password.dto';
 import { User } from '../../decorators/user.decorator';
 import { IReqUser } from '../../interfaces/user.interface';
 import { VerifyAccDto } from './dto/verify.dto';
@@ -54,6 +54,11 @@ export class AuthController {
 	@Post('/verify-reset-password')
 	async verifyResetPW(@Body() { code }): Promise<boolean> {
 		return await this.usersService.verifyResetPwCode(code);
+	}
+
+	@Patch('/reset-password-update')
+	async resetUpdatePassword(@Body() { code, password }: ResetPasswordDto): Promise<boolean> {
+		return await this.usersService.resetUpdatePassword(code, password);
 	}
 
 	@Patch('/update-data')

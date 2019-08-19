@@ -10,14 +10,13 @@ import ResetPasswordForm from './ResetPasswordForm';
 
 const ResetPassword = ({ toastManager, history }) => {
 	const [ validCode, setValidCode ] = useState();
+	const code = verifyUrlCode();
 
 	useEffect(() => {
 		verify();
 	}, []);
 
 	const verify = async () => {
-		const code = verifyUrlCode();
-
 		if (!code) {
 			return history.replace('/login');
 		}
@@ -33,7 +32,7 @@ const ResetPassword = ({ toastManager, history }) => {
 
 	const render = () => {
 		if (validCode) {
-			return <ResetPasswordForm history={history} toastManager={toastManager} />;
+			return <ResetPasswordForm code={code} history={history} toastManager={toastManager} />;
 		}
 
 		return (

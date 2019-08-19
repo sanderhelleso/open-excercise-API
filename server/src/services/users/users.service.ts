@@ -114,6 +114,24 @@ export class UsersService {
 		throw INVALID_VERIFY_CODE;
 	}
 
+	async resetUpdatePassword(code: string, password: string): Promise<boolean> {
+		const resetPw = await ResetPW.findOne({ code });
+		if (!resetPw) throw INVALID_VERIFY_CODE;
+
+		const { email } = resetPw;
+		const user = await User.findOne({ email });
+
+		if (user) {
+			const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
+			user.passwordHash = passwordHash;
+			user.save();
+			ResetPW.deleteOne(resetPw);
+			return true;
+		}
+
+		throw INTERNAL_SERVER_ERR;
+	}
+
 	async updatePassword(userID: string, password: string): Promise<boolean> {
 		const user = await User.findOne({ _id: userID });
 

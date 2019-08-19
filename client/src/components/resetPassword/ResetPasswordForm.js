@@ -5,6 +5,7 @@ import ButtonV2 from '../common/ButtonV2';
 import InputV2 from '../common/InputV2';
 import toast from '../../lib/toast';
 import styled from 'styled-components';
+import _fetch from '../../lib/_fetch';
 
 const field = {
 	placeholder: 'Enter your new password',
@@ -16,15 +17,16 @@ const field = {
 	}
 };
 
-const ResetPasswordForm = ({ history, toastManager }) => {
+const ResetPasswordForm = ({ code, history, toastManager }) => {
 	const [ loading, setLoading ] = useState(false);
 	const [ password, setPassword ] = useState('');
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
 
 		try {
+			await _fetch(`http://localhost:4000/auth/reset-password-update`, 'PATCH', null, { code, password });
 			toast(toastManager, false, 'Password has been successfully updated! You can now login to your account');
 			history.replace('/login');
 		} catch (error) {
@@ -41,9 +43,9 @@ const ResetPasswordForm = ({ history, toastManager }) => {
 
 	return (
 		<Fragment>
-			<StyledArrow onClick={() => history.replace('/login')}>
+			<StyledX onClick={() => history.replace('/login')} tabIndex="0">
 				<X />
-			</StyledArrow>
+			</StyledX>
 			<StyledCont>
 				<form onSubmit={handleSubmit}>
 					<InputV2 {...field} onChange={({ target: { value } }) => setPassword(value)} />
@@ -73,7 +75,7 @@ const StyledCont = styled.div`
 	}
 `;
 
-const StyledArrow = styled.span`
+const StyledX = styled.span`
 	cursor: pointer;
 	position: absolute;
 	top: 3rem;
