@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 const Cover = ({ history }) => {
 	return (
 		<StyledCover>
-			<ArrowLeft onClick={() => history.push('/')} />
+			<ArrowLeft onClick={() => history.push('/')} tabIndex="0" />
 			<h1>Open Excercise API</h1>
 		</StyledCover>
 	);

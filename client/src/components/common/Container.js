@@ -15,7 +15,6 @@ export default Dashboard;
 const StyledContent = styled.main`
 	animation: ${fadeInPure} 0.4s ease forwards;
 	flex-grow: 1;
-	margin-top: 60px;
 `;
 
 const StyledMain = styled.div`

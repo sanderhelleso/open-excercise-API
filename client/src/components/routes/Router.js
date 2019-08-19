@@ -11,6 +11,7 @@ import VerifyAccount from '../verifyAccount/VerifyAccount';
 import Landing from '../landing/Landing';
 import Navbar from '../navbar/Navbar';
 import Auth from '../auth/Auth';
+import ResetPassword from '../resetPassword/ResetPassword';
 
 const Router = ({ isAuthenticated, proccesingPayment }) => {
 	const renderRoutes = () => {
@@ -29,7 +30,7 @@ const Router = ({ isAuthenticated, proccesingPayment }) => {
 				<Switch>
 					<Route exact path="/" component={!isAuthenticated ? Landing : Dashboard} />
 					<Route exact path="/verify-account" component={VerifyAccount} />
-
+					<Route exact path="/reset-password" component={ResetPassword} />
 					<Route exact path="/socket-test" component={SocketTest} />
 					<Route exact path="/documentation" component={Docs} />
 					<Route exact path="/account" component={Account} />

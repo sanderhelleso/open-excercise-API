@@ -20,6 +20,7 @@ export class MailerService {
 		try {
 			await sgMail.send(msg);
 		} catch (error) {
+			console.log(error);
 			throw INTERNAL_SERVER_ERR;
 		}
 	}

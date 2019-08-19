@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import _fetch from '../../lib/_fetch';
 import styled from 'styled-components';
 import Cover from '../auth/Cover';
@@ -12,12 +12,11 @@ const Auth = ({ toastManager, match }) => {
 	const renderAuth = () => {
 		let comp = <Login toastManager={toastManager} />;
 		let heading = 'Login';
+
 		if (match.url === '/register') {
 			comp = <Register toastManager={toastManager} />;
 			heading = 'Register';
 		}
-
-		console.log(toastManager);
 
 		return (
 			<Fragment>
@@ -84,7 +83,7 @@ const StyledCont = styled.div`
 	button {
 		min-width: 100%;
 		min-height: 60px;
-		margin-top: 2.5rem;
+		margin-top: 1.5rem;
 	}
 
 	@media screen and (min-width: 2200px) {

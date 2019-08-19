@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useRef } from 'react';
 import _fetch from '../../lib/_fetch';
 import styled from 'styled-components';
 import setQuotaAction from '../../actions/setQuotaAction';
@@ -10,6 +10,7 @@ import InputV2 from '../common/InputV2';
 import { fadeInPure } from '../../lib/keyframes';
 import { isEmail, isPassword } from '../../lib/validators';
 import toast from '../../lib/toast';
+import ForgotPassword from './ForgotPassword';
 
 const inputs = [
 	{
@@ -89,6 +90,7 @@ const Login = ({ toastManager, setQuotaAction, loginAction }) => {
 		<StyledForm onSubmit={handleSubmit}>
 			{renderInputs()}
 			<ButtonV2 text={setText()} icon={<ArrowRight />} disabled={isDisabled()} />
+			<ForgotPassword toastManager={toastManager} email={email} />
 		</StyledForm>
 	);
 };

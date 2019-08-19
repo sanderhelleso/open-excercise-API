@@ -12,11 +12,12 @@ import {
 	INTERNAL_SERVER_ERR,
 	FAILED_LOGIN_ERROR,
 	FAILED_REGISTER_ERROR,
-	DUPLICATE_REGISTER_ERROR
+	DUPLICATE_REGISTER_ERROR,
+	NOT_VERIFIED_ERROR,
+	INVALID_VERIFY_CODE
 } from '../../errors/error-messages';
 import { welcomeEmail, resetPwEmail } from '../../utils/mailTemplates';
 import { genRandCode } from '../../utils/genCodes';
-import { NOT_VERIFIED_ERROR, INVALID_VERIFY_CODE } from '../../errors/error-messages';
 
 const SALT_ROUNDS = 10;
 const DUPLICATE_ENTITY_CODE = 11000;
@@ -91,13 +92,44 @@ export class UsersService {
 
 	async createResetPwCode(email: string): Promise<boolean> {
 		const user = await User.findOne({ email });
+
 		if (user) {
-			const code: string = genRandCode();
-			ResetPW.create({ email, code });
-			this.mailerService.sendMail(null, user.email, 'Reset Password', resetPwEmail(code));
+			const resetPw = await ResetPW.findOne({ email });
+
+			if (!resetPw) {
+				const code: string = genRandCode();
+				ResetPW.create({ email, code });
+				this.mailerService.sendMail(null, user.email, 'Reset Password', resetPwEmail(code));
+			}
 		}
 
 		return true;
+	}
+
+	async verifyResetPwCode(code: string): Promise<boolean> {
+		const resetPw = await ResetPW.findOne({ code });
+
+		if (resetPw) return true;
+
+		throw INVALID_VERIFY_CODE;
+	}
+
+	async resetUpdatePassword(code: string, password: string): Promise<boolean> {
+		const resetPw = await ResetPW.findOne({ code });
+		if (!resetPw) throw INVALID_VERIFY_CODE;
+
+		const { email } = resetPw;
+		const user = await User.findOne({ email });
+
+		if (user) {
+			const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
+			user.passwordHash = passwordHash;
+			user.save();
+			ResetPW.deleteOne(resetPw);
+			return true;
+		}
+
+		throw INTERNAL_SERVER_ERR;
 	}
 
 	async updatePassword(userID: string, password: string): Promise<boolean> {
